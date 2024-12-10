@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 潘文斌的技术文章</title><link>https://www.panwenbin.cn/posts/</link><description>Recent content in Posts on 潘文斌的技术文章</description><generator>Hugo</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Mon, 09 Dec 2024 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux下RAID5增加磁盘来增加容量</title><link>https://www.panwenbin.cn/posts/raid5-add-disk/</link><pubDate>Mon, 09 Dec 2024 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/raid5-add-disk/</guid><description>&lt;h2 id="前情回顾">前情回顾&lt;/h2>
+&lt;blockquote>
+&lt;p>之前使用3块500G硬盘组了一个软RAID5，实际可用容量也就1T。现在有一块相同的硬盘闲置了，想增加进去，把容量扩到1.5T。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="步骤">步骤&lt;/h2>
+&lt;h3 id="查看挂载设备">查看挂载设备&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ df -h
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem Size Used Avail Use% Mounted on
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/dev/md5 931G 93G 838G 10% /data
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>我这边的设备是&lt;code>/dev/md5&lt;/code>，挂载在&lt;code>/data&lt;/code>上。&lt;/p>
+&lt;p>查看md设备的状态：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ cat /proc/mdstat
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Personalities : [raid6] [raid5] [raid4] [linear] [multipath] [raid0] [raid1] [raid10]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>md5 : active raid5 sdd1[1] sda1[0] sdc1[3]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#b452cd">976506880&lt;/span> blocks super 1.2 level 5, 512k chunk, algorithm &lt;span style="color:#b452cd">2&lt;/span> [3/3] [UUU]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> bitmap: 1/4 pages [4KB], 65536KB chunk
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>unused devices: &amp;lt;none&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>[UUU]&lt;/code>确定RAID5的状态正常，也没有其他异常信息。&lt;/p>
+&lt;p>查看md设备的详细信息：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mdadm --detail /dev/md5
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="准备新磁盘">准备新磁盘&lt;/h3>
+&lt;p>需要把新的磁盘处理成已经组成RAID5的磁盘的相同格式。&lt;br>
+我这边之前是使用了一个分区，所以新磁盘也分一个分区。&lt;/p></description></item></channel></rss>
