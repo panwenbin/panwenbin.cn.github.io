@@ -119,8 +119,11 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#b452cd">1&lt;/span> &lt;span style="color:#b452cd">8&lt;/span> &lt;span style="color:#b452cd">49&lt;/span> &lt;span style="color:#b452cd">1&lt;/span> active sync /dev/sdd1
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#b452cd">3&lt;/span> &lt;span style="color:#b452cd">8&lt;/span> &lt;span style="color:#b452cd">33&lt;/span> &lt;span style="color:#b452cd">2&lt;/span> active sync /dev/sdc1
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#b452cd">4&lt;/span> &lt;span style="color:#b452cd">8&lt;/span> &lt;span style="color:#b452cd">17&lt;/span> &lt;span style="color:#b452cd">3&lt;/span> active sync /dev/sdb1
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>reshape需要很长的时间，期间就慢慢等吧，尽量不要去打断它。完成后，可以看到&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>Disk /dev/md5: 1.36 TiB, &lt;span style="color:#b452cd">1499914567680&lt;/span> bytes, &lt;span style="color:#b452cd">2929520640&lt;/span> sectors
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>reshape需要很长的时间，期间就慢慢等吧，尽量不要去打断它。完成后，调整整列容量&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mdadm --grow /dev/md5 --size=max
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后可以看到，整列容量已经变了&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ sudo fdisk -l /dev/md5
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Disk /dev/md5: 1.36 TiB, &lt;span style="color:#b452cd">1499914567680&lt;/span> bytes, &lt;span style="color:#b452cd">2929520640&lt;/span> sectors
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Units: sectors of &lt;span style="color:#b452cd">1&lt;/span> * &lt;span style="color:#00688b">512&lt;/span> = &lt;span style="color:#b452cd">512&lt;/span> bytes
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Sector size (logical/physical): &lt;span style="color:#b452cd">512&lt;/span> bytes / &lt;span style="color:#b452cd">4096&lt;/span> bytes
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>I/O size (minimum/optimal): &lt;span style="color:#b452cd">524288&lt;/span> bytes / &lt;span style="color:#b452cd">1572864&lt;/span> bytes
