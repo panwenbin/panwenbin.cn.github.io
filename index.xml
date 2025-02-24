@@ -1,11 +1,114 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Sun, 16 Feb 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>旧Mac安装新MacOS系统</title><link>https://www.panwenbin.cn/posts/old-mac-new-macos/</link><pubDate>Sun, 16 Feb 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/old-mac-new-macos/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/old-mac-new-macos/ -&lt;h2 id="现状">现状&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Sun, 23 Feb 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>macOS根据连接的WiFi自动切换代理</title><link>https://www.panwenbin.cn/posts/mac-autoswitch-proxy/</link><pubDate>Sun, 23 Feb 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/mac-autoswitch-proxy/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/mac-autoswitch-proxy/ -&lt;h2 id="问题描述">问题描述&lt;/h2>
 &lt;blockquote>
-&lt;p>有一台2012年中的MacBook Air (13-inch, Mid 2012)，标识为&lt;code>MacBookAir5,2&lt;/code>，型号为A1466，内存4G，硬盘128G，官方支持的最新系统为macOS Catalina（10.15），但是从macOS Monterey（12）开始逐渐增加了随航等互联互通的功能，很多软件也需要系统版本12或13才能安装了，非常希望能升到较新的系统。&lt;/p>
-&lt;/blockquote>
+&lt;p>macOS下的代理不像iOS那样设置在每个WiFi连接中的，而是不同WiFi使用同一个设置。
+这在多个网络环境下需要不同的代理设置时就很不方便了。&lt;/p>&lt;/blockquote>
+&lt;h2 id="搜索">搜索&lt;/h2>
+&lt;h3 id="修改代理配置">修改代理配置&lt;/h3>
+&lt;p>可以使用&lt;code>networksetup&lt;/code>，找到两种方式：&lt;/p>
+&lt;ul>
+&lt;li>使用networksetup命令，直接设置代理和开关代理；&lt;/li>
+&lt;li>使用networksetup命令，修改网络位置，每个网络位置可以设置不同的代理和其他一些内容，从而达到修改代理配置的目的。&lt;/li>
+&lt;/ul>
+&lt;h3 id="自动触发">自动触发&lt;/h3>
+&lt;p>不依赖第三方软件可以使用&lt;code>launchd&lt;/code>。&lt;/p>
+&lt;h2 id="networksetup">networksetup&lt;/h2>
+&lt;h3 id="设置代理">设置代理&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>networksetup -setwebproxy &lt;span style="color:#cd5555">&amp;#34;Wi-Fi&amp;#34;&lt;/span> 192.168.2.2 &lt;span style="color:#b452cd">8118&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>networksetup -setsecurewebproxy &lt;span style="color:#cd5555">&amp;#34;Wi-Fi&amp;#34;&lt;/span> 192.168.2.2 &lt;span style="color:#b452cd">8118&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>networksetup -setwebproxystate &lt;span style="color:#cd5555">&amp;#34;Wi-Fi&amp;#34;&lt;/span> on
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>networksetup -setsecurewebproxystate &lt;span style="color:#cd5555">&amp;#34;Wi-Fi&amp;#34;&lt;/span> on
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="关闭代理">关闭代理&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>networksetup -setwebproxystate &lt;span style="color:#cd5555">&amp;#34;Wi-Fi&amp;#34;&lt;/span> off
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>networksetup -setsecurewebproxystate &lt;span style="color:#cd5555">&amp;#34;Wi-Fi&amp;#34;&lt;/span> off
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="切换网络位置">切换网络位置&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>networksetup -switchtolocation &lt;span style="color:#cd5555">&amp;#34;Automatic&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果新建了叫做&lt;code>Home&lt;/code>的网络位置，可以使用&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>networksetup -switchtolocation &lt;span style="color:#cd5555">&amp;#34;Home&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>切换到&lt;code>Home&lt;/code>网络位置。&lt;/p>
+&lt;h2 id="获取wifi网络ssid">获取WiFi网络SSID&lt;/h2>
+&lt;h3 id="ipconfig">ipconfig&lt;/h3>
+&lt;p>对于Sequoia(15)，好几个获取SSID的方式都失效了，最后找到通过ipconfig可以。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ipconfig getsummary &lt;span style="color:#8b008b;font-weight:bold">$(&lt;/span>networksetup -listallhardwareports | awk &lt;span style="color:#cd5555">&amp;#39;/Hardware Port: Wi-Fi/{getline; print $2}&amp;#39;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">)&lt;/span> | awk -F &lt;span style="color:#cd5555">&amp;#39; SSID : &amp;#39;&lt;/span> &lt;span style="color:#cd5555">&amp;#39;/ SSID : / {print $2}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="airport">airport&lt;/h3>
+&lt;p>对于Monterey(12)到Sonoma(14.3.1)，可以使用&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>/System/Library/PrisvateFrameworks/Apple80211.framework/Resources/airport -I | awk -F&lt;span style="color:#cd5555">&amp;#39;: &amp;#39;&lt;/span> &lt;span style="color:#cd5555">&amp;#39;/ SSID: / {print $2}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="wdutil">wdutil&lt;/h3>
+&lt;p>对于Sonoma(14.4)，可以使用&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo /usr/bin/wdutil info | /usr/bin/awk &lt;span style="color:#cd5555">&amp;#39;/SSID/ { print $NF }&amp;#39;&lt;/span> | head -n &lt;span style="color:#b452cd">1&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>缺点是需要&lt;code>sudo&lt;/code>&lt;/p>
+&lt;h3 id="networksetup-1">networksetup&lt;/h3>
+&lt;p>对于Monterey(12)到Sonoma(14.4)的版本，可以使用&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>networksetup -getairportnetwork en0 | /usr/bin/awk -F &lt;span style="color:#cd5555">&amp;#34;: &amp;#34;&lt;/span> &lt;span style="color:#cd5555">&amp;#39;{ print $2 }&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>优点是兼容版本最广泛&lt;/p>
+&lt;h2 id="shell脚本">shell脚本&lt;/h2>
+&lt;p>直接切换代理的完整脚本&lt;code>/usr/local/bin/proxy_switch.sh&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#1e889b">#!/bin/sh
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#1e889b">&lt;/span>&lt;span style="color:#00688b">SSID&lt;/span>=&lt;span style="color:#8b008b;font-weight:bold">$(&lt;/span>/System/Library/PrivateFrameworks/Apple80211.framework/Resources/airport -I | awk -F&lt;span style="color:#cd5555">&amp;#39;: &amp;#39;&lt;/span> &lt;span style="color:#cd5555">&amp;#39;/ SSID: / {print $2}&amp;#39;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># Wi-Fi 名称替换为实际值，例如 &amp;#34;MY-WIFI-HOME&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> [ &lt;span style="color:#cd5555">&amp;#34;&lt;/span>&lt;span style="color:#00688b">$SSID&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span> = &lt;span style="color:#cd5555">&amp;#34;MY-WIFI-HOME&amp;#34;&lt;/span> ]; &lt;span style="color:#8b008b;font-weight:bold">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#228b22"># 启用代理（替换代理地址和端口）&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> networksetup -setwebproxy &lt;span style="color:#cd5555">&amp;#34;Wi-Fi&amp;#34;&lt;/span> 192.168.2.2 &lt;span style="color:#b452cd">8118&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> networksetup -setsecurewebproxy &lt;span style="color:#cd5555">&amp;#34;Wi-Fi&amp;#34;&lt;/span> 192.168.2.2 &lt;span style="color:#b452cd">8118&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> networksetup -setwebproxystate &lt;span style="color:#cd5555">&amp;#34;Wi-Fi&amp;#34;&lt;/span> on
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> networksetup -setsecurewebproxystate &lt;span style="color:#cd5555">&amp;#34;Wi-Fi&amp;#34;&lt;/span> on
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#228b22"># 关闭代理&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> networksetup -setwebproxystate &lt;span style="color:#cd5555">&amp;#34;Wi-Fi&amp;#34;&lt;/span> off
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> networksetup -setsecurewebproxystate &lt;span style="color:#cd5555">&amp;#34;Wi-Fi&amp;#34;&lt;/span> off
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">fi&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>记得给文件设置可执行属性，&lt;code>chmod +x /usr/local/bin/proxy_switch.sh&lt;/code>。&lt;/p>
+&lt;p>假如创建了Home和Work两个网络位置，完整的脚本&lt;code>/usr/local/bin/wifi-trigger-location.sh&lt;/code>如下&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#1e889b">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#1e889b">&lt;/span>&lt;span style="color:#228b22">#sleep 0.2 # 这边可以考虑加上延迟，防止获取不到SSID&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">current_ssid&lt;/span>=&lt;span style="color:#cd5555">`&lt;/span>ipconfig getsummary &lt;span style="color:#8b008b;font-weight:bold">$(&lt;/span>networksetup -listallhardwareports | awk &lt;span style="color:#cd5555">&amp;#39;/Hardware Port: Wi-Fi/{getline; print $2}&amp;#39;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">)&lt;/span> | awk -F &lt;span style="color:#cd5555">&amp;#39; SSID : &amp;#39;&lt;/span> &lt;span style="color:#cd5555">&amp;#39;/ SSID : / {print $2}&amp;#39;&lt;/span>&lt;span style="color:#cd5555">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00688b">current_location&lt;/span>=&lt;span style="color:#8b008b;font-weight:bold">$(&lt;/span>networksetup -getcurrentlocation&lt;span style="color:#8b008b;font-weight:bold">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#228b22"># 根据 Wi-Fi 名称切换网络位置&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> [[ &lt;span style="color:#cd5555">&amp;#34;&lt;/span>&lt;span style="color:#00688b">$current_ssid&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span> == &lt;span style="color:#cd5555">&amp;#34;MY-WIFI-HOME&amp;#34;&lt;/span> ]]; &lt;span style="color:#8b008b;font-weight:bold">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#00688b">new_location&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;Home&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">elif&lt;/span> [[ &lt;span style="color:#cd5555">&amp;#34;&lt;/span>&lt;span style="color:#00688b">$current_ssid&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span> == &lt;span style="color:#cd5555">&amp;#34;MY-WIFI-WORK&amp;#34;&lt;/span> ]]; &lt;span style="color:#8b008b;font-weight:bold">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#00688b">new_location&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;Work&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#00688b">new_location&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;Automatic&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">fi&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> [[ &lt;span style="color:#cd5555">&amp;#34;&lt;/span>&lt;span style="color:#00688b">$current_location&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span> != &lt;span style="color:#cd5555">&amp;#34;&lt;/span>&lt;span style="color:#00688b">$new_location&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span> ]]; &lt;span style="color:#8b008b;font-weight:bold">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> networksetup -switchtolocation &lt;span style="color:#cd5555">&amp;#34;&lt;/span>&lt;span style="color:#00688b">$new_location&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span> &amp;gt;&amp;gt; ~/wifitrigger.log
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#658b00">echo&lt;/span> &lt;span style="color:#cd5555">&amp;#34;switching to &lt;/span>&lt;span style="color:#00688b">$new_location&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span> &amp;gt;&amp;gt; ~/wifitrigger.log
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#658b00">echo&lt;/span> &lt;span style="color:#cd5555">&amp;#34;already &lt;/span>&lt;span style="color:#00688b">$new_location&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span> &amp;gt;&amp;gt; ~/wifitrigger.log
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8b008b;font-weight:bold">fi&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>记得给文件设置可执行属性，&lt;code>chmod +x /usr/local/bin/wifi-trigger-location.sh&lt;/code>。&lt;/p>
+&lt;h2 id="连接wifi时触发">连接WiFi时触发&lt;/h2>
+&lt;h3 id="launchd">launchd&lt;/h3>
+&lt;p>macOS的launched类似于Linux的systemd，可以用来定时或条件触发执行命令。
+编写一个&lt;code>~/Library/LaunchAgents/com.user.wifitrigger.plist&lt;/code>文件&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&amp;lt;?xml &lt;span style="color:#00688b">version&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;1.0&amp;#34;&lt;/span> &lt;span style="color:#00688b">encoding&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;UTF-8&amp;#34;&lt;/span>?&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;!DOCTYPE plist PUBLIC &lt;span style="color:#cd5555">&amp;#34;-//Apple//DTD PLIST 1.0//EN&amp;#34;&lt;/span> &lt;span style="color:#cd5555">&amp;#34;http://www.apple.com/DTDs/PropertyList-1.0.dtd&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;plist &lt;span style="color:#00688b">version&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;1.0&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;dict&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;key&amp;gt;Label&amp;lt;/key&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;string&amp;gt;com.user.wifitrigger&amp;lt;/string&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;key&amp;gt;ProgramArguments&amp;lt;/key&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;array&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;string&amp;gt;/usr/local/bin/wifi-trigger-location.sh&amp;lt;/string&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;/array&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;key&amp;gt;WatchPaths&amp;lt;/key&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;array&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;!-- 监听网络配置变化 --&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;string&amp;gt;/Library/Preferences/SystemConfiguration/com.apple.wifi.message-tracer.plist&amp;lt;/string&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;/array&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;key&amp;gt;RunAtLoad&amp;lt;/key&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;true/&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/dict&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/plist&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过&lt;code>launchctl load -w ~/Library/LaunchAgents/com.user.wifitrigger.plist&lt;/code>加载配置文件。
+通过&lt;code>launchctl unload ~/Library/LaunchAgents/com.user.wifitrigger.plist&lt;/code>卸载配置文件。&lt;/p>
+&lt;p>此时WiFi连接时就会触发&lt;code>/usr/local/bin/wifi-trigger-location.sh&lt;/code>脚本。&lt;/p>- https://www.panwenbin.cn/posts/mac-autoswitch-proxy/ - copyright here</description></item><item><title>旧Mac安装新MacOS系统</title><link>https://www.panwenbin.cn/posts/old-mac-new-macos/</link><pubDate>Sun, 16 Feb 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/old-mac-new-macos/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/old-mac-new-macos/ -&lt;h2 id="现状">现状&lt;/h2>
+&lt;blockquote>
+&lt;p>有一台2012年中的MacBook Air (13-inch, Mid 2012)，标识为&lt;code>MacBookAir5,2&lt;/code>，型号为A1466，内存4G，硬盘128G，官方支持的最新系统为macOS Catalina（10.15），但是从macOS Monterey（12）开始逐渐增加了随航等互联互通的功能，很多软件也需要系统版本12或13才能安装了，非常希望能升到较新的系统。&lt;/p>&lt;/blockquote>
 &lt;h2 id="方案">方案&lt;/h2>
 &lt;blockquote>
-&lt;p>通过检索，使用OpenCore Legacy Patcher工具可以安装官方不支持macOS系统。并且A1466的Intel Graphics HD 4000显卡刚好开始支持Metal，有显卡加速，流畅度较好。唯一限制较大的是只有4G内存。&lt;/p>
-&lt;/blockquote>
+&lt;p>通过检索，使用OpenCore Legacy Patcher工具可以安装官方不支持macOS系统。并且A1466的Intel Graphics HD 4000显卡刚好开始支持Metal，有显卡加速，流畅度较好。唯一限制较大的是只有4G内存。&lt;/p>&lt;/blockquote>
 &lt;h2 id="步骤">步骤&lt;/h2>
 &lt;p>准备工作：一个U盘(不低于16G，如果15系统则需要大于16G)&lt;/p>
 &lt;ol>
@@ -20,15 +123,13 @@
 &lt;p>虽然Sequoia的iPhone镜像功能也很好用，但是需要M系处理器或者带T2芯片才能使用。并且我尝试安装Sequoia最后并没有成功，卡在了一个升级画面就过不去了。&lt;/p>- https://www.panwenbin.cn/posts/old-mac-new-macos/ - copyright here</description></item><item><title>KVM虚拟机空闲却占用CPU很高</title><link>https://www.panwenbin.cn/posts/kvm-high-cpu/</link><pubDate>Wed, 11 Dec 2024 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/kvm-high-cpu/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/kvm-high-cpu/ -&lt;h2 id="问题描述">问题描述&lt;/h2>
 &lt;blockquote>
 &lt;p>一台KVM客户机系统是Windows系统，当Windows系统空闲时，从Linux看到的qemu-system-x86_64进程CPU占用率却很高。&lt;br>
-这肯定是有问题的。&lt;/p>
-&lt;/blockquote>
+这肯定是有问题的。&lt;/p>&lt;/blockquote>
 &lt;h2 id="搜索">搜索&lt;/h2>
 &lt;p>&lt;a href="https://codingpackets.com/blog/kvm-host-high-cpu-fix/">https://codingpackets.com/blog/kvm-host-high-cpu-fix/&lt;/a>
 &lt;a href="https://www.kernel.org/doc/Documentation/virtual/kvm/halt-polling.txt">https://www.kernel.org/doc/Documentation/virtual/kvm/halt-polling.txt&lt;/a>&lt;/p>
 &lt;blockquote>
 &lt;p>halt-polling用于在客户机选择不再运行后再轮询一段时间，以减少客户机延时。适用于客户机程序经常需要唤醒的场景。&lt;br>
-但是对于长期空闲的客户机，这种轮询会导致CPU占用率很高。&lt;/p>
-&lt;/blockquote>
+但是对于长期空闲的客户机，这种轮询会导致CPU占用率很高。&lt;/p>&lt;/blockquote>
 &lt;h2 id="处理">处理&lt;/h2>
 &lt;p>可以选择关闭此功能。&lt;/p>
 &lt;h3 id="临时关闭">临时关闭&lt;/h3>
@@ -37,8 +138,7 @@
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ &lt;span style="color:#658b00">echo&lt;/span> &lt;span style="color:#cd5555">&amp;#34;options kvm halt_poll_ns=0&amp;#34;&lt;/span> | sudo tee -a /etc/modprobe.d/qemu-system-x86.conf
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/kvm-high-cpu/ - copyright here</description></item><item><title>Linux下RAID5增加磁盘来增加容量</title><link>https://www.panwenbin.cn/posts/raid5-add-disk/</link><pubDate>Mon, 09 Dec 2024 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/raid5-add-disk/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/raid5-add-disk/ -&lt;h2 id="前情回顾">前情回顾&lt;/h2>
 &lt;blockquote>
-&lt;p>之前使用3块500G硬盘组了一个软RAID5，实际可用容量也就1T。现在有一块相同的硬盘闲置了，想增加进去，把容量扩到1.5T。&lt;/p>
-&lt;/blockquote>
+&lt;p>之前使用3块500G硬盘组了一个软RAID5，实际可用容量也就1T。现在有一块相同的硬盘闲置了，想增加进去，把容量扩到1.5T。&lt;/p>&lt;/blockquote>
 &lt;h2 id="步骤">步骤&lt;/h2>
 &lt;h3 id="查看挂载设备">查看挂载设备&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ df -h
