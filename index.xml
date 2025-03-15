@@ -108,7 +108,8 @@
 &lt;p>有一台2012年中的MacBook Air (13-inch, Mid 2012)，标识为&lt;code>MacBookAir5,2&lt;/code>，型号为A1466，内存4G，硬盘128G，官方支持的最新系统为macOS Catalina（10.15），但是从macOS Monterey（12）开始逐渐增加了随航等互联互通的功能，很多软件也需要系统版本12或13才能安装了，非常希望能升到较新的系统。&lt;/p>&lt;/blockquote>
 &lt;h2 id="方案">方案&lt;/h2>
 &lt;blockquote>
-&lt;p>通过检索，使用OpenCore Legacy Patcher工具可以安装官方不支持macOS系统。并且A1466的Intel Graphics HD 4000显卡刚好开始支持Metal，有显卡加速，流畅度较好。唯一限制较大的是只有4G内存。&lt;/p>&lt;/blockquote>
+&lt;p>通过检索，使用OpenCore Legacy Patcher工具可以安装官方不支持macOS系统。并且A1466的Intel Graphics HD 4000显卡刚好开始支持Metal，有显卡加速，流畅度较好。唯一限制较大的是只有4G内存。
+系统则选择了Monterey（12），因为从Ventura（13）开始显卡加速变了，虽然OCLP v0.5.0开始有支持，但还是有一些问题的，详见&lt;a href="https://github.com/dortania/OpenCore-Legacy-Patcher/issues/1008">Legacy Metal&lt;/a>。&lt;/p>&lt;/blockquote>
 &lt;h2 id="步骤">步骤&lt;/h2>
 &lt;p>准备工作：一个U盘(不低于16G，如果15系统则需要大于16G)&lt;/p>
 &lt;ol>
@@ -120,7 +121,7 @@
 &lt;h2 id="总结">总结&lt;/h2>
 &lt;p>Monterey系统让我可以用Mac的键盘和触控板直接控制iPad2020，让两个老设备无缝配合，相当于有两个屏幕，iPad上可以运行网页或者iOS的App，Mac上可以运行工作软件。并且手不需要离开Macbook就可以操作。&lt;/p>
 &lt;h2 id="其他">其他&lt;/h2>
-&lt;p>虽然Sequoia的iPhone镜像功能也很好用，但是需要M系处理器或者带T2芯片才能使用。并且我尝试安装Sequoia最后并没有成功，卡在了一个升级画面就过不去了。&lt;/p>- https://www.panwenbin.cn/posts/old-mac-new-macos/ - copyright here</description></item><item><title>KVM虚拟机空闲却占用CPU很高</title><link>https://www.panwenbin.cn/posts/kvm-high-cpu/</link><pubDate>Wed, 11 Dec 2024 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/kvm-high-cpu/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/kvm-high-cpu/ -&lt;h2 id="问题描述">问题描述&lt;/h2>
+&lt;p>虽然Sequoia的iPhone镜像功能也很好用，但是需要Apple Silicon（M系）处理器或者带T2芯片才能使用。并且我尝试安装Sequoia最后并没有成功，卡在了一个升级画面就过不去了。&lt;/p>- https://www.panwenbin.cn/posts/old-mac-new-macos/ - copyright here</description></item><item><title>KVM虚拟机空闲却占用CPU很高</title><link>https://www.panwenbin.cn/posts/kvm-high-cpu/</link><pubDate>Wed, 11 Dec 2024 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/kvm-high-cpu/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/kvm-high-cpu/ -&lt;h2 id="问题描述">问题描述&lt;/h2>
 &lt;blockquote>
 &lt;p>一台KVM客户机系统是Windows系统，当Windows系统空闲时，从Linux看到的qemu-system-x86_64进程CPU占用率却很高。&lt;br>
 这肯定是有问题的。&lt;/p>&lt;/blockquote>
