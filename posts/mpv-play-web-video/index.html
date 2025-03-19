@@ -13,7 +13,7 @@
 </span></span><span style=display:flex><span><span style=color:#dcaeea>vo</span><span style=color:#c7bf54>=</span>gpu
 </span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic># 可选：针对某些场景优化</span>
 </span></span><span style=display:flex><span><span style=color:#dcaeea>profile</span><span style=color:#c7bf54>=</span>gpu-hq
-</span></span></code></pre></div><p>下载最新版本的yt-dlp，因为旧版可能已经无效。我目前下载的版本是<code>2025.02.19</code>，放到了<code>/usr/local/bin/</code>下。</p><p>设置yt-dlp的配置文件<code>.yt-dlp/config</code>，其实是支持多个配置地址的，我选了这个地址。</p><div class=highlight><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>--proxy 127.0.0.1:8118
+</span></span></code></pre></div><p>下载最新版本的yt-dlp，因为旧版可能已经无效。我目前下载的版本是<code>2025.02.19</code>，放到了<code>/usr/local/bin/</code>下。</p><p>设置yt-dlp的配置文件<code>~/.yt-dlp/config</code>，其实是支持多个配置地址的，我选了这个地址。</p><div class=highlight><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>--proxy 127.0.0.1:8118
 </span></span><span style=display:flex><span>--cookies-from-browser chrome
 </span></span></code></pre></div><p>给mpv设置yt-dlp的相关内容，加在配置文件<code>~/.config/mpv/mpv.conf</code>中</p><div class=highlight><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#8a93a5;font-style:italic># 设置yt-dlp的文件位置</span>
 </span></span><span style=display:flex><span>script-opts<span style=color:#c7bf54>=</span>ytdl_hook-ytdl_path<span style=color:#c7bf54>=</span>/usr/local/bin/yt-dlp
@@ -27,7 +27,90 @@
 </span></span><span style=display:flex><span><span style=color:#dcaeea>Type</span><span style=color:#c7bf54>=</span>Application
 </span></span><span style=display:flex><span><span style=color:#dcaeea>MimeType</span><span style=color:#c7bf54>=</span>x-scheme-handler/ytdl;
 </span></span></code></pre></div><p>然后执行<code>update-desktop-database ~/.local/share/applications/</code>更新数据库。</p><p>最后只要让浏览器打开<code>ytdl://</code>的链接就可以了。最简单收藏夹放一个js代码来替换。</p><div class=highlight><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#c1abea>javascript</span><span style=color:#c7bf54>:</span>(<span style=color:#c678dd>function</span>() {<span style=color:#ef8383>window</span>.<span style=color:#c1abea>location</span>.<span style=color:#c1abea>href</span><span style=color:#c7bf54>=</span><span style=color:#ef8383>window</span>.<span style=color:#c1abea>location</span>.<span style=color:#c1abea>href</span>.<span style=color:#c1abea>replace</span>(<span style=color:#56b6c2>/^https?/</span>,<span style=color:#63c381>&#34;ytdl&#34;</span>);})();
-</span></span></code></pre></div><p>要体验更好可以写油猴脚本甚至浏览器插件。</p><hr width=100% id=EOF><p style=color:#777>最后修改于 2025-03-02</p></div></div><nav class=post-pagination><a class=newer-posts>下回<br>已经到头啦。
+</span></span></code></pre></div><p>要体验更好可以写油猴脚本甚至浏览器插件。<br>搞了一个右键超链接菜单的油猴脚本，如下</p><div class=highlight><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#8a93a5;font-style:italic>// ==UserScript==
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic>// @name         自定义右键菜单（油猴版）
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic>// @namespace    http://tampermonkey.net/
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic>// @version      1.0
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic>// @description  右键点击超链接时，显示自定义菜单（复制、打开、新标签页等）
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic>// @author       ChatGPT
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic>// @match        *://www.youtube.com/*
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic>// @match        *://www.bilibili.com/*
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic>// @grant        GM_setClipboard
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic>// @run-at       document-end
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic>// ==/UserScript==
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic></span>
+</span></span><span style=display:flex><span>(<span style=color:#c678dd>function</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#98c379>&#39;use strict&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#c678dd>let</span> <span style=color:#c1abea>customMenu</span> <span style=color:#c7bf54>=</span> <span style=color:#b756ff;font-weight:700>null</span>; <span style=color:#8a93a5;font-style:italic>// 存储菜单元素
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic></span>
+</span></span><span style=display:flex><span>    <span style=color:#ef8383>document</span>.<span style=color:#c1abea>addEventListener</span>(<span style=color:#63c381>&#34;contextmenu&#34;</span>, <span style=color:#c678dd>function</span>(<span style=color:#c1abea>event</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#c678dd>let</span> <span style=color:#c1abea>target</span> <span style=color:#c7bf54>=</span> <span style=color:#c1abea>event</span>.<span style=color:#c1abea>target</span>.<span style=color:#c1abea>closest</span>(<span style=color:#63c381>&#34;a&#34;</span>); <span style=color:#8a93a5;font-style:italic>// 只对超链接生效
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic></span>        <span style=color:#c678dd>if</span> (<span style=color:#c7bf54>!</span><span style=color:#c1abea>target</span>) <span style=color:#c678dd>return</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#c1abea>event</span>.<span style=color:#c1abea>preventDefault</span>(); <span style=color:#8a93a5;font-style:italic>// 阻止默认右键菜单
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic></span>        <span style=color:#c1abea>createCustomMenu</span>(<span style=color:#c1abea>target</span>.<span style=color:#c1abea>href</span>, <span style=color:#c1abea>event</span>.<span style=color:#c1abea>pageX</span>, <span style=color:#c1abea>event</span>.<span style=color:#c1abea>pageY</span>);
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#c678dd>function</span> <span style=color:#c1abea>createCustomMenu</span>(<span style=color:#c1abea>link</span>, <span style=color:#c1abea>x</span>, <span style=color:#c1abea>y</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#c1abea>removeCustomMenu</span>(); <span style=color:#8a93a5;font-style:italic>// 先删除旧的菜单
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic></span>
+</span></span><span style=display:flex><span>        <span style=color:#8a93a5;font-style:italic>// 创建菜单容器
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic></span>        <span style=color:#c1abea>customMenu</span> <span style=color:#c7bf54>=</span> <span style=color:#ef8383>document</span>.<span style=color:#c1abea>createElement</span>(<span style=color:#63c381>&#34;div&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#c1abea>customMenu</span>.<span style=color:#c1abea>style</span>.<span style=color:#c1abea>position</span> <span style=color:#c7bf54>=</span> <span style=color:#63c381>&#34;absolute&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#c1abea>customMenu</span>.<span style=color:#c1abea>style</span>.<span style=color:#c1abea>top</span> <span style=color:#c7bf54>=</span> <span style=color:#c1abea>y</span> <span style=color:#c7bf54>+</span> <span style=color:#63c381>&#34;px&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#c1abea>customMenu</span>.<span style=color:#c1abea>style</span>.<span style=color:#c1abea>left</span> <span style=color:#c7bf54>=</span> <span style=color:#c1abea>x</span> <span style=color:#c7bf54>+</span> <span style=color:#63c381>&#34;px&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#c1abea>customMenu</span>.<span style=color:#c1abea>style</span>.<span style=color:#c1abea>background</span> <span style=color:#c7bf54>=</span> <span style=color:#63c381>&#34;white&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#c1abea>customMenu</span>.<span style=color:#c1abea>style</span>.<span style=color:#c1abea>border</span> <span style=color:#c7bf54>=</span> <span style=color:#63c381>&#34;1px solid #ccc&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#c1abea>customMenu</span>.<span style=color:#c1abea>style</span>.<span style=color:#c1abea>boxShadow</span> <span style=color:#c7bf54>=</span> <span style=color:#63c381>&#34;2px 2px 5px rgba(0,0,0,0.2)&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#c1abea>customMenu</span>.<span style=color:#c1abea>style</span>.<span style=color:#c1abea>padding</span> <span style=color:#c7bf54>=</span> <span style=color:#63c381>&#34;5px 0&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#c1abea>customMenu</span>.<span style=color:#c1abea>style</span>.<span style=color:#c1abea>borderRadius</span> <span style=color:#c7bf54>=</span> <span style=color:#63c381>&#34;5px&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#c1abea>customMenu</span>.<span style=color:#c1abea>style</span>.<span style=color:#c1abea>fontSize</span> <span style=color:#c7bf54>=</span> <span style=color:#63c381>&#34;14px&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#c1abea>customMenu</span>.<span style=color:#c1abea>style</span>.<span style=color:#c1abea>zIndex</span> <span style=color:#c7bf54>=</span> <span style=color:#63c381>&#34;10000&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#c1abea>customMenu</span>.<span style=color:#c1abea>style</span>.<span style=color:#c1abea>cursor</span> <span style=color:#c7bf54>=</span> <span style=color:#63c381>&#34;pointer&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#8a93a5;font-style:italic>// 菜单项数据
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic></span>        <span style=color:#c678dd>let</span> <span style=color:#c1abea>items</span> <span style=color:#c7bf54>=</span> [
+</span></span><span style=display:flex><span>            { <span style=color:#c1abea>text</span><span style=color:#c7bf54>:</span> <span style=color:#63c381>&#34;▶️ 使用MPV播放&#34;</span>, <span style=color:#c1abea>action</span><span style=color:#c7bf54>:</span> () =&gt; { <span style=color:#ef8383>window</span>.<span style=color:#c1abea>location</span>.<span style=color:#c1abea>href</span><span style=color:#c7bf54>=</span><span style=color:#c1abea>link</span>.<span style=color:#c1abea>replace</span>(<span style=color:#56b6c2>/^https?/</span>,<span style=color:#63c381>&#34;ytdl&#34;</span>); } },
+</span></span><span style=display:flex><span>        ];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#8a93a5;font-style:italic>// 创建菜单项
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic></span>        <span style=color:#c1abea>items</span>.<span style=color:#c1abea>forEach</span>(<span style=color:#c1abea>item</span> =&gt; {
+</span></span><span style=display:flex><span>            <span style=color:#c678dd>let</span> <span style=color:#c1abea>menuItem</span> <span style=color:#c7bf54>=</span> <span style=color:#ef8383>document</span>.<span style=color:#c1abea>createElement</span>(<span style=color:#63c381>&#34;div&#34;</span>);
+</span></span><span style=display:flex><span>            <span style=color:#c1abea>menuItem</span>.<span style=color:#c1abea>textContent</span> <span style=color:#c7bf54>=</span> <span style=color:#c1abea>item</span>.<span style=color:#c1abea>text</span>;
+</span></span><span style=display:flex><span>            <span style=color:#c1abea>menuItem</span>.<span style=color:#c1abea>style</span>.<span style=color:#c1abea>padding</span> <span style=color:#c7bf54>=</span> <span style=color:#63c381>&#34;8px 15px&#34;</span>;
+</span></span><span style=display:flex><span>            <span style=color:#c1abea>menuItem</span>.<span style=color:#c1abea>style</span>.<span style=color:#c1abea>whiteSpace</span> <span style=color:#c7bf54>=</span> <span style=color:#63c381>&#34;nowrap&#34;</span>;
+</span></span><span style=display:flex><span>            <span style=color:#c1abea>menuItem</span>.<span style=color:#c1abea>style</span>.<span style=color:#c1abea>color</span> <span style=color:#c7bf54>=</span> <span style=color:#63c381>&#34;#333&#34;</span>;
+</span></span><span style=display:flex><span>            <span style=color:#c1abea>menuItem</span>.<span style=color:#c1abea>style</span>.<span style=color:#c1abea>background</span> <span style=color:#c7bf54>=</span> <span style=color:#63c381>&#34;white&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#8a93a5;font-style:italic>// 悬停效果
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic></span>            <span style=color:#c1abea>menuItem</span>.<span style=color:#c1abea>onmouseover</span> <span style=color:#c7bf54>=</span> () =&gt; <span style=color:#c1abea>menuItem</span>.<span style=color:#c1abea>style</span>.<span style=color:#c1abea>background</span> <span style=color:#c7bf54>=</span> <span style=color:#63c381>&#34;#f0f0f0&#34;</span>;
+</span></span><span style=display:flex><span>            <span style=color:#c1abea>menuItem</span>.<span style=color:#c1abea>onmouseout</span> <span style=color:#c7bf54>=</span> () =&gt; <span style=color:#c1abea>menuItem</span>.<span style=color:#c1abea>style</span>.<span style=color:#c1abea>background</span> <span style=color:#c7bf54>=</span> <span style=color:#63c381>&#34;white&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#8a93a5;font-style:italic>// 绑定点击事件
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic></span>            <span style=color:#c1abea>menuItem</span>.<span style=color:#c1abea>onclick</span> <span style=color:#c7bf54>=</span> () =&gt; {
+</span></span><span style=display:flex><span>                <span style=color:#c1abea>item</span>.<span style=color:#c1abea>action</span>();
+</span></span><span style=display:flex><span>                <span style=color:#c1abea>removeCustomMenu</span>();
+</span></span><span style=display:flex><span>            };
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#c1abea>customMenu</span>.<span style=color:#c1abea>appendChild</span>(<span style=color:#c1abea>menuItem</span>);
+</span></span><span style=display:flex><span>        });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#ef8383>document</span>.<span style=color:#c1abea>body</span>.<span style=color:#c1abea>appendChild</span>(<span style=color:#c1abea>customMenu</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#8a93a5;font-style:italic>// 点击其他地方隐藏菜单
+</span></span></span><span style=display:flex><span><span style=color:#8a93a5;font-style:italic></span>        <span style=color:#ef8383>document</span>.<span style=color:#c1abea>addEventListener</span>(<span style=color:#63c381>&#34;click&#34;</span>, <span style=color:#c1abea>removeCustomMenu</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#c678dd>function</span> <span style=color:#c1abea>removeCustomMenu</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#c678dd>if</span> (<span style=color:#c1abea>customMenu</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#c1abea>customMenu</span>.<span style=color:#c1abea>remove</span>();
+</span></span><span style=display:flex><span>            <span style=color:#c1abea>customMenu</span> <span style=color:#c7bf54>=</span> <span style=color:#b756ff;font-weight:700>null</span>;
+</span></span><span style=display:flex><span>            <span style=color:#ef8383>document</span>.<span style=color:#c1abea>removeEventListener</span>(<span style=color:#63c381>&#34;click&#34;</span>, <span style=color:#c1abea>removeCustomMenu</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>})();
+</span></span></code></pre></div><hr width=100% id=EOF><p style=color:#777>最后修改于 2025-03-02</p></div></div><nav class=post-pagination><a class=newer-posts>下回<br>已经到头啦。
 </a><a class=older-posts href=/posts/mac-autoswitch-proxy/>上回<br>macOS根据连接的WiFi自动切换代理</a></nav><div class=post-comment-wrapper><script src=https://giscus.app/client.js data-repo=panwenbin/panwenbin.github.io data-repo-id=R_kgDOLq44LQ data-category=General data-category-id=DIC_kwDOLq44Lc4Cegdb data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-theme=preferred_color_scheme data-lang=zh-CN crossorigin=anonymous async></script></div></div></div></div></div><div id=sideContainer class=side-container><a class="a-block nav-head false" href=https://www.panwenbin.cn/><div class=nav-title>潘文斌的技术文章</div><div class=nav-subtitle>每一篇都认真修改，网罗更多内容</div></a><div class=nav-link-list><a class="a-block nav-link-item active" href=/posts>归档 Archive
 </a><a class="a-block nav-link-item false" href=/categories>分类 Categories
 </a><a class="a-block nav-link-item false" href=/tags>标签 Tags
