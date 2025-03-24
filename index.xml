@@ -1,5 +1,24 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Sun, 02 Mar 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>使用mpv播放网页中的视频</title><link>https://www.panwenbin.cn/posts/mpv-play-web-video/</link><pubDate>Sun, 02 Mar 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/mpv-play-web-video/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/mpv-play-web-video/ -&lt;h2 id="契机">契机&lt;/h2>
-&lt;p>Linux下的Chrome播放视频不支持硬件加速。虽然Firefox可以支持，但是平时还是用Chrome多一点。配置视频地址解析是可以让MPV来播放的，正好mpv还内置了调用yt-dlp来处理视频地址解析，youtube和B站都支持，那正好试一下吧。&lt;/p>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Mon, 24 Mar 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>带有LaTeX的markdown转pdf</title><link>https://www.panwenbin.cn/posts/latex-markdown-to-pdf/</link><pubDate>Mon, 24 Mar 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/latex-markdown-to-pdf/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/latex-markdown-to-pdf/ -&lt;h2 id="事出有因">事出有因&lt;/h2>
+&lt;blockquote>
+&lt;p>用Obsidian写了些数学笔记，要打印出来，看到Obsidian只有导出pdf的选项，那也还算方便打印吧。结果导出的pdf在公式那边出错了，然后就有了这个markdown转pdf的探索过程。&lt;/p>&lt;/blockquote>
+&lt;h2 id="其他方案">其他方案&lt;/h2>
+&lt;h3 id="vscode插件">VSCode插件&lt;/h3>
+&lt;p>尝试了安装量最多的&lt;code>Markdown PDF&lt;/code>插件，从提示看依赖chromium。转pdf是成功了，但是公式不支持渲染，应该是这个包还算比较轻量吧。&lt;/p>
+&lt;p>顺便记录一下它给我Debian上安装的Chrome路径&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>~/.vscode/extensions/yzane.markdown-pdf-1.5.0/node_modules/puppeteer-core/.local-chromium/linux-722234/chrome-linux
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="pandoc">pandoc&lt;/h3>
+&lt;p>在Debian上尝试了pandoc，为了支持LaTex而安装了texlive-full，结果这个包比预想的大好多。&lt;/p>
+&lt;p>执行转换命令&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>pandoc test.md -o test.pdf &lt;span style="color:#8a93a5;font-style:italic"># 提示Error&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pandoc test.md -o test.pdf --pdf-engine&lt;span style="color:#c7bf54">=&lt;/span>xelatex &lt;span style="color:#8a93a5;font-style:italic"># 可以生成pdf，但是中文不显示&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pandoc test.md -o test.pdf --pdf-engine&lt;span style="color:#c7bf54">=&lt;/span>xelatex -V &lt;span style="color:#dcaeea">CJKmainfont&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#63c381">&amp;#34;Noto Sans CJK SC&amp;#34;&lt;/span> &lt;span style="color:#8a93a5;font-style:italic"># 中文显示，但是公式中文下标不显示&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>另外，转换的pdf，边缘空白较大。总体效果不满意。&lt;/p>
+&lt;h2 id="回归">回归&lt;/h2>
+&lt;p>在Obsidian上看大纲也不完整，然后细看生成失败的pdf，公式和前面的文字连在一起。&lt;br>
+尝试出问题的地方LaTeX前给了一个换行，就都正常了。&lt;br>
+最后还是直接用Obsidian就够了。&lt;/p>- https://www.panwenbin.cn/posts/latex-markdown-to-pdf/ - copyright here</description></item><item><title>使用mpv播放网页中的视频</title><link>https://www.panwenbin.cn/posts/mpv-play-web-video/</link><pubDate>Sun, 02 Mar 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/mpv-play-web-video/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/mpv-play-web-video/ -&lt;h2 id="契机">契机&lt;/h2>
+&lt;blockquote>
+&lt;p>Linux下的Chrome播放视频不支持硬件加速。虽然Firefox可以支持，但是平时还是用Chrome多一点。配置视频地址解析是可以让MPV来播放的，正好mpv还内置了调用yt-dlp来处理视频地址解析，youtube和B站都支持，那正好试一下吧。&lt;/p>&lt;/blockquote>
 &lt;h2 id="配置">配置&lt;/h2>
 &lt;p>mpv开启硬件加速。对于Intel核心显卡，配置文件&lt;code>~/.config/mpv/mpv.conf&lt;/code>中添加如下内容：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 启用硬件解码&lt;/span>
