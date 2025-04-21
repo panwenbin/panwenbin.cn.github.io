@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docker on 潘文斌的技术文章</title><link>https://www.panwenbin.cn/tags/docker/</link><description>Recent content in Docker on 潘文斌的技术文章</description><generator>Hugo</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Mon, 21 Apr 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/tags/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>Docker如何设置代理</title><link>https://www.panwenbin.cn/posts/docker-set-proxy/</link><pubDate>Mon, 21 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/docker-set-proxy/</guid><description>&lt;h2 id="问题">问题&lt;/h2>
+&lt;blockquote>
+&lt;p>Docker在国内使用时经常出现网络不稳定的情况，比如拉取镜像时速度很慢，甚至失败。&lt;br>
+如何给Docker设置代理呢？&lt;/p>&lt;/blockquote></description></item></channel></rss>
