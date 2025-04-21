@@ -6,7 +6,10 @@
 &lt;p>在安装windows11的过程中，会要求登录或创建联网帐号，而没有使用本地帐号的选项。&lt;/p>&lt;/blockquote></description></item><item><title>Linux如何关闭ipv6</title><link>https://www.panwenbin.cn/posts/linux-disable-ipv6/</link><pubDate>Mon, 21 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-disable-ipv6/</guid><description>&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>国内IPv6网络环境不太稳定，有时候要选择性的关闭和开启IPv6。&lt;br>
-在Linux上如何关闭IPv6呢？&lt;/p>&lt;/blockquote></description></item><item><title>KVM安装系统时没有对应的系统选择</title><link>https://www.panwenbin.cn/posts/kvm-no-os/</link><pubDate>Wed, 02 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/kvm-no-os/</guid><description>&lt;h2 id="问题">问题&lt;/h2>
+在Linux上如何关闭IPv6呢？&lt;/p>&lt;/blockquote></description></item><item><title>如何在Linux TTY终端正确显示中文</title><link>https://www.panwenbin.cn/posts/linux-tty-chinese/</link><pubDate>Mon, 21 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-tty-chinese/</guid><description>&lt;h2 id="问题">问题&lt;/h2>
+&lt;blockquote>
+&lt;p>当Xorg出现问题时，会尝试切换到TTY下执行命令，但是中文是不能正常显示的。&lt;br>
+那么在Linux TTY终端中，如何正确显示中文呢？&lt;/p>&lt;/blockquote></description></item><item><title>KVM安装系统时没有对应的系统选择</title><link>https://www.panwenbin.cn/posts/kvm-no-os/</link><pubDate>Wed, 02 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/kvm-no-os/</guid><description>&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>使用virt-manager创建虚拟机时，比较新的系统没有对应的选择，比如创建debian12的系统，只有看到最高到debian11。大概数据太旧了，所以来尝试更新一下这个操作系统列表的数据。&lt;/p>&lt;/blockquote></description></item><item><title>带有LaTeX的markdown转pdf</title><link>https://www.panwenbin.cn/posts/latex-markdown-to-pdf/</link><pubDate>Mon, 24 Mar 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/latex-markdown-to-pdf/</guid><description>&lt;h2 id="事出有因">事出有因&lt;/h2>
 &lt;blockquote>

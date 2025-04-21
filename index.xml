@@ -72,7 +72,24 @@ Environment=&amp;#34;NO_PROXY=localhost,127.0.0.1,.example.com&amp;#34;
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>net.ipv6.conf.all.disable_ipv6 &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#d19a66">1&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启或者执行如下命令生效&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo sysctl -p
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-disable-ipv6/ - copyright here</description></item><item><title>KVM安装系统时没有对应的系统选择</title><link>https://www.panwenbin.cn/posts/kvm-no-os/</link><pubDate>Wed, 02 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/kvm-no-os/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/kvm-no-os/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-disable-ipv6/ - copyright here</description></item><item><title>如何在Linux TTY终端正确显示中文</title><link>https://www.panwenbin.cn/posts/linux-tty-chinese/</link><pubDate>Mon, 21 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-tty-chinese/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-tty-chinese/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;blockquote>
+&lt;p>当Xorg出现问题时，会尝试切换到TTY下执行命令，但是中文是不能正常显示的。&lt;br>
+那么在Linux TTY终端中，如何正确显示中文呢？&lt;/p>&lt;/blockquote>
+&lt;h2 id="回答">回答&lt;/h2>
+&lt;p>使用fbterm。FbTerm是一个使用frame buffer 设备或VESA 显卡的终端模拟器。&lt;/p>
+&lt;p>先安装fbterm&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo apt-get install fbterm
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>权限设置：需要将当前用户添加到video组，并给fbterm设置suid的权限。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo adduser &lt;span style="color:#c678dd">$(&lt;/span>whoami&lt;span style="color:#c678dd">)&lt;/span> video
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo chmod u+s /usr/bin/fbterm
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行&lt;code>fbterm&lt;/code>&lt;/p>
+&lt;p>默认字体和大小效果不太好，可以指定字体和大小。比如使用Nerd Font（需要另外安装）：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>fbterm --font-names&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#63c381">&amp;#34;SauceCodePro Nerd Font Mono&amp;#34;&lt;/span> --font-size&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#d19a66">16&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>也可以把参数写入配置文件&lt;code>~/.fbtermrc&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-ini" data-lang="ini">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b3d23c">font-names&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;SauceCodePro Nerd Font Mono&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b3d23c">font-size&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">16&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-tty-chinese/ - copyright here</description></item><item><title>KVM安装系统时没有对应的系统选择</title><link>https://www.panwenbin.cn/posts/kvm-no-os/</link><pubDate>Wed, 02 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/kvm-no-os/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/kvm-no-os/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>使用virt-manager创建虚拟机时，比较新的系统没有对应的选择，比如创建debian12的系统，只有看到最高到debian11。大概数据太旧了，所以来尝试更新一下这个操作系统列表的数据。&lt;/p>&lt;/blockquote>
 &lt;h2 id="分析">分析&lt;/h2>
@@ -362,145 +379,4 @@ Environment=&amp;#34;NO_PROXY=localhost,127.0.0.1,.example.com&amp;#34;
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ &lt;span style="color:#ef8383">echo&lt;/span> &lt;span style="color:#63c381">&amp;#34;options kvm halt_poll_ns=0&amp;#34;&lt;/span> | sudo tee -a /etc/modprobe.d/qemu-system-x86.conf
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="后续">后续&lt;/h2>
 &lt;p>Windows11客户机依然在空闲时占用单核心80%-110%的CPU。
-尝试再安装一个Windows10的客户机，空闲占用单核心15%-25%的CPU。未找到原因。&lt;/p>- https://www.panwenbin.cn/posts/kvm-high-cpu/ - copyright here</description></item><item><title>Linux下RAID5增加磁盘来增加容量</title><link>https://www.panwenbin.cn/posts/raid5-add-disk/</link><pubDate>Mon, 09 Dec 2024 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/raid5-add-disk/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/raid5-add-disk/ -&lt;h2 id="前情回顾">前情回顾&lt;/h2>
-&lt;blockquote>
-&lt;p>之前使用3块500G硬盘组了一个软RAID5，实际可用容量也就1T。现在有一块相同的硬盘闲置了，想增加进去，把容量扩到1.5T。&lt;/p>&lt;/blockquote>
-&lt;h2 id="步骤">步骤&lt;/h2>
-&lt;h3 id="查看挂载设备">查看挂载设备&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ df -h
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem Size Used Avail Use% Mounted on
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/dev/md5 931G 93G 838G 10% /data
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>我这边的设备是&lt;code>/dev/md5&lt;/code>，挂载在&lt;code>/data&lt;/code>上。&lt;/p>
-&lt;p>查看md设备的状态：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ cat /proc/mdstat
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Personalities : &lt;span style="color:#c7bf54">[&lt;/span>raid6&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>raid5&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>raid4&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>linear&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>multipath&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>raid0&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>raid1&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>raid10&lt;span style="color:#c7bf54">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>md5 : active raid5 sdd1&lt;span style="color:#c7bf54">[&lt;/span>1&lt;span style="color:#c7bf54">]&lt;/span> sda1&lt;span style="color:#c7bf54">[&lt;/span>0&lt;span style="color:#c7bf54">]&lt;/span> sdc1&lt;span style="color:#c7bf54">[&lt;/span>3&lt;span style="color:#c7bf54">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#d19a66">976506880&lt;/span> blocks super 1.2 level 5, 512k chunk, algorithm &lt;span style="color:#d19a66">2&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>3/3&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>UUU&lt;span style="color:#c7bf54">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> bitmap: 1/4 pages &lt;span style="color:#c7bf54">[&lt;/span>4KB&lt;span style="color:#c7bf54">]&lt;/span>, 65536KB chunk
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>unused devices: &amp;lt;none&amp;gt;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>[UUU]&lt;/code>确定RAID5的状态正常，也没有其他异常信息。&lt;/p>
-&lt;p>查看md设备的详细信息：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mdadm --detail /dev/md5
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="准备新磁盘">准备新磁盘&lt;/h3>
-&lt;p>需要把新的磁盘处理成已经组成RAID5的磁盘的相同格式。&lt;br>
-我这边之前是使用了一个分区，所以新磁盘也分一个分区。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ sudo fdisk /dev/sdb
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ sudo fdisk -l
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Disk /dev/sda: 465.76 GiB, &lt;span style="color:#d19a66">500107862016&lt;/span> bytes, &lt;span style="color:#d19a66">976773168&lt;/span> sectors
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Disk model: ***
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Units: sectors of &lt;span style="color:#d19a66">1&lt;/span> * &lt;span style="color:#dcaeea">512&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#d19a66">512&lt;/span> bytes
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Sector size &lt;span style="color:#c7bf54">(&lt;/span>logical/physical&lt;span style="color:#c7bf54">)&lt;/span>: &lt;span style="color:#d19a66">512&lt;/span> bytes / &lt;span style="color:#d19a66">512&lt;/span> bytes
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>I/O size &lt;span style="color:#c7bf54">(&lt;/span>minimum/optimal&lt;span style="color:#c7bf54">)&lt;/span>: &lt;span style="color:#d19a66">512&lt;/span> bytes / &lt;span style="color:#d19a66">512&lt;/span> bytes
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Disklabel type: dos
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Disk identifier: 0x********
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Device Boot Start End Sectors Size Id Type
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/dev/sda1 &lt;span style="color:#d19a66">2048&lt;/span> &lt;span style="color:#d19a66">976773167&lt;/span> &lt;span style="color:#d19a66">976771120&lt;/span> 465.8G fd Linux raid autodetect
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Disk /dev/sdd: 465.76 GiB, &lt;span style="color:#d19a66">500107862016&lt;/span> bytes, &lt;span style="color:#d19a66">976773168&lt;/span> sectors
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Device Boot Start End Sectors Size Id Type
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/dev/sdd1 &lt;span style="color:#d19a66">2048&lt;/span> &lt;span style="color:#d19a66">976773167&lt;/span> &lt;span style="color:#d19a66">976771120&lt;/span> 465.8G fd Linux raid autodetect
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Disk /dev/sdb: 465.76 GiB, &lt;span style="color:#d19a66">500107862016&lt;/span> bytes, &lt;span style="color:#d19a66">976773168&lt;/span> sectors
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Device Boot Start End Sectors Size Id Type
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/dev/sdb1 &lt;span style="color:#d19a66">2048&lt;/span> &lt;span style="color:#d19a66">976773167&lt;/span> &lt;span style="color:#d19a66">976771120&lt;/span> 465.8G fd Linux raid autodetect
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Disk /dev/sdc: 465.76 GiB, &lt;span style="color:#d19a66">500107862016&lt;/span> bytes, &lt;span style="color:#d19a66">976773168&lt;/span> sectors
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Device Boot Start End Sectors Size Id Type
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/dev/sdc1 &lt;span style="color:#d19a66">2048&lt;/span> &lt;span style="color:#d19a66">976773167&lt;/span> &lt;span style="color:#d19a66">976771120&lt;/span> 465.8G fd Linux raid autodetect
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Disk /dev/md5: 931.27 GiB, &lt;span style="color:#d19a66">999943045120&lt;/span> bytes, &lt;span style="color:#d19a66">1953013760&lt;/span> sectors
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Units: sectors of &lt;span style="color:#d19a66">1&lt;/span> * &lt;span style="color:#dcaeea">512&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#d19a66">512&lt;/span> bytes
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Sector size &lt;span style="color:#c7bf54">(&lt;/span>logical/physical&lt;span style="color:#c7bf54">)&lt;/span>: &lt;span style="color:#d19a66">512&lt;/span> bytes / &lt;span style="color:#d19a66">4096&lt;/span> bytes
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>I/O size &lt;span style="color:#c7bf54">(&lt;/span>minimum/optimal&lt;span style="color:#c7bf54">)&lt;/span>: &lt;span style="color:#d19a66">524288&lt;/span> bytes / &lt;span style="color:#d19a66">1048576&lt;/span> bytes
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="添加新磁盘">添加新磁盘&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mdadm --manage /dev/md5 --add /dev/sdb1
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>查看md设备的状态：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>Personalities : &lt;span style="color:#c7bf54">[&lt;/span>raid6&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>raid5&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>raid4&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>linear&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>multipath&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>raid0&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>raid1&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>raid10&lt;span style="color:#c7bf54">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>md5 : active raid5 sdb1&lt;span style="color:#c7bf54">[&lt;/span>4&lt;span style="color:#c7bf54">](&lt;/span>S&lt;span style="color:#c7bf54">)&lt;/span> sdd1&lt;span style="color:#c7bf54">[&lt;/span>1&lt;span style="color:#c7bf54">]&lt;/span> sda1&lt;span style="color:#c7bf54">[&lt;/span>0&lt;span style="color:#c7bf54">]&lt;/span> sdc1&lt;span style="color:#c7bf54">[&lt;/span>3&lt;span style="color:#c7bf54">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#d19a66">976506880&lt;/span> blocks super 1.2 level 5, 512k chunk, algorithm &lt;span style="color:#d19a66">2&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>3/3&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>UUU&lt;span style="color:#c7bf54">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> bitmap: 1/4 pages &lt;span style="color:#c7bf54">[&lt;/span>4KB&lt;span style="color:#c7bf54">]&lt;/span>, 65536KB chunk
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>unused devices: &amp;lt;none&amp;gt;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="扩容raid5">扩容RAID5&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mdadm --grow /dev/md5 --raid-devices&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#d19a66">4&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这边我原先是3块硬盘，现在加了一块，所以&lt;code>--raid-devices=4&lt;/code>。
-此时再看一下md设备的状态：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ cat /proc/mdstat
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Personalities : &lt;span style="color:#c7bf54">[&lt;/span>raid6&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>raid5&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>raid4&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>linear&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>multipath&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>raid0&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>raid1&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>raid10&lt;span style="color:#c7bf54">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>md5 : active raid5 sdb1&lt;span style="color:#c7bf54">[&lt;/span>4&lt;span style="color:#c7bf54">]&lt;/span> sdd1&lt;span style="color:#c7bf54">[&lt;/span>1&lt;span style="color:#c7bf54">]&lt;/span> sda1&lt;span style="color:#c7bf54">[&lt;/span>0&lt;span style="color:#c7bf54">]&lt;/span> sdc1&lt;span style="color:#c7bf54">[&lt;/span>3&lt;span style="color:#c7bf54">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#d19a66">976506880&lt;/span> blocks super 1.2 level 5, 512k chunk, algorithm &lt;span style="color:#d19a66">2&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>4/4&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#c7bf54">[&lt;/span>UUUU&lt;span style="color:#c7bf54">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c7bf54">[&lt;/span>&amp;gt;....................&lt;span style="color:#c7bf54">]&lt;/span> &lt;span style="color:#dcaeea">reshape&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> 0.0% &lt;span style="color:#c7bf54">(&lt;/span>330684/488253440&lt;span style="color:#c7bf54">)&lt;/span> &lt;span style="color:#dcaeea">finish&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>49.1min &lt;span style="color:#dcaeea">speed&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>165342K/sec
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> bitmap: 1/4 pages &lt;span style="color:#c7bf54">[&lt;/span>4KB&lt;span style="color:#c7bf54">]&lt;/span>, 65536KB chunk
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>unused devices: &amp;lt;none&amp;gt;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>再次查看md设备的详细信息：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ sudo mdadm --detail /dev/md5
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/dev/md5:
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Version : 1.2
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Creation Time : Wed Sep &lt;span style="color:#d19a66">30&lt;/span> 23:18:18 &lt;span style="color:#d19a66">2020&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Raid Level : raid5
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Array Size : &lt;span style="color:#d19a66">976506880&lt;/span> &lt;span style="color:#c7bf54">(&lt;/span>931.27 GiB 999.94 GB&lt;span style="color:#c7bf54">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Used Dev Size : &lt;span style="color:#d19a66">488253440&lt;/span> &lt;span style="color:#c7bf54">(&lt;/span>465.63 GiB 499.97 GB&lt;span style="color:#c7bf54">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Raid Devices : &lt;span style="color:#d19a66">4&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Total Devices : &lt;span style="color:#d19a66">4&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Persistence : Superblock is persistent
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Intent Bitmap : Internal
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Update Time : Wed Dec &lt;span style="color:#d19a66">4&lt;/span> 19:50:26 &lt;span style="color:#d19a66">2024&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> State : active, reshaping
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Active Devices : &lt;span style="color:#d19a66">4&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Working Devices : &lt;span style="color:#d19a66">4&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Failed Devices : &lt;span style="color:#d19a66">0&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Spare Devices : &lt;span style="color:#d19a66">0&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Layout : left-symmetric
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Chunk Size : 512K
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Consistency Policy : bitmap
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Reshape Status : 0% &lt;span style="color:#ef8383">complete&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Delta Devices : 1, &lt;span style="color:#c7bf54">(&lt;/span>3-&amp;gt;4&lt;span style="color:#c7bf54">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Name : ***
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> UUID : ***
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Events : &lt;span style="color:#d19a66">1828986&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Number Major Minor RaidDevice State
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#d19a66">0&lt;/span> &lt;span style="color:#d19a66">8&lt;/span> &lt;span style="color:#d19a66">1&lt;/span> &lt;span style="color:#d19a66">0&lt;/span> active sync /dev/sda1
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#d19a66">1&lt;/span> &lt;span style="color:#d19a66">8&lt;/span> &lt;span style="color:#d19a66">49&lt;/span> &lt;span style="color:#d19a66">1&lt;/span> active sync /dev/sdd1
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#d19a66">3&lt;/span> &lt;span style="color:#d19a66">8&lt;/span> &lt;span style="color:#d19a66">33&lt;/span> &lt;span style="color:#d19a66">2&lt;/span> active sync /dev/sdc1
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#d19a66">4&lt;/span> &lt;span style="color:#d19a66">8&lt;/span> &lt;span style="color:#d19a66">17&lt;/span> &lt;span style="color:#d19a66">3&lt;/span> active sync /dev/sdb1
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>reshape需要很长的时间，期间就慢慢等吧，尽量不要去打断它。完成后，调整整列容量&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mdadm --grow /dev/md5 --size&lt;span style="color:#c7bf54">=&lt;/span>max
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后可以看到，整列容量已经变了&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ sudo fdisk -l /dev/md5
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Disk /dev/md5: 1.36 TiB, &lt;span style="color:#d19a66">1499914567680&lt;/span> bytes, &lt;span style="color:#d19a66">2929520640&lt;/span> sectors
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Units: sectors of &lt;span style="color:#d19a66">1&lt;/span> * &lt;span style="color:#dcaeea">512&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#d19a66">512&lt;/span> bytes
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Sector size &lt;span style="color:#c7bf54">(&lt;/span>logical/physical&lt;span style="color:#c7bf54">)&lt;/span>: &lt;span style="color:#d19a66">512&lt;/span> bytes / &lt;span style="color:#d19a66">4096&lt;/span> bytes
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>I/O size &lt;span style="color:#c7bf54">(&lt;/span>minimum/optimal&lt;span style="color:#c7bf54">)&lt;/span>: &lt;span style="color:#d19a66">524288&lt;/span> bytes / &lt;span style="color:#d19a66">1572864&lt;/span> bytes
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="扩容文件系统">扩容文件系统&lt;/h3>
-&lt;p>到此块设备已经扩容完成，但是块设备之上的文件系统还没有扩容，所有从挂载的容量看是还没有变的。&lt;br>
-需要对文件系统进行扩容，不同的文件系统用不同的命令。
-如果是ext2/ext3/ext4文件系统&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo resize2fs /dev/md5
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>我这边是xfs文件系统，故使用&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo xfs_growfs /dev/md5
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>完成后重新查看挂载的文件系统大小，已经变了&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ df -h
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem Size Used Avail Use% Mounted on
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/dev/md5 1.4T 114G 1.3T 9% /data
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/raid5-add-disk/ - copyright here</description></item></channel></rss>
+尝试再安装一个Windows10的客户机，空闲占用单核心15%-25%的CPU。未找到原因。&lt;/p>- https://www.panwenbin.cn/posts/kvm-high-cpu/ - copyright here</description></item></channel></rss>
