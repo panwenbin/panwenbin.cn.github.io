@@ -1,4 +1,11 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Wed, 02 Apr 2025 00:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>KVM安装系统时没有对应的系统选择</title><link>https://www.panwenbin.cn/posts/kvm-no-os/</link><pubDate>Wed, 02 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/kvm-no-os/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/kvm-no-os/ -&lt;h2 id="问题">问题&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Mon, 21 Apr 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>安装win11如何跳过联网账户使用本地账户</title><link>https://www.panwenbin.cn/posts/win11-local-account/</link><pubDate>Mon, 21 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/win11-local-account/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/win11-local-account/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;blockquote>
+&lt;p>在安装windows11的过程中，会要求登录或创建联网帐号，而没有使用本地帐号的选项。&lt;/p>&lt;/blockquote>
+&lt;h2 id="回答">回答&lt;/h2>
+&lt;p>在要求使用联机帐号的界面，按&lt;code>Shift+F10&lt;/code>打开命令行，执行&lt;/p>
+&lt;pre tabindex="0">&lt;code>start ms-cxh:localonly
+&lt;/code>&lt;/pre>&lt;p>会出现创建本地帐号的界面，创建完成就会进入下一步了。&lt;/p>
+&lt;p>旧的&lt;code>oobe\bypassnro.cmd&lt;/code>，没效果了。&lt;/p>- https://www.panwenbin.cn/posts/win11-local-account/ - copyright here</description></item><item><title>KVM安装系统时没有对应的系统选择</title><link>https://www.panwenbin.cn/posts/kvm-no-os/</link><pubDate>Wed, 02 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/kvm-no-os/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/kvm-no-os/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>使用virt-manager创建虚拟机时，比较新的系统没有对应的选择，比如创建debian12的系统，只有看到最高到debian11。大概数据太旧了，所以来尝试更新一下这个操作系统列表的数据。&lt;/p>&lt;/blockquote>
 &lt;h2 id="分析">分析&lt;/h2>
