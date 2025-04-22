@@ -1,4 +1,26 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Mon, 21 Apr 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Docker如何设置代理</title><link>https://www.panwenbin.cn/posts/docker-set-proxy/</link><pubDate>Mon, 21 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/docker-set-proxy/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/docker-set-proxy/ -&lt;h2 id="问题">问题&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Tue, 22 Apr 2025 22:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux上使用Wacom打草稿</title><link>https://www.panwenbin.cn/posts/linux-wacom-usage/</link><pubDate>Tue, 22 Apr 2025 22:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-wacom-usage/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-wacom-usage/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>最近想静下来学习一下，做个草稿的时候发现手边没有工具。&lt;br>
+虽然用平板配笔是不错的选择，但是平板在我用电脑的时候通常不在手边。想起之前入手后一直吃灰的Wacom BAMBOO ONE数位板，看看能不能用吧。&lt;/p>&lt;/blockquote>
+&lt;h2 id="软件选择">软件选择&lt;/h2>
+&lt;p>找了一下，看中了&lt;code>Xournal++&lt;/code>，直接在源里安装&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo apt install xournalpp
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>打开后是一个本子的样子。&lt;/p>
+&lt;h2 id="屏幕">屏幕&lt;/h2>
+&lt;p>但是因为我双屏幕，数位板是在两个屏幕上活动的，实际上软件只在第二个屏幕上运行着。&lt;br>
+想着能不能设置到只在一个屏幕内活动。&lt;/p>
+&lt;h3 id="使用-xsetwacom-设置映射区域">使用 xsetwacom 设置映射区域&lt;/h3>
+&lt;p>先获取设备&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ xsetwacom --list devices
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Wacom Bamboo One S Pen stylus id: &lt;span style="color:#d19a66">19&lt;/span> type: STYLUS
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Wacom Bamboo One S Pen eraser id: &lt;span style="color:#d19a66">20&lt;/span> type: ERASER
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>再获取屏幕&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ xrandr
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>HDMI-2 connected 1920x1200+2560+0 &lt;span style="color:#c7bf54">(&lt;/span>normal left inverted right x axis y axis&lt;span style="color:#c7bf54">)&lt;/span> 518mm x 324mm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>HDMI-3 connected 2560x1440+0+0 &lt;span style="color:#c7bf54">(&lt;/span>normal left inverted right x axis y axis&lt;span style="color:#c7bf54">)&lt;/span> 597mm x 336mm
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>将数位板映射到指定屏幕&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>xsetwacom --set &lt;span style="color:#63c381">&amp;#34;Wacom Bamboo One S Pen stylus&amp;#34;&lt;/span> MapToOutput &lt;span style="color:#63c381">&amp;#34;HDMI-2&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>验证有效！&lt;/p>- https://www.panwenbin.cn/posts/linux-wacom-usage/ - copyright here</description></item><item><title>Docker如何设置代理</title><link>https://www.panwenbin.cn/posts/docker-set-proxy/</link><pubDate>Mon, 21 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/docker-set-proxy/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/docker-set-proxy/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>Docker在国内使用时经常出现网络不稳定的情况，比如拉取镜像时速度很慢，甚至失败。&lt;br>
 如何给Docker设置代理呢？&lt;/p>&lt;/blockquote>
@@ -361,22 +383,4 @@ Environment=&amp;#34;NO_PROXY=localhost,127.0.0.1,.example.com&amp;#34;
 &lt;h2 id="总结">总结&lt;/h2>
 &lt;p>Monterey系统让我可以用Mac的键盘和触控板直接控制iPad2020，让两个老设备无缝配合，相当于有两个屏幕，iPad上可以运行网页或者iOS的App，Mac上可以运行工作软件。并且手不需要离开Macbook就可以操作。&lt;/p>
 &lt;h2 id="其他">其他&lt;/h2>
-&lt;p>虽然Sequoia的iPhone镜像功能也很好用，但是需要Apple Silicon（M系）处理器或者带T2芯片才能使用。并且我尝试安装Sequoia最后并没有成功，卡在了一个升级画面就过不去了。&lt;/p>- https://www.panwenbin.cn/posts/old-mac-new-macos/ - copyright here</description></item><item><title>KVM虚拟机空闲却占用CPU很高</title><link>https://www.panwenbin.cn/posts/kvm-high-cpu/</link><pubDate>Wed, 11 Dec 2024 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/kvm-high-cpu/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/kvm-high-cpu/ -&lt;h2 id="问题描述">问题描述&lt;/h2>
-&lt;blockquote>
-&lt;p>一台KVM客户机系统是Windows系统，当Windows系统空闲时，从Linux看到的qemu-system-x86_64进程CPU占用率却很高。&lt;br>
-这肯定是有问题的。&lt;/p>&lt;/blockquote>
-&lt;h2 id="搜索">搜索&lt;/h2>
-&lt;p>&lt;a href="https://codingpackets.com/blog/kvm-host-high-cpu-fix/">https://codingpackets.com/blog/kvm-host-high-cpu-fix/&lt;/a>
-&lt;a href="https://www.kernel.org/doc/Documentation/virtual/kvm/halt-polling.txt">https://www.kernel.org/doc/Documentation/virtual/kvm/halt-polling.txt&lt;/a>&lt;/p>
-&lt;blockquote>
-&lt;p>halt-polling用于在客户机选择不再运行后再轮询一段时间，以减少客户机延时。适用于客户机程序经常需要唤醒的场景。&lt;br>
-但是对于长期空闲的客户机，这种轮询会导致CPU占用率很高。&lt;/p>&lt;/blockquote>
-&lt;h2 id="处理">处理&lt;/h2>
-&lt;p>可以选择关闭此功能。&lt;/p>
-&lt;h3 id="临时关闭">临时关闭&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ &lt;span style="color:#ef8383">echo&lt;/span> &lt;span style="color:#d19a66">0&lt;/span> | sudo tee /sys/module/kvm/parameters/halt_poll_ns
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="永久关闭">永久关闭&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ &lt;span style="color:#ef8383">echo&lt;/span> &lt;span style="color:#63c381">&amp;#34;options kvm halt_poll_ns=0&amp;#34;&lt;/span> | sudo tee -a /etc/modprobe.d/qemu-system-x86.conf
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="后续">后续&lt;/h2>
-&lt;p>Windows11客户机依然在空闲时占用单核心80%-110%的CPU。
-尝试再安装一个Windows10的客户机，空闲占用单核心15%-25%的CPU。未找到原因。&lt;/p>- https://www.panwenbin.cn/posts/kvm-high-cpu/ - copyright here</description></item></channel></rss>
+&lt;p>虽然Sequoia的iPhone镜像功能也很好用，但是需要Apple Silicon（M系）处理器或者带T2芯片才能使用。并且我尝试安装Sequoia最后并没有成功，卡在了一个升级画面就过不去了。&lt;/p>- https://www.panwenbin.cn/posts/old-mac-new-macos/ - copyright here</description></item></channel></rss>
