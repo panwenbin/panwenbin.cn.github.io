@@ -1,4 +1,19 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Sat, 03 May 2025 16:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>如何在Linux TTY终端正确显示中文</title><link>https://www.panwenbin.cn/posts/linux-tty-chinese/</link><pubDate>Mon, 21 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-tty-chinese/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-tty-chinese/ -&lt;h2 id="问题">问题&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Sat, 03 May 2025 16:30:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux如何关闭ipv6</title><link>https://www.panwenbin.cn/posts/linux-disable-ipv6/</link><pubDate>Mon, 21 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-disable-ipv6/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-disable-ipv6/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;blockquote>
+&lt;p>国内IPv6网络环境不太稳定，有时候要选择性的关闭和开启IPv6。&lt;br>
+在Linux上如何关闭IPv6呢？&lt;/p>&lt;/blockquote>
+&lt;h2 id="回答">回答&lt;/h2>
+&lt;h3 id="临时关闭">临时关闭&lt;/h3>
+&lt;p>直接操作&lt;code>/proc/sys&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo sh -c &lt;span style="color:#98c379">&amp;#39;echo 1 &amp;gt; /proc/sys/net/ipv6/conf/all/disable_ipv6&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>或者使用&lt;code>sysctl&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo sysctl -w net.ipv6.conf.all.disable_ipv6&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#d19a66">1&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="持久关闭">持久关闭&lt;/h3>
+&lt;p>使用&lt;code>/etc/sysctl.conf&lt;/code>配置，添加下面内容&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>net.ipv6.conf.all.disable_ipv6 &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#d19a66">1&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启或者执行如下命令生效&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo sysctl -p
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-disable-ipv6/ - copyright here</description></item><item><title>如何在Linux TTY终端正确显示中文</title><link>https://www.panwenbin.cn/posts/linux-tty-chinese/</link><pubDate>Mon, 21 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-tty-chinese/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-tty-chinese/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>当Xorg出现问题时，会尝试切换到TTY下执行命令，但是中文是不能正常显示的。&lt;br>
 那么在Linux TTY终端中，如何正确显示中文呢？&lt;/p>&lt;/blockquote>

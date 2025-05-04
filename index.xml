@@ -1,4 +1,72 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Sat, 03 May 2025 16:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux如何定时关机</title><link>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</link><pubDate>Sat, 03 May 2025 16:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-scheduled-shutdown/ -&lt;h2 id="问题">问题&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Sat, 03 May 2025 16:30:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux使用FFmpeg制作简易云电脑</title><link>https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/</link><pubDate>Sat, 03 May 2025 16:30:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>最近挺流行云电脑、云游戏的。试一下Linux下使用FFmpeg制作简易云电脑的效果。&lt;/p>&lt;/blockquote>
+&lt;h2 id="先上总结">先上总结&lt;/h2>
+&lt;blockquote>
+&lt;p>最低延时为网络延时+60ms。显示效果不错。内网延时很小，外网鼠标略飘，键盘响应还行&lt;br>
+因为鼠标在远端渲染，不像VNC鼠标是在本地渲染。&lt;/p>&lt;/blockquote>
+&lt;h2 id="步骤">步骤&lt;/h2>
+&lt;h3 id="录制屏幕">录制屏幕&lt;/h3>
+&lt;p>FFmpeg使用x11grab可以录制X11的屏幕。intel核显的硬件QSV编码延时太高了，只能用软件libx264编码了。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ffmpeg -framerate &lt;span style="color:#d19a66">25&lt;/span> -f x11grab -i :0.0 -c:v libx264 output.mp4
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此命令中&lt;br>
+&lt;code>-framerate 25&lt;/code>设置帧率为25&lt;br>
+&lt;code>-f x11grab -i :0.0&lt;/code>使用x11grab录制&lt;code>:0.0&lt;/code>显示器的屏幕&lt;br>
+输出到&lt;code>output.mp4&lt;/code>文件中。&lt;/p>
+&lt;p>如果使用ssh远程执行并把结果转发到本地呢？&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ssh user@remote ffmpeg -framerate &lt;span style="color:#d19a66">25&lt;/span> -f x11grab -i :0.0 -c:v libx264 -f h264 - | ffplay -fs -
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此命令通过ssh连接在远程执行录制命令，把user@remote替换为ssh服务器用户和地址。其中&lt;br>
+&lt;code>-c:v libx264&lt;/code>指定使用libx264编码器进行视频编码&lt;br>
+&lt;code>-f h264&lt;/code>指定输出封装为raw的h264格式，因为直接输出到标准输出，就无法根据输出文件推断适合的格式了&lt;br>
+这边可选的还有&lt;code>flv&lt;/code>和&lt;code>mpegts&lt;/code>，&lt;code>h264&lt;/code>因为是原始格式，延时会更低。&lt;code>flv&lt;/code>和&lt;code>mpegts&lt;/code>支持封装音频，&lt;code>flv&lt;/code>更简单更适合直播。&lt;br>
+使用&lt;code>ffplay&lt;/code>在本地播放标准输入。但是延时很高。&lt;/p>
+&lt;p>延时高的第一反应是播放器做了缓冲，尽量关闭播放器的缓冲&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ffplay -framedrop -fflags nobuffer -flags low_delay -strict experimental -probesize &lt;span style="color:#d19a66">32&lt;/span> -analyzeduration &lt;span style="color:#d19a66">0&lt;/span> -an -vf &lt;span style="color:#dcaeea">setpts&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#d19a66">0&lt;/span> -
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此命令中&lt;br>
+&lt;code>-framedrop&lt;/code>允许丢帧&lt;br>
+&lt;code>-fflags nobuffer&lt;/code>关闭缓冲&lt;br>
+&lt;code>-flags low_delay&lt;/code>设置低延时模式&lt;br>
+&lt;code>-strict experimental&lt;/code>使用实验性功能，允许使用不稳定的编解码器。&lt;br>
+&lt;code>-probesize 32&lt;/code>设置探测大小为32字节&lt;br>
+&lt;code>-analyzeduration 0&lt;/code>设置分析持续时间为0&lt;br>
+&lt;code>-an&lt;/code>禁用音频&lt;br>
+&lt;code>-vf setpts=0&lt;/code>设置视频时间戳为0&lt;/p>
+&lt;p>效果非常明显，已经只能感觉到很小的延时了。&lt;br>
+编码的时候也可以设置一些参数减少延时&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ssh user@remote ffmpeg -framerate &lt;span style="color:#d19a66">25&lt;/span> -f x11grab -i :0.0 -preset ultrafast -tune zerolatency -c:v libx264 -f h264 - | ffplay -framedrop -fflags nobuffer -flags low_delay -strict experimental -probesize &lt;span style="color:#d19a66">32&lt;/span> -analyzeduration &lt;span style="color:#d19a66">0&lt;/span> -an -vf &lt;span style="color:#dcaeea">setpts&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#d19a66">0&lt;/span> -
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>-preset ultrafast&lt;/code>设置编码速度为最快&lt;br>
+&lt;code>-tune zerolatency&lt;/code>设置编码延时为0&lt;/p>
+&lt;h3 id="声音">声音&lt;/h3>
+&lt;p>声音处理有2种方式：一种是封装进flv一起播放出来，另一种是单独再开一个通道播放。&lt;br>
+方式依然采用ffmpeg+ffplay&lt;/p>
+&lt;p>先找到声卡设备，可以借助pulse。最简单也可能有效的直接选择default设备。&lt;/p>
+&lt;p>方式一：改用flv。把&lt;code>-an&lt;/code>换成了&lt;code>-sync ext&lt;/code>，做一下音视频同步。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ssh user@remote ffmpeg -framerate &lt;span style="color:#d19a66">25&lt;/span> -f x11grab -i :0.0 -f pulse -i default -preset ultrafast -tune zerolatency -c:v libx264 -f flv - | ffplay -framedrop -fflags nobuffer -flags low_delay -strict experimental -probesize &lt;span style="color:#d19a66">32&lt;/span> -analyzeduration &lt;span style="color:#d19a66">0&lt;/span> -sync ext -vf &lt;span style="color:#dcaeea">setpts&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#d19a66">0&lt;/span> -
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果不行，可能要手动选择。先列出所有的声卡设备&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>pactl list short sources
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>会列出所有的声卡设备，找到对应的设备名称，比如&lt;code>alsa_input.pci-0000_00_1b.0.analog-stereo&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>pactl set-default-source alsa_input.pci-0000_00_1b.0.analog-stereo
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>设置为默认设备，再试就可以了，或者命令里直接&lt;code>-f pulse -i alsa_input.pci-0000_00_1b.0.analog-stereo&lt;/code>。&lt;/p>
+&lt;p>经测试，用flv封装音频比较正常，画面延时会比h264稍微高一点点，效果很不错了。&lt;br>
+mpegts封装aac容易不识别，改为ac3可以，但是和hevc一起有会播放不了音频。&lt;/p>
+&lt;p>方式二：画面还是用h264，音频单独再开一个通道，用adts封装。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ssh user@remote ffmpeg -f pulse -i default -c:a aac -b:a 128k -f adts - | ffplay -fflags nobuffer -framedrop -flags low_delay -vn -nodisp -
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中&lt;br>
+&lt;code>-c:a aac&lt;/code>设置音频编码器为aac&lt;br>
+&lt;code>-b:a 128k&lt;/code>设置音频比特率为128kbps&lt;br>
+&lt;code>-f adts&lt;/code>设置音频封装格式为adts&lt;br>
+&lt;code>-vn&lt;/code>禁用视频流&lt;br>
+&lt;code>-nodisp&lt;/code>禁用显示窗口&lt;/p>
+&lt;p>这样画面延时会更低，音频延时会高一点点，会有不同步的情况。但有另一个好处是单独音频可以搭配VNC使用。&lt;/p>
+&lt;h3 id="键鼠">键鼠&lt;/h3>
+&lt;p>键鼠方案其实挺多的，如usbip、x2x、x2vnc、evdev转发等，但是鼠标映射都会带来一些延时，最好是VNC哪种本地渲染鼠标发送到远程的方式，暂未尝试。&lt;/p>
+&lt;p>这边使用x2vnc，远端只要有VNC Server就行，相对简单。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>/usr/bin/x2vnc remote:0 -west -passwdfile ~/.vnc/passwd -shared
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中&lt;br>
+&lt;code>remote:0&lt;/code>指定远程VNC服务器的显示器，remote替换为VNC服务器地址&lt;br>
+&lt;code>-west&lt;/code>指定鼠标从本地屏幕向西移动时切换到远程屏幕&lt;br>
+&lt;code>-passwdfile ~/.vnc/passwd&lt;/code>指定VNC密码文件&lt;br>
+&lt;code>-shared&lt;/code>允许多个客户端同时连接&lt;/p>- https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/ - copyright here</description></item><item><title>Linux如何定时关机</title><link>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</link><pubDate>Sat, 03 May 2025 16:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-scheduled-shutdown/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>Linux下如何定时关机？&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
@@ -164,19 +232,4 @@ Environment=&amp;#34;NO_PROXY=localhost,127.0.0.1,.example.com&amp;#34;
 &lt;p>在要求使用联机帐号的界面，按&lt;code>Shift+F10&lt;/code>打开命令行，执行&lt;/p>
 &lt;pre tabindex="0">&lt;code>start ms-cxh:localonly
 &lt;/code>&lt;/pre>&lt;p>会出现创建本地帐号的界面，创建完成就会进入下一步了。&lt;/p>
-&lt;p>旧的&lt;code>oobe\bypassnro.cmd&lt;/code>，没效果了。&lt;/p>- https://www.panwenbin.cn/posts/win11-local-account/ - copyright here</description></item><item><title>Linux如何关闭ipv6</title><link>https://www.panwenbin.cn/posts/linux-disable-ipv6/</link><pubDate>Mon, 21 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-disable-ipv6/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-disable-ipv6/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>国内IPv6网络环境不太稳定，有时候要选择性的关闭和开启IPv6。&lt;br>
-在Linux上如何关闭IPv6呢？&lt;/p>&lt;/blockquote>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;h3 id="临时关闭">临时关闭&lt;/h3>
-&lt;p>直接操作&lt;code>/proc/sys&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo sh -c &lt;span style="color:#98c379">&amp;#39;echo 1 &amp;gt; /proc/sys/net/ipv6/conf/all/disable_ipv6&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>或者使用&lt;code>sysctl&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo sysctl -w net.ipv6.conf.all.disable_ipv6&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#d19a66">1&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="持久关闭">持久关闭&lt;/h3>
-&lt;p>使用&lt;code>/etc/sysctl.conf&lt;/code>配置，添加下面内容&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>net.ipv6.conf.all.disable_ipv6 &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#d19a66">1&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启或者执行如下命令生效&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo sysctl -p
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-disable-ipv6/ - copyright here</description></item></channel></rss>
+&lt;p>旧的&lt;code>oobe\bypassnro.cmd&lt;/code>，没效果了。&lt;/p>- https://www.panwenbin.cn/posts/win11-local-account/ - copyright here</description></item></channel></rss>
