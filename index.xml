@@ -1,4 +1,4 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Sat, 03 May 2025 16:30:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux使用FFmpeg制作简易云电脑</title><link>https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/</link><pubDate>Sat, 03 May 2025 16:30:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/ -&lt;h2 id="起因">起因&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Thu, 08 May 2025 17:30:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux使用FFmpeg制作简易云电脑</title><link>https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/</link><pubDate>Sat, 03 May 2025 16:30:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/ -&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>最近挺流行云电脑、云游戏的。试一下Linux下使用FFmpeg制作简易云电脑的效果。&lt;/p>&lt;/blockquote>
 &lt;h2 id="先上总结">先上总结&lt;/h2>
@@ -66,7 +66,13 @@ mpegts封装aac容易不识别，改为ac3可以，但是和hevc一起有会播�
 &lt;code>remote:0&lt;/code>指定远程VNC服务器的显示器，remote替换为VNC服务器地址&lt;br>
 &lt;code>-west&lt;/code>指定鼠标从本地屏幕向西移动时切换到远程屏幕&lt;br>
 &lt;code>-passwdfile ~/.vnc/passwd&lt;/code>指定VNC密码文件&lt;br>
-&lt;code>-shared&lt;/code>允许多个客户端同时连接&lt;/p>- https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/ - copyright here</description></item><item><title>Linux如何定时关机</title><link>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</link><pubDate>Sat, 03 May 2025 16:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-scheduled-shutdown/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;code>-shared&lt;/code>允许多个客户端同时连接&lt;/p>
+&lt;h2 id="延伸">延伸&lt;/h2>
+&lt;ol>
+&lt;li>鼠标在本地移动和点击后，发送相对于显示内容的位置和事件到远程，可以改善鼠标漂移的体验。&lt;/li>
+&lt;li>通过&lt;code>-window_id&lt;/code>可以指定录制窗口，后台窗口也可以。如果配合xdotool应该可以操作单个窗口。&lt;/li>
+&lt;li>如果录制端是Windows系统和N卡，能做到最低多少延时。&lt;/li>
+&lt;/ol>- https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/ - copyright here</description></item><item><title>Linux如何定时关机</title><link>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</link><pubDate>Sat, 03 May 2025 16:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-scheduled-shutdown/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>Linux下如何定时关机？&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
