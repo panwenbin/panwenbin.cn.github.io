@@ -13,7 +13,7 @@
 &lt;li>以管理员身份打开PowerShell&lt;/li>
 &lt;li>查看OpenSSH安装状态&lt;/li>
 &lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>Get-WindowsCapability -Online | Where-Object Name -like &lt;span style="color:#98c379">&amp;#39;OpenSSH*&amp;#39;&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-powershell" data-lang="powershell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">Get-WindowsCapability&lt;/span> &lt;span style="color:#c1abea">-Online&lt;/span> | &lt;span style="color:#ef8383">Where-Object&lt;/span> &lt;span style="color:#c1abea">Name&lt;/span> &lt;span style="color:#c7bf54">-like&lt;/span> &lt;span style="color:#98c379">&amp;#39;OpenSSH*&amp;#39;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>返回内容如下：&lt;/p>
 &lt;pre tabindex="0">&lt;code>Name : OpenSSH.Client~~~~0.0.1.0
 State : Installed
@@ -23,31 +23,31 @@ State : NotPresent
 &lt;ol start="3">
 &lt;li>安装 OpenSSH 服务器&lt;/li>
 &lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-powershell" data-lang="powershell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">Add-WindowsCapability&lt;/span> &lt;span style="color:#c1abea">-Online&lt;/span> &lt;span style="color:#c1abea">-Name&lt;/span> &lt;span style="color:#c1abea">OpenSSH&lt;/span>.&lt;span style="color:#c1abea">Server&lt;/span>~~~~&lt;span style="color:#d19a66">0.0&lt;/span>.&lt;span style="color:#cebc3a">1&lt;/span>.&lt;span style="color:#cebc3a">0&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="4">
 &lt;li>启动 OpenSSH 服务器&lt;/li>
 &lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>Start-Service sshd
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-powershell" data-lang="powershell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">Start-Service&lt;/span> &lt;span style="color:#c1abea">sshd&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="5">
 &lt;li>设置服务自启动&lt;/li>
 &lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>Set-Service -Name sshd -StartupType &lt;span style="color:#98c379">&amp;#39;Automatic&amp;#39;&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-powershell" data-lang="powershell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">Set-Service&lt;/span> &lt;span style="color:#c1abea">-Name&lt;/span> &lt;span style="color:#c1abea">sshd&lt;/span> &lt;span style="color:#c1abea">-StartupType&lt;/span> &lt;span style="color:#98c379">&amp;#39;Automatic&amp;#39;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="6">
 &lt;li>查看端口监听&lt;/li>
 &lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>netstat -an | findstr /i &lt;span style="color:#63c381">&amp;#34;:22&amp;#34;&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-powershell" data-lang="powershell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c1abea">netstat&lt;/span> &lt;span style="color:#c1abea">-an&lt;/span> | &lt;span style="color:#c1abea">findstr&lt;/span> /&lt;span style="color:#c1abea">i&lt;/span> &lt;span style="color:#63c381">&amp;#34;:22&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="7">
 &lt;li>确保防火墙允许 SSH 端口&lt;/li>
 &lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>Get-NetFirewallRule -Name *OpenSSH-Server* | &lt;span style="color:#c678dd">select&lt;/span> Name, DisplayName, Description, Enabled
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-powershell" data-lang="powershell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">Get-NetFirewallRule&lt;/span> &lt;span style="color:#c1abea">-Name&lt;/span> *&lt;span style="color:#ef8383">OpenSSH-Server&lt;/span>* | &lt;span style="color:#ef8383">select &lt;/span>&lt;span style="color:#c1abea">Name&lt;/span>, &lt;span style="color:#c1abea">DisplayName&lt;/span>, &lt;span style="color:#c1abea">Description&lt;/span>, &lt;span style="color:#c1abea">Enabled&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="8">
 &lt;li>编辑配置文件&lt;/li>
 &lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>Start-Process Notepad C:&lt;span style="color:#d26464;font-weight:bold">\P&lt;/span>rogramdata&lt;span style="color:#d26464;font-weight:bold">\s&lt;/span>sh&lt;span style="color:#d26464;font-weight:bold">\s&lt;/span>shd_config
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-powershell" data-lang="powershell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">Start-Process&lt;/span> &lt;span style="color:#c1abea">Notepad&lt;/span> &lt;span style="color:#c1abea">C:&lt;/span>\&lt;span style="color:#c1abea">Programdata&lt;/span>\&lt;span style="color:#c1abea">ssh&lt;/span>\&lt;span style="color:#c1abea">sshd_config&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="9">
 &lt;li>重启SSH服务使配置生效&lt;/li>
 &lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>Restart-Service sshd
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-powershell" data-lang="powershell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">Restart-Service&lt;/span> &lt;span style="color:#c1abea">sshd&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="注意事项">注意事项&lt;/h2>
 &lt;ol>
 &lt;li>SSH的登录名称是账户的本地账户名&lt;/li>
