@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rss on 潘文斌的技术文章</title><link>https://www.panwenbin.cn/tags/rss/</link><description>Recent content in Rss on 潘文斌的技术文章</description><generator>Hugo</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Sat, 31 May 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/tags/rss/index.xml" rel="self" type="application/rss+xml"/><item><title>重拾RSS - 一种复古的信息订阅方式</title><link>https://www.panwenbin.cn/posts/repick-rss/</link><pubDate>Sat, 31 May 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/repick-rss/</guid><description>&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>一开始倒是也没想到RSS，想的是给自己常用的网站统一API，方便自己使用和集成。&lt;br>
+根据网站类型可以抽象出统一接口。首先对于最常见的资讯类网站，抽象也比较简单。&lt;br>
+突然想到这类网站曾经都提供RSS订阅，貌似就可以满足我的需求了。&lt;/p>&lt;/blockquote></description></item></channel></rss>
