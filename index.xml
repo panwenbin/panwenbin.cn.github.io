@@ -1,4 +1,27 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Sat, 31 May 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>重拾RSS - 一种复古的信息订阅方式</title><link>https://www.panwenbin.cn/posts/repick-rss/</link><pubDate>Sat, 31 May 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/repick-rss/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/repick-rss/ -&lt;h2 id="起因">起因&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Sun, 01 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Chrome升级137后无法键盘输入英文</title><link>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</link><pubDate>Sun, 01 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/chrome-keyboard-no-input/ -&lt;h2 id="现象">现象&lt;/h2>
+&lt;blockquote>
+&lt;p>Debian上GoogleChrome升级到&lt;code>137.0.7151.55&lt;/code>后，键盘输入没反应，但是键盘灯是亮的，还以为键盘失灵了，
+重新插拔USB后，现象依旧，但是切换到中文输入后可以正常输入。再测试其他地方键盘工作正常，那显然是Chrome更新后造成的了。&lt;/p>&lt;/blockquote>
+&lt;h2 id="初步判断">初步判断&lt;/h2>
+&lt;p>输入法与GUI框架设置问题。Linux上有诸多GUI框架，如GTK、QT等。&lt;/p>
+&lt;h2 id="探寻">探寻&lt;/h2>
+&lt;p>重启Chrome，无效。重启系统，无效。&lt;/p>
+&lt;p>修改Chrome的设置-外观-主题，当前是GTK，改为QT和经典，均无效。
+看起来和预想的不一样呢。&lt;/p>
+&lt;p>从命令行启动&lt;code>google-chrome&lt;/code>，当键盘输入时，控制台会输出如下错误：&lt;/p>
+&lt;pre tabindex="0">&lt;code>(google-chrome:7096): Gdk-WARNING **: 18:40:25.582: Event with type 8 not holding a GdkDevice. It is most likely synthesized outside Gdk/GTK+
+&lt;/code>&lt;/pre>&lt;p>搜索错误信息，有人反馈，未找到解决方案。&lt;/p>
+&lt;p>最终在chromium的&lt;a href="https://issues.chromium.org/issues/408449463">issue 408449463&lt;/a>中找到相关问题。
+经测试，对我有效的参数是 &lt;code>--gtk-version=4&lt;/code>&lt;/p>
+&lt;p>验证，先用&lt;code>ps -ef|grep chrome&lt;/code>找到主进程ID，
+当不加参数时，&lt;code>lsof -p &amp;lt;pid&amp;gt;|grep libgtk&lt;/code>得到的是&lt;/p>
+&lt;pre tabindex="0">&lt;code>chrome 24064 user mem REG 8,6 8497304 6295827 /usr/lib/x86_64-linux-gnu/libgtk-3.so.0.2406.32
+&lt;/code>&lt;/pre>&lt;p>加上参数后，得到的是&lt;/p>
+&lt;pre tabindex="0">&lt;code>chrome 24806 user mem REG 8,6 8698432 6303568 /usr/lib/x86_64-linux-gnu/libgtk-4.so.1.800.3
+&lt;/code>&lt;/pre>&lt;h2 id="结论">结论&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>google-chrome --gtk-version&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#d19a66">4&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果从快捷图标启动，修改desktop文件，在Exec的命令上都加上参数。&lt;/p>
+&lt;p>目前看依然属于bug，以上方式可以临时解决，后续可能官方更新后就没问题了。&lt;/p>- https://www.panwenbin.cn/posts/chrome-keyboard-no-input/ - copyright here</description></item><item><title>重拾RSS - 一种复古的信息订阅方式</title><link>https://www.panwenbin.cn/posts/repick-rss/</link><pubDate>Sat, 31 May 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/repick-rss/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/repick-rss/ -&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>一开始倒是也没想到RSS，想的是给自己常用的网站统一API，方便自己使用和集成。&lt;br>
 根据网站类型可以抽象出统一接口。首先对于最常见的资讯类网站，抽象也比较简单。&lt;br>
@@ -268,21 +291,4 @@ mpegts封装aac容易不识别，改为ac3可以，但是和hevc一起有会播�
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">&amp;#34;border&amp;#34;&lt;/span>:&lt;span style="color:#b756ff;font-weight:bold">false&lt;/span>,
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ...
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>配置修改后大约1秒会生效，不用重启程序。&lt;/p>- https://www.panwenbin.cn/posts/win-wm-komorebi/ - copyright here</description></item><item><title>Windows下好看的TopBar yasb尝试</title><link>https://www.panwenbin.cn/posts/win-topbar-yasb/</link><pubDate>Sun, 27 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/win-topbar-yasb/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/win-topbar-yasb/ -&lt;h2 id="关注">关注&lt;/h2>
-&lt;blockquote>
-&lt;p>在看B站视频时发现了这个漂亮的topbar，尝试装一下看看。&lt;/p>&lt;/blockquote>
-&lt;h2 id="尝试">尝试&lt;/h2>
-&lt;p>项目地址是 &lt;a href="https://github.com/amnweb/yasb">https://github.com/amnweb/yasb&lt;/a>&lt;/p>
-&lt;p>需要先安装Nerd Fonts，官方推荐了一个字体包&lt;a href="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip">JetBrainsMono&lt;/a>&lt;br>
-下载后解压，然后选中所有字体文件，右键-&amp;gt;安装。&lt;/p>
-&lt;p>接着安装程序，可以直接下载或者用winget等。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>winget install --id AmN.yasb
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>启动就可以看到顶部topbar了&lt;/p>
-&lt;h2 id="设置">设置&lt;/h2>
-&lt;p>运行后在系统托盘中会有一个图标&lt;/p>
-&lt;h3 id="开机启动">开机启动&lt;/h3>
-&lt;p>右键 -&amp;gt; Enable Autostart&lt;/p>
-&lt;h3 id="更换主题">更换主题&lt;/h3>
-&lt;p>右键 -&amp;gt; Get Themes，然后会出现主题列表预览并给你选择，直接&lt;code>Install&lt;/code>就生效。&lt;/p>
-&lt;h3 id="自定义配置">自定义配置&lt;/h3>
-&lt;p>右键 -&amp;gt; Open Config，会打开配置文件目录，编辑&lt;code>config.yaml&lt;/code>修改配置。&lt;/p>- https://www.panwenbin.cn/posts/win-topbar-yasb/ - copyright here</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>配置修改后大约1秒会生效，不用重启程序。&lt;/p>- https://www.panwenbin.cn/posts/win-wm-komorebi/ - copyright here</description></item></channel></rss>
