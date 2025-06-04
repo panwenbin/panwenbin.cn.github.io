@@ -1,4 +1,22 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Sun, 01 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Chrome升级137后无法键盘输入英文</title><link>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</link><pubDate>Sun, 01 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/chrome-keyboard-no-input/ -&lt;h2 id="现象">现象&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Wed, 04 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>免费证件照软件</title><link>https://www.panwenbin.cn/posts/free-id-photo/</link><pubDate>Wed, 04 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/free-id-photo/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/free-id-photo/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>儿子学校信息采集需要一个蓝底证件照，于是拿起手机拍了照片就准备处理成证件照。&lt;br>
+记忆中曾经用过app最美证件照，只能导出低清晰度证件照，想着凑合用吧。&lt;br>
+下载后，一步步处理到保存页面。以为保存好了，相册里却没有。感情只有付费才能保存了？&lt;br>
+随后再一通找，都是收费的，我都傻眼了，这么一个简单的功能，怎么都要收费？&lt;/p>&lt;/blockquote>
+&lt;h2 id="折腾过程">折腾过程&lt;/h2>
+&lt;p>第一个尝试的是&lt;code>最美证件照&lt;/code>，结果是没有免费低清晰度保存了。灵机一动，拿手机截图不就行了？结果iOS按截图会出现另一个页面，Android截图会黑屏。
+这个做得很彻底呢！接上电脑，scrcpy连接到照片页面还是黑屏，adb shell screencap返回文件是空的。防范做得真好！再继续也没有意义了。&lt;/p>
+&lt;p>第二个尝试的是ChatGPT推荐的&lt;code>证件照研究院&lt;/code>，说是免费保存的，试了也已经不行了，结果图那边还带水印。&lt;/p>
+&lt;p>第三个尝试了支付宝里的，也是收费的。&lt;/p>
+&lt;p>无奈去论坛搜，得到了下面这些。&lt;/p>
+&lt;h2 id="良心选择">良心选择&lt;/h2>
+&lt;ol>
+&lt;li>&lt;a href="https://www.neoimaging.cn">光影证件照&lt;/a> 试了不错，免费保存。配合&lt;code>光影魔术手&lt;/code>可以处理照片。&lt;/li>
+&lt;li>小米相册自带 没有试，手头没有小米手机。&lt;/li>
+&lt;li>&lt;a href="https://tool.browser.qq.com">腾讯在线工具箱&lt;/a> 试了也可以，但是有个貌似是BUG，照片处理时会旋转90度。&lt;/li>
+&lt;/ol>
+&lt;p>应该还有不少的，以后发现再补充吧。&lt;/p>- https://www.panwenbin.cn/posts/free-id-photo/ - copyright here</description></item><item><title>Chrome升级137后无法键盘输入英文</title><link>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</link><pubDate>Sun, 01 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/chrome-keyboard-no-input/ -&lt;h2 id="现象">现象&lt;/h2>
 &lt;blockquote>
 &lt;p>Debian上GoogleChrome升级到&lt;code>137.0.7151.55&lt;/code>后，键盘输入没反应，但是键盘灯是亮的，还以为键盘失灵了，
 重新插拔USB后，现象依旧，但是切换到中文输入后可以正常输入。再测试其他地方键盘工作正常，那显然是Chrome更新后造成的了。&lt;/p>&lt;/blockquote>
@@ -269,26 +287,4 @@ mpegts封装aac容易不识别，改为ac3可以，但是和hevc一起有会播�
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c7bf54">[&lt;/span>screen is terminating&lt;span style="color:#c7bf54">]&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以从dmesg中查看错误信息，一个可行的处理方式是&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo usermod -a -G dialout &lt;span style="color:#dcaeea">$USER&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后注销当前用户，重新登录即可。&lt;/p>- https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/ - copyright here</description></item><item><title>Windows下的平铺窗口管理器komorebi尝试</title><link>https://www.panwenbin.cn/posts/win-wm-komorebi/</link><pubDate>Sun, 27 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/win-wm-komorebi/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/win-wm-komorebi/ -&lt;h2 id="关注">关注&lt;/h2>
-&lt;blockquote>
-&lt;p>是在关注yasb的时候，发现它可以和komorebi一起使用。经搜索，komorebi原来是一个Windows下的平铺窗口管理器。&lt;/p>&lt;/blockquote>
-&lt;h2 id="尝试">尝试&lt;/h2>
-&lt;p>项目地址是 &lt;a href="https://github.com/LGUG2Z/komorebi">https://github.com/LGUG2Z/komorebi&lt;/a>&lt;/p>
-&lt;p>安装程序，可以直接下载或者用winget等。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>winget install LGUG2Z.komorebi
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>winget install LGUG2Z.whkd
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>下载配置&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>komorebic quickstart
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>启动&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>komorebic start --whkd
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="配置">配置&lt;/h2>
-&lt;p>默认的边距太大了，尝试修改
-&lt;code>komorebi.json&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>{
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ...
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">&amp;#34;default_workspace_padding&amp;#34;&lt;/span>:&lt;span style="color:#d19a66">5&lt;/span>,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">&amp;#34;default_container_padding&amp;#34;&lt;/span>:&lt;span style="color:#d19a66">2&lt;/span>,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">&amp;#34;border&amp;#34;&lt;/span>:&lt;span style="color:#b756ff;font-weight:bold">false&lt;/span>,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ...
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>配置修改后大约1秒会生效，不用重启程序。&lt;/p>- https://www.panwenbin.cn/posts/win-wm-komorebi/ - copyright here</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后注销当前用户，重新登录即可。&lt;/p>- https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/ - copyright here</description></item></channel></rss>
