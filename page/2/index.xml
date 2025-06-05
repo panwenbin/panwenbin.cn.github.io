@@ -1,4 +1,4 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Thu, 05 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux串口访问/dev/ttyUSB0提示[screen is terminating]</title><link>https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/</link><pubDate>Mon, 28 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/ -&lt;h2 id="问题">问题&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Thu, 05 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux串口访问/dev/ttyUSB0提示[screen is terminating]</title><link>https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/</link><pubDate>Mon, 28 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>当使用&lt;code>screen /dev/ttyUSB0 115200&lt;/code>命令访问串口时，提示&lt;code>[screen is terminating]&lt;/code>，无法正常使用。&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
@@ -7,7 +7,7 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c7bf54">[&lt;/span>screen is terminating&lt;span style="color:#c7bf54">]&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以从dmesg中查看错误信息，一个可行的处理方式是&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo usermod -a -G dialout &lt;span style="color:#dcaeea">$USER&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后注销当前用户，重新登录即可。&lt;/p>- https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/ - copyright here</description></item><item><title>Windows下的平铺窗口管理器komorebi尝试</title><link>https://www.panwenbin.cn/posts/win-wm-komorebi/</link><pubDate>Sun, 27 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/win-wm-komorebi/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/win-wm-komorebi/ -&lt;h2 id="关注">关注&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后注销当前用户，重新登录即可。&lt;/p>- https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/ - 2025 潘文斌</description></item><item><title>Windows下的平铺窗口管理器komorebi尝试</title><link>https://www.panwenbin.cn/posts/win-wm-komorebi/</link><pubDate>Sun, 27 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/win-wm-komorebi/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/win-wm-komorebi/ -&lt;h2 id="关注">关注&lt;/h2>
 &lt;blockquote>
 &lt;p>是在关注yasb的时候，发现它可以和komorebi一起使用。经搜索，komorebi原来是一个Windows下的平铺窗口管理器。&lt;/p>&lt;/blockquote>
 &lt;h2 id="尝试">尝试&lt;/h2>
@@ -29,7 +29,7 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">&amp;#34;border&amp;#34;&lt;/span>:&lt;span style="color:#b756ff;font-weight:bold">false&lt;/span>,
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ...
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>配置修改后大约1秒会生效，不用重启程序。&lt;/p>- https://www.panwenbin.cn/posts/win-wm-komorebi/ - copyright here</description></item><item><title>Windows下好看的TopBar yasb尝试</title><link>https://www.panwenbin.cn/posts/win-topbar-yasb/</link><pubDate>Sun, 27 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/win-topbar-yasb/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/win-topbar-yasb/ -&lt;h2 id="关注">关注&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>配置修改后大约1秒会生效，不用重启程序。&lt;/p>- https://www.panwenbin.cn/posts/win-wm-komorebi/ - 2025 潘文斌</description></item><item><title>Windows下好看的TopBar yasb尝试</title><link>https://www.panwenbin.cn/posts/win-topbar-yasb/</link><pubDate>Sun, 27 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/win-topbar-yasb/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/win-topbar-yasb/ -&lt;h2 id="关注">关注&lt;/h2>
 &lt;blockquote>
 &lt;p>在看B站视频时发现了这个漂亮的topbar，尝试装一下看看。&lt;/p>&lt;/blockquote>
 &lt;h2 id="尝试">尝试&lt;/h2>
@@ -46,7 +46,7 @@
 &lt;h3 id="更换主题">更换主题&lt;/h3>
 &lt;p>右键 -&amp;gt; Get Themes，然后会出现主题列表预览并给你选择，直接&lt;code>Install&lt;/code>就生效。&lt;/p>
 &lt;h3 id="自定义配置">自定义配置&lt;/h3>
-&lt;p>右键 -&amp;gt; Open Config，会打开配置文件目录，编辑&lt;code>config.yaml&lt;/code>修改配置。&lt;/p>- https://www.panwenbin.cn/posts/win-topbar-yasb/ - copyright here</description></item><item><title>Winget如何使用代理</title><link>https://www.panwenbin.cn/posts/winget-use-proxy/</link><pubDate>Wed, 23 Apr 2025 18:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/winget-use-proxy/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/winget-use-proxy/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;p>右键 -&amp;gt; Open Config，会打开配置文件目录，编辑&lt;code>config.yaml&lt;/code>修改配置。&lt;/p>- https://www.panwenbin.cn/posts/win-topbar-yasb/ - 2025 潘文斌</description></item><item><title>Winget如何使用代理</title><link>https://www.panwenbin.cn/posts/winget-use-proxy/</link><pubDate>Wed, 23 Apr 2025 18:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/winget-use-proxy/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/winget-use-proxy/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>WinGet可以使用命令行安装软件，比较方便，但是有些软件是托管在github上的，下载困难。&lt;br>
 如何给Winget设置代理呢？&lt;/p>&lt;/blockquote>
@@ -61,7 +61,7 @@
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>winget settings --enable ProxyCommandLineOptions
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行时指定参数&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>winget install &amp;lt;package&amp;gt; --proxy http://&amp;lt;host&amp;gt;:&amp;lt;port&amp;gt;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/winget-use-proxy/ - copyright here</description></item><item><title>macOS VNC连接提示No matching security types</title><link>https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/</link><pubDate>Wed, 23 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/winget-use-proxy/ - 2025 潘文斌</description></item><item><title>macOS VNC连接提示No matching security types</title><link>https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/</link><pubDate>Wed, 23 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>macOS开启了屏幕共享，通过其他电脑用VNC连接时，提示&lt;br>
 No matching security types when connect to MacOS VNC&lt;/p>&lt;/blockquote>
@@ -74,7 +74,7 @@ No matching security types when connect to MacOS VNC&lt;/p>&lt;/blockquote>
 &lt;li>然后在左侧选择&lt;code>屏幕共享&lt;/code>，&lt;/li>
 &lt;li>点击右侧的&lt;code>计算机设置...&lt;/code>按钮，&lt;/li>
 &lt;li>勾选&lt;code>VNC查看器可以使用密码进行访问&lt;/code>，并设置一个密码。&lt;/li>
-&lt;/ul>- https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/ - copyright here</description></item><item><title>Linux上使用Wacom打草稿</title><link>https://www.panwenbin.cn/posts/linux-wacom-usage/</link><pubDate>Tue, 22 Apr 2025 22:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-wacom-usage/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-wacom-usage/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;/ul>- https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/ - 2025 潘文斌</description></item><item><title>Linux上使用Wacom打草稿</title><link>https://www.panwenbin.cn/posts/linux-wacom-usage/</link><pubDate>Tue, 22 Apr 2025 22:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-wacom-usage/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-wacom-usage/ -&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>最近想静下来学习一下，做个草稿的时候发现手边没有工具。&lt;br>
 虽然用平板配笔是不错的选择，但是平板在我用电脑的时候通常不在手边。想起之前入手后一直吃灰的Wacom BAMBOO ONE数位板，看看能不能用吧。&lt;/p>&lt;/blockquote>
@@ -96,7 +96,7 @@ No matching security types when connect to MacOS VNC&lt;/p>&lt;/blockquote>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>HDMI-3 connected 2560x1440+0+0 &lt;span style="color:#c7bf54">(&lt;/span>normal left inverted right x axis y axis&lt;span style="color:#c7bf54">)&lt;/span> 597mm x 336mm
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>将数位板映射到指定屏幕&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>xsetwacom --set &lt;span style="color:#63c381">&amp;#34;Wacom Bamboo One S Pen stylus&amp;#34;&lt;/span> MapToOutput &lt;span style="color:#63c381">&amp;#34;HDMI-2&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>验证有效！&lt;/p>- https://www.panwenbin.cn/posts/linux-wacom-usage/ - copyright here</description></item><item><title>Docker如何设置代理</title><link>https://www.panwenbin.cn/posts/docker-set-proxy/</link><pubDate>Mon, 21 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/docker-set-proxy/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/docker-set-proxy/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>验证有效！&lt;/p>- https://www.panwenbin.cn/posts/linux-wacom-usage/ - 2025 潘文斌</description></item><item><title>Docker如何设置代理</title><link>https://www.panwenbin.cn/posts/docker-set-proxy/</link><pubDate>Mon, 21 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/docker-set-proxy/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/docker-set-proxy/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>Docker在国内使用时经常出现网络不稳定的情况，比如拉取镜像时速度很慢，甚至失败。&lt;br>
 如何给Docker设置代理呢？&lt;/p>&lt;/blockquote>
@@ -148,14 +148,14 @@ Environment=&amp;#34;NO_PROXY=localhost,127.0.0.1,.example.com&amp;#34;
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">EOF&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo systemctl daemon-reload
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo systemctl restart docker
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/docker-set-proxy/ - copyright here</description></item><item><title>安装win11如何跳过联网账户使用本地账户</title><link>https://www.panwenbin.cn/posts/win11-local-account/</link><pubDate>Mon, 21 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/win11-local-account/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/win11-local-account/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/docker-set-proxy/ - 2025 潘文斌</description></item><item><title>安装win11如何跳过联网账户使用本地账户</title><link>https://www.panwenbin.cn/posts/win11-local-account/</link><pubDate>Mon, 21 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/win11-local-account/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/win11-local-account/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>在安装windows11的过程中，会要求登录或创建联网帐号，而没有使用本地帐号的选项。&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
 &lt;p>在要求使用联机帐号的界面，按&lt;code>Shift+F10&lt;/code>打开命令行，执行&lt;/p>
 &lt;pre tabindex="0">&lt;code>start ms-cxh:localonly
 &lt;/code>&lt;/pre>&lt;p>会出现创建本地帐号的界面，创建完成就会进入下一步了。&lt;/p>
-&lt;p>旧的&lt;code>oobe\bypassnro.cmd&lt;/code>，没效果了。&lt;/p>- https://www.panwenbin.cn/posts/win11-local-account/ - copyright here</description></item><item><title>Linux如何关闭ipv6</title><link>https://www.panwenbin.cn/posts/linux-disable-ipv6/</link><pubDate>Mon, 21 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-disable-ipv6/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-disable-ipv6/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;p>旧的&lt;code>oobe\bypassnro.cmd&lt;/code>，没效果了。&lt;/p>- https://www.panwenbin.cn/posts/win11-local-account/ - 2025 潘文斌</description></item><item><title>Linux如何关闭ipv6</title><link>https://www.panwenbin.cn/posts/linux-disable-ipv6/</link><pubDate>Mon, 21 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-disable-ipv6/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-disable-ipv6/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>国内IPv6网络环境不太稳定，有时候要选择性的关闭和开启IPv6。&lt;br>
 在Linux上如何关闭IPv6呢？&lt;/p>&lt;/blockquote>
@@ -170,7 +170,7 @@ Environment=&amp;#34;NO_PROXY=localhost,127.0.0.1,.example.com&amp;#34;
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>net.ipv6.conf.all.disable_ipv6 &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#d19a66">1&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启或者执行如下命令生效&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo sysctl -p
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-disable-ipv6/ - copyright here</description></item><item><title>如何在Linux TTY终端正确显示中文</title><link>https://www.panwenbin.cn/posts/linux-tty-chinese/</link><pubDate>Mon, 21 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-tty-chinese/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-tty-chinese/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-disable-ipv6/ - 2025 潘文斌</description></item><item><title>如何在Linux TTY终端正确显示中文</title><link>https://www.panwenbin.cn/posts/linux-tty-chinese/</link><pubDate>Mon, 21 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-tty-chinese/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-tty-chinese/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>当Xorg出现问题时，会尝试切换到TTY下执行命令，但是中文是不能正常显示的。&lt;br>
 那么在Linux TTY终端中，如何正确显示中文呢？&lt;/p>&lt;/blockquote>
@@ -187,4 +187,4 @@ Environment=&amp;#34;NO_PROXY=localhost,127.0.0.1,.example.com&amp;#34;
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>也可以把参数写入配置文件&lt;code>~/.fbtermrc&lt;/code>&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-ini" data-lang="ini">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b3d23c">font-names&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;SauceCodePro Nerd Font Mono&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b3d23c">font-size&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">16&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-tty-chinese/ - copyright here</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-tty-chinese/ - 2025 潘文斌</description></item></channel></rss>

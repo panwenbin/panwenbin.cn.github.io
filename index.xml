@@ -1,4 +1,4 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>copyright here</copyright><lastBuildDate>Thu, 05 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux如何关闭IPv4并保留IPv6</title><link>https://www.panwenbin.cn/posts/linux-disable-ipv4/</link><pubDate>Thu, 05 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-disable-ipv4/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-disable-ipv4/ -&lt;h2 id="问题">问题&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Thu, 05 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux如何关闭IPv4并保留IPv6</title><link>https://www.panwenbin.cn/posts/linux-disable-ipv4/</link><pubDate>Thu, 05 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-disable-ipv4/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-disable-ipv4/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>之前写了Linux如何关闭IPv6，在Linux上如何关闭IPv4呢？&lt;br>
 想当然觉得&lt;code>net.ipv4.conf.all.disable_ipv4&lt;/code>就行吧，结果没有这个选项。&lt;/p>&lt;/blockquote>
@@ -10,7 +10,7 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>根据查到的IP地址，删除&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo ip addr del 192.168.1.100/24 dev eth0 &lt;span style="color:#8a93a5;font-style:italic"># ip和dev改为自己电脑的&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="持久关闭">持久关闭&lt;/h3>
-&lt;p>如果安装了&lt;code>Network Manager&lt;/code>，也可以用&lt;code>nmtui&lt;/code> - Edit a connection - 选中后Edit，到IPv4 CONFIGRATION 选Disabled，禁用ipv4。&lt;/p>- https://www.panwenbin.cn/posts/linux-disable-ipv4/ - copyright here</description></item><item><title>免费证件照软件</title><link>https://www.panwenbin.cn/posts/free-id-photo/</link><pubDate>Wed, 04 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/free-id-photo/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/free-id-photo/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;p>如果安装了&lt;code>Network Manager&lt;/code>，也可以用&lt;code>nmtui&lt;/code> - Edit a connection - 选中后Edit，到IPv4 CONFIGRATION 选Disabled，禁用ipv4。&lt;/p>- https://www.panwenbin.cn/posts/linux-disable-ipv4/ - 2025 潘文斌</description></item><item><title>免费证件照软件</title><link>https://www.panwenbin.cn/posts/free-id-photo/</link><pubDate>Wed, 04 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/free-id-photo/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/free-id-photo/ -&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>儿子学校信息采集需要一个蓝底证件照，于是拿起手机拍了照片就准备处理成证件照。&lt;br>
 记忆中曾经用过app最美证件照，只能导出低清晰度证件照，想着凑合用吧。&lt;br>
@@ -28,7 +28,7 @@
 &lt;li>小米相册自带 没有试，手头没有小米手机。&lt;/li>
 &lt;li>&lt;a href="https://tool.browser.qq.com">腾讯在线工具箱&lt;/a> 试了也可以，但是有个貌似是BUG，照片处理时会旋转90度。&lt;/li>
 &lt;/ol>
-&lt;p>应该还有不少的，以后发现再补充吧。&lt;/p>- https://www.panwenbin.cn/posts/free-id-photo/ - copyright here</description></item><item><title>Chrome升级137后无法键盘输入英文</title><link>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</link><pubDate>Sun, 01 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/chrome-keyboard-no-input/ -&lt;h2 id="现象">现象&lt;/h2>
+&lt;p>应该还有不少的，以后发现再补充吧。&lt;/p>- https://www.panwenbin.cn/posts/free-id-photo/ - 2025 潘文斌</description></item><item><title>Chrome升级137后无法键盘输入英文</title><link>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</link><pubDate>Sun, 01 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/chrome-keyboard-no-input/ -&lt;h2 id="现象">现象&lt;/h2>
 &lt;blockquote>
 &lt;p>Debian上GoogleChrome升级到&lt;code>137.0.7151.55&lt;/code>后，键盘输入没反应，但是键盘灯是亮的，还以为键盘失灵了，
 重新插拔USB后，现象依旧，但是切换到中文输入后可以正常输入。再测试其他地方键盘工作正常，那显然是Chrome更新后造成的了。&lt;/p>&lt;/blockquote>
@@ -51,7 +51,7 @@
 &lt;/code>&lt;/pre>&lt;h2 id="结论">结论&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>google-chrome --gtk-version&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#d19a66">4&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果从快捷图标启动，修改desktop文件，在Exec的命令上都加上参数。&lt;/p>
-&lt;p>目前看依然属于bug，以上方式可以临时解决，后续可能官方更新后就没问题了。&lt;/p>- https://www.panwenbin.cn/posts/chrome-keyboard-no-input/ - copyright here</description></item><item><title>重拾RSS - 一种复古的信息订阅方式</title><link>https://www.panwenbin.cn/posts/repick-rss/</link><pubDate>Sat, 31 May 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/repick-rss/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/repick-rss/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;p>目前看依然属于bug，以上方式可以临时解决，后续可能官方更新后就没问题了。&lt;/p>- https://www.panwenbin.cn/posts/chrome-keyboard-no-input/ - 2025 潘文斌</description></item><item><title>重拾RSS - 一种复古的信息订阅方式</title><link>https://www.panwenbin.cn/posts/repick-rss/</link><pubDate>Sat, 31 May 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/repick-rss/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/repick-rss/ -&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>一开始倒是也没想到RSS，想的是给自己常用的网站统一API，方便自己使用和集成。&lt;br>
 根据网站类型可以抽象出统一接口。首先对于最常见的资讯类网站，抽象也比较简单。&lt;br>
@@ -80,7 +80,7 @@
 &lt;li>Linux端NewsFlash客户端，支持miniflux的API。&lt;/li>
 &lt;li>其他端直接使用miniflux的Web界面，体验也还行。&lt;/li>
 &lt;/ol>
-&lt;p>手机端想要一个客户端提供推送的能力，但是实在是没什么好的选择，另外RSS本身实时性不高，推送的意义也不怎么大，就这样吧。&lt;/p>- https://www.panwenbin.cn/posts/repick-rss/ - copyright here</description></item><item><title>Tmux 出現 missing or unsuitable terminal: xterm-256color</title><link>https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/</link><pubDate>Wed, 21 May 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;p>手机端想要一个客户端提供推送的能力，但是实在是没什么好的选择，另外RSS本身实时性不高，推送的意义也不怎么大，就这样吧。&lt;/p>- https://www.panwenbin.cn/posts/repick-rss/ - 2025 潘文斌</description></item><item><title>Tmux 出現 missing or unsuitable terminal: xterm-256color</title><link>https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/</link><pubDate>Wed, 21 May 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>新开的VPS，安装tmux后进入tmux，提示&lt;code>missing or unsuitable terminal: xterm-256color&lt;/code>&lt;br>
 进vim也会有这个提示。&lt;/p>&lt;/blockquote>
@@ -90,7 +90,7 @@
 &lt;p>或者另一个思路，不使用256配色呢。&lt;/p>
 &lt;h2 id="回答">回答&lt;/h2>
 &lt;p>安装&lt;code>ncurses-term&lt;/code>包，问题解决。&lt;br>
-如果实在不想安装，&lt;code>export TERM=xterm&lt;/code>临时不再使用256配色。&lt;/p>- https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/ - copyright here</description></item><item><title>Linux上使用V4L2摄像头</title><link>https://www.panwenbin.cn/posts/linux-v4l-camera/</link><pubDate>Thu, 08 May 2025 21:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-v4l-camera/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-v4l-camera/ -&lt;h2 id="目标">目标&lt;/h2>
+如果实在不想安装，&lt;code>export TERM=xterm&lt;/code>临时不再使用256配色。&lt;/p>- https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/ - 2025 潘文斌</description></item><item><title>Linux上使用V4L2摄像头</title><link>https://www.panwenbin.cn/posts/linux-v4l-camera/</link><pubDate>Thu, 08 May 2025 21:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-v4l-camera/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-v4l-camera/ -&lt;h2 id="目标">目标&lt;/h2>
 &lt;blockquote>
 &lt;p>Linux下查看摄像头画面，录制摄像头画面。&lt;/p>&lt;/blockquote>
 &lt;h2 id="v4l内核模块">V4L内核模块&lt;/h2>
@@ -142,7 +142,7 @@ Microsoft® LifeCam HD-6000 for (usb-0000:00:14.0-8):
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到摄像头画面，是YUYV格式的&lt;/p>
 &lt;p>使用&lt;code>ffmpeg&lt;/code>可以方便的录制视频。&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ffmpeg -f v4l2 -i /dev/video1 -c:v libx264 -preset ultrafast -tune zerolatency -f flv camera.flv
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-v4l-camera/ - copyright here</description></item><item><title>什么是UEFI安全启动</title><link>https://www.panwenbin.cn/posts/uefi-secure-boot/</link><pubDate>Thu, 08 May 2025 20:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/uefi-secure-boot/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/uefi-secure-boot/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-v4l-camera/ - 2025 潘文斌</description></item><item><title>什么是UEFI安全启动</title><link>https://www.panwenbin.cn/posts/uefi-secure-boot/</link><pubDate>Thu, 08 May 2025 20:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/uefi-secure-boot/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/uefi-secure-boot/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>什么是UEFI安全启动？&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
@@ -152,7 +152,7 @@ Microsoft® LifeCam HD-6000 for (usb-0000:00:14.0-8):
 &lt;p>安全启动，是只允许受信任机构签署的文件才能在启动阶段运行。&lt;/p>
 &lt;p>系统中预制了一些知名厂家（如Microsoft）的密钥，用户也可以导入自己的密钥，并信任。这些信任密钥签署的模块是被允许加载的。&lt;/p>
 &lt;p>shim是Linux下作为&lt;code>UEFI&lt;/code>系统上第一阶段&lt;code>bootloader&lt;/code>的程序。Microsoft等CA只要对shim程序签名。shim就可以用于验证和控制MOK（Machine Owner Key）。&lt;/p>
-&lt;p>DKMS（动态内核模块系统）是一个用于自动构建和安装内核模块的框架。但需要和MOK配合，也就是需要把DKMS生成的密钥加入MOK中信任。&lt;/p>- https://www.panwenbin.cn/posts/uefi-secure-boot/ - copyright here</description></item><item><title>Windows下安装OpenSSH Server</title><link>https://www.panwenbin.cn/posts/windows-openssh-server/</link><pubDate>Wed, 07 May 2025 17:30:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/windows-openssh-server/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/windows-openssh-server/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;p>DKMS（动态内核模块系统）是一个用于自动构建和安装内核模块的框架。但需要和MOK配合，也就是需要把DKMS生成的密钥加入MOK中信任。&lt;/p>- https://www.panwenbin.cn/posts/uefi-secure-boot/ - 2025 潘文斌</description></item><item><title>Windows下安装OpenSSH Server</title><link>https://www.panwenbin.cn/posts/windows-openssh-server/</link><pubDate>Wed, 07 May 2025 17:30:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/windows-openssh-server/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/windows-openssh-server/ -&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>有时候要在Windows上执行一些命令，并且不想来回复制结果。通过SSH可以把命令行结果直接输出给本地Linux程序。&lt;/p>&lt;/blockquote>
 &lt;h2 id="系统要求">系统要求&lt;/h2>
@@ -207,7 +207,7 @@ State : NotPresent
 &lt;li>SSH的登录名称是账户的本地账户名&lt;/li>
 &lt;li>SSH的密码如果使用的联网账户，则是联网账户密码，如果是本地账户，则是本地账户密码。&lt;/li>
 &lt;li>如果用Pubkey验证，管理员的公钥需要放在&lt;code>C:\ProgramData\ssh\administrators_authorized_keys&lt;/code>文件中，其他用户的公钥放在&lt;code>C:\Users\&amp;lt;username&amp;gt;\.ssh\authorized_keys&lt;/code>文件中。&lt;/li>
-&lt;/ol>- https://www.panwenbin.cn/posts/windows-openssh-server/ - copyright here</description></item><item><title>Linux使用FFmpeg制作简易云电脑</title><link>https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/</link><pubDate>Sat, 03 May 2025 16:30:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;/ol>- https://www.panwenbin.cn/posts/windows-openssh-server/ - 2025 潘文斌</description></item><item><title>Linux使用FFmpeg制作简易云电脑</title><link>https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/</link><pubDate>Sat, 03 May 2025 16:30:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/ -&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>最近挺流行云电脑、云游戏的。试一下Linux下使用FFmpeg制作简易云电脑的效果。&lt;/p>&lt;/blockquote>
 &lt;h2 id="先上总结">先上总结&lt;/h2>
@@ -281,7 +281,7 @@ mpegts封装aac容易不识别，改为ac3可以，但是和hevc一起有会播�
 &lt;li>鼠标在本地移动和点击后，发送相对于显示内容的位置和事件到远程，可以改善鼠标漂移的体验。&lt;/li>
 &lt;li>通过&lt;code>-window_id&lt;/code>可以指定录制窗口，后台窗口也可以。如果配合xdotool应该可以操作单个窗口。&lt;/li>
 &lt;li>如果录制端是Windows系统和N卡，能做到最低多少延时。&lt;/li>
-&lt;/ol>- https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/ - copyright here</description></item><item><title>Linux如何定时关机</title><link>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</link><pubDate>Sat, 03 May 2025 16:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-scheduled-shutdown/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;/ol>- https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/ - 2025 潘文斌</description></item><item><title>Linux如何定时关机</title><link>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</link><pubDate>Sat, 03 May 2025 16:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-scheduled-shutdown/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>Linux下如何定时关机？&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
@@ -290,4 +290,4 @@ mpegts封装aac容易不识别，改为ac3可以，但是和hevc一起有会播�
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>shutdown -h +60 &lt;span style="color:#8a93a5;font-style:italic"># 60分钟后关机&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>shutdown -c &lt;span style="color:#8a93a5;font-style:italic"># 取消定时关机&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>shutdown -h now &lt;span style="color:#8a93a5;font-style:italic"># 立即关机&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>需要管理员身份运行或者加上&lt;code>sudo&lt;/code>。&lt;/p>- https://www.panwenbin.cn/posts/linux-scheduled-shutdown/ - copyright here</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>需要管理员身份运行或者加上&lt;code>sudo&lt;/code>。&lt;/p>- https://www.panwenbin.cn/posts/linux-scheduled-shutdown/ - 2025 潘文斌</description></item></channel></rss>
