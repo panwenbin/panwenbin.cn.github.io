@@ -10,7 +10,15 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>根据查到的IP地址，删除&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo ip addr del 192.168.1.100/24 dev eth0 &lt;span style="color:#8a93a5;font-style:italic"># ip和dev改为自己电脑的&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="持久关闭">持久关闭&lt;/h3>
-&lt;p>如果安装了&lt;code>Network Manager&lt;/code>，也可以用&lt;code>nmtui&lt;/code> - Edit a connection - 选中后Edit，到IPv4 CONFIGRATION 选Disabled，禁用ipv4。&lt;/p>- https://www.panwenbin.cn/posts/linux-disable-ipv4/ - 2025 潘文斌</description></item><item><title>免费证件照软件</title><link>https://www.panwenbin.cn/posts/free-id-photo/</link><pubDate>Wed, 04 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/free-id-photo/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/free-id-photo/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;p>如果安装了&lt;code>Network Manager&lt;/code>，也可以用&lt;code>nmtui&lt;/code> - Edit a connection - 选中后Edit，到IPv4 CONFIGRATION 选Disabled，禁用ipv4。&lt;/p>
+&lt;p>或者直接执行&lt;code>nmcli&lt;/code>命令&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>nmcli connection modify &lt;span style="color:#63c381">&amp;#34;Wired connection 1&amp;#34;&lt;/span> ipv4.method disabled
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>将&lt;code>Wired connection 1&lt;/code>改为自己的连接名称。查看连接名称可以执行&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>nmcli connection show
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>改完后重启网络生效&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>nmcli connection down &lt;span style="color:#63c381">&amp;#34;Wired connection 1&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>nmcli connection up &lt;span style="color:#63c381">&amp;#34;Wired connection 1&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-disable-ipv4/ - 2025 潘文斌</description></item><item><title>免费证件照软件</title><link>https://www.panwenbin.cn/posts/free-id-photo/</link><pubDate>Wed, 04 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/free-id-photo/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/free-id-photo/ -&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>儿子学校信息采集需要一个蓝底证件照，于是拿起手机拍了照片就准备处理成证件照。&lt;br>
 记忆中曾经用过app最美证件照，只能导出低清晰度证件照，想着凑合用吧。&lt;br>
