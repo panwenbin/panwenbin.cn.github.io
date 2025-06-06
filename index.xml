@@ -1,4 +1,53 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Thu, 05 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux如何关闭IPv4并保留IPv6</title><link>https://www.panwenbin.cn/posts/linux-disable-ipv4/</link><pubDate>Thu, 05 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-disable-ipv4/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-disable-ipv4/ -&lt;h2 id="问题">问题&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Thu, 05 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo模板之Doks使用记录</title><link>https://www.panwenbin.cn/posts/hugo-doks/</link><pubDate>Thu, 05 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/hugo-doks/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/hugo-doks/ -&lt;h2 id="喜新厌旧">喜新厌旧&lt;/h2>
+&lt;blockquote>
+&lt;p>之前在Hugo上找文档的模板，相中了Doks，但是最近再去看，更喜欢Hextra了。&lt;br>
+再换掉它之前，先做个记录吧。&lt;/p>&lt;/blockquote>
+&lt;h2 id="安装">安装&lt;/h2>
+&lt;p>Doks推荐的安装方式是用npm。也就是直接新建了一个项目&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>npm create thulite@latest -- --template doks
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>npm的好处呢，已经做好packages配置，稍微方便一点吧。&lt;/p>
+&lt;h3 id="基本配置">基本配置&lt;/h3>
+&lt;p>从&lt;code>config/_default/hugo.toml&lt;/code>修改站点基本信息。&lt;/p>
+&lt;h3 id="多语言配置">多语言配置&lt;/h3>
+&lt;p>从&lt;code>config/_default/languages.toml&lt;/code>设置多语言。并到&lt;code>config/_default/hugo.toml&lt;/code>中设置默认语言，并在&lt;code>disableLanguages&lt;/code>去掉要开放的语言。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-toml" data-lang="toml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># Multilingual&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c1abea">defaultContentLanguage&lt;/span> = &lt;span style="color:#63c381">&amp;#34;en&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c1abea">disableLanguages&lt;/span> = [&lt;span style="color:#63c381">&amp;#34;de&amp;#34;&lt;/span>, &lt;span style="color:#63c381">&amp;#34;nl&amp;#34;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c1abea">defaultContentLanguageInSubdir&lt;/span> = &lt;span style="color:#b756ff;font-weight:bold">false&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以添加一个&lt;code>zh&lt;/code>语言，设置为默认。&lt;code>en&lt;/code>不禁用。那就支持中英文双语了。
+&lt;code>defaultContentLanguageInSubdir&lt;/code>如果设置为&lt;code>true&lt;/code>，表示多语言在子目录下。&lt;/p>
+&lt;p>这里开启多语言后，就报错了。&lt;/p>
+&lt;pre tabindex="0">&lt;code>ERROR No js resource found at /assets/js/flexsearch.zh.js
+&lt;/code>&lt;/pre>&lt;p>从&lt;a href="https://github.com/thuliteio/doks/discussions/1288">discussions/1288&lt;/a>，中看到说复制&lt;code>node_modules/@thulite/doks-core/assets/js/flexsearch.js&lt;/code>到对应位置。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>cp node_modules/@thulite/doks-core/assets/js/flexsearch.js /assets/js/flexsearch.zh.js
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cp node_modules/@thulite/doks-core/assets/js/flexsearch.js /assets/js/flexsearch.en.js
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>翻译文件需要新建如&lt;code>i18n/zh.toml&lt;/code>，&lt;code>i18n/en.toml&lt;/code>&lt;/p>
+&lt;p>更多多语言设置可以看&lt;a href="https://getdoks.org/docs/guides/i18n/">i18n文档&lt;/a>。&lt;/p>
+&lt;h2 id="使用">使用&lt;/h2>
+&lt;h3 id="数学公式">数学公式&lt;/h3>
+&lt;p>Doks使用的是&lt;code>vercel.app&lt;/code>的&lt;a href="https://math.vercel.app/home">Math API&lt;/a>，没有用常规的JS库KaTeX或MathJax。&lt;/p>
+&lt;p>所以写法上有一些不同，需要包在&lt;code>math&lt;/code>的codeblock中：&lt;/p>
+&lt;pre tabindex="0">&lt;code>```math
+$$
+\frac{1}{\Gamma(s)}\int_{0}^{\infty}\frac{u^{s-1}}{e^{u}-1}\mathrm{d}u
+$$
+```
+&lt;/code>&lt;/pre>&lt;p>如果要引入MathJax，可以在&lt;code>layouts/partials/head/script-header.html&lt;/code>中添加&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-html" data-lang="html">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span> &lt;span style="color:#b3d23c">id&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;MathJax-script&amp;#34;&lt;/span> &lt;span style="color:#b3d23c">async&lt;/span> &lt;span style="color:#b3d23c">src&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">MathJax&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">tex&lt;/span>&lt;span style="color:#c7bf54">:&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">displayMath&lt;/span>&lt;span style="color:#c7bf54">:&lt;/span> [[&lt;span style="color:#98c379">&amp;#39;\\[&amp;#39;&lt;/span>, &lt;span style="color:#98c379">&amp;#39;\\]&amp;#39;&lt;/span>], [&lt;span style="color:#98c379">&amp;#39;$$&amp;#39;&lt;/span>, &lt;span style="color:#98c379">&amp;#39;$$&amp;#39;&lt;/span>]], &lt;span style="color:#8a93a5;font-style:italic">// block
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">&lt;/span> &lt;span style="color:#c1abea">inlineMath&lt;/span>&lt;span style="color:#c7bf54">:&lt;/span> [[&lt;span style="color:#98c379">&amp;#39;\\(&amp;#39;&lt;/span>, &lt;span style="color:#98c379">&amp;#39;\\)&amp;#39;&lt;/span>]] &lt;span style="color:#8a93a5;font-style:italic">// inline
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">&lt;/span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">loader&lt;/span>&lt;span style="color:#c7bf54">:&lt;/span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">load&lt;/span>&lt;span style="color:#c7bf54">:&lt;/span> [&lt;span style="color:#98c379">&amp;#39;ui/safe&amp;#39;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> };
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>一开始感觉样式比较简单，后来看着样式有点太素了。左侧菜单越看越丑，深深的加粗黑字感觉生硬，其他样式也没什么好看的。&lt;br>
+而且作为Hugo模板，在样式上做的一般，本身素质不具备让人抛弃其他选择而选择它。单独的项目结构，有点脱离Hugo Theme的范畴了，使得绑定太强，更换其他theme变得不方便。&lt;/p>- https://www.panwenbin.cn/posts/hugo-doks/ - 2025 潘文斌</description></item><item><title>Linux如何关闭IPv4并保留IPv6</title><link>https://www.panwenbin.cn/posts/linux-disable-ipv4/</link><pubDate>Thu, 05 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-disable-ipv4/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-disable-ipv4/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>之前写了Linux如何关闭IPv6，在Linux上如何关闭IPv4呢？&lt;br>
 想当然觉得&lt;code>net.ipv4.conf.all.disable_ipv4&lt;/code>就行吧，结果没有这个选项。&lt;/p>&lt;/blockquote>
@@ -289,13 +338,4 @@ mpegts封装aac容易不识别，改为ac3可以，但是和hevc一起有会播�
 &lt;li>鼠标在本地移动和点击后，发送相对于显示内容的位置和事件到远程，可以改善鼠标漂移的体验。&lt;/li>
 &lt;li>通过&lt;code>-window_id&lt;/code>可以指定录制窗口，后台窗口也可以。如果配合xdotool应该可以操作单个窗口。&lt;/li>
 &lt;li>如果录制端是Windows系统和N卡，能做到最低多少延时。&lt;/li>
-&lt;/ol>- https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/ - 2025 潘文斌</description></item><item><title>Linux如何定时关机</title><link>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</link><pubDate>Sat, 03 May 2025 16:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-scheduled-shutdown/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>Linux下如何定时关机？&lt;/p>&lt;/blockquote>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;p>使用&lt;code>shutdown&lt;/code>命令可以实现定时关机。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>shutdown -h 23:00 &lt;span style="color:#8a93a5;font-style:italic"># 在23:00关机&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>shutdown -h +60 &lt;span style="color:#8a93a5;font-style:italic"># 60分钟后关机&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>shutdown -c &lt;span style="color:#8a93a5;font-style:italic"># 取消定时关机&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>shutdown -h now &lt;span style="color:#8a93a5;font-style:italic"># 立即关机&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>需要管理员身份运行或者加上&lt;code>sudo&lt;/code>。&lt;/p>- https://www.panwenbin.cn/posts/linux-scheduled-shutdown/ - 2025 潘文斌</description></item></channel></rss>
+&lt;/ol>- https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/ - 2025 潘文斌</description></item></channel></rss>

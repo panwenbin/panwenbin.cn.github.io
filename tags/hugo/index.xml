@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hugo on 潘文斌的技术文章</title><link>https://www.panwenbin.cn/tags/hugo/</link><description>Recent content in Hugo on 潘文斌的技术文章</description><generator>Hugo</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Thu, 05 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/tags/hugo/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo模板之Doks使用记录</title><link>https://www.panwenbin.cn/posts/hugo-doks/</link><pubDate>Thu, 05 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/hugo-doks/</guid><description>&lt;h2 id="喜新厌旧">喜新厌旧&lt;/h2>
+&lt;blockquote>
+&lt;p>之前在Hugo上找文档的模板，相中了Doks，但是最近再去看，更喜欢Hextra了。&lt;br>
+再换掉它之前，先做个记录吧。&lt;/p>&lt;/blockquote></description></item></channel></rss>
