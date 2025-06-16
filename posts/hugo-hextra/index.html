@@ -1,0 +1,174 @@
+<!doctype html><html lang=zh><head><title>Hugo模板之Hextra使用记录</title>
+<meta charset=utf-8><meta name=X-UA-Compatible content="IE=edge"><meta name=google-site-verification content><meta content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=5" name=viewport><meta content="telephone=no" name=format-detection><meta name=description content><meta name=renderer content="webkit"><meta name=theme-color content="#ffffff"><meta property="og:url" content="https://www.panwenbin.cn/posts/hugo-hextra/"><meta property="og:site_name" content="潘文斌的技术文章"><meta property="og:title" content="Hugo模板之Hextra使用记录"><meta property="og:description" content="原因 Hextra是一个较新的Hugo主题，使用Tailwind CSS提供了现代化的设计。作者是国人，主题也比较符合国人审美。 左侧导航更美观，还提供了一些组件，使得整体美观度更高。"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-06-16T08:00:00+08:00"><meta property="article:modified_time" content="2025-06-16T08:00:00+08:00"><meta property="article:tag" content="Hugo"><meta name=twitter:card content="summary"><meta name=twitter:title content="Hugo模板之Hextra使用记录"><meta name=twitter:description content="原因 Hextra是一个较新的Hugo主题，使用Tailwind CSS提供了现代化的设计。作者是国人，主题也比较符合国人审美。 左侧导航更美观，还提供了一些组件，使得整体美观度更高。"><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","abcdefghzd")</script><script src=/js/toc.js></script><link type=text/css rel=stylesheet href=/vendor/css/bootstrap.min.css><link rel=stylesheet href=/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media=screen><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Material+Icons"><script src=https://fastly.jsdelivr.net/npm/live2d-widgets@0/autoload.js></script></head><body><div id=app><div class=single-column-drawer-container id=drawer v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }"><div class=drawer-content><div class=drawer-menu><a class="a-block drawer-menu-item active" href=/posts>归档 Archive
+</a><a class="a-block drawer-menu-item false" href=/categories>分类 Categories
+</a><a class="a-block drawer-menu-item false" href=/tags>标签 Tags
+</a><a class="a-block drawer-menu-item false" href=/index.xml>RSS Feed</a><div class=toc><div class=toc-content><center>- 目录 -</center><ul><ul><li><a href=#%e5%8e%9f%e5%9b%a0 class=nav-原因>原因</a></li><li><a href=#%e5%ae%89%e8%a3%85 class=nav-安装>安装</a></li><li><a href=#%e5%9f%ba%e6%9c%ac%e8%ae%be%e7%bd%ae class=nav-基本设置>基本设置</a></li><li><a href=#%e5%b8%83%e5%b1%80 class=nav-布局>布局</a></li><li><a href=#%e9%9d%a2%e5%8c%85%e5%b1%91 class=nav-面包屑>面包屑</a></li><li><a href=#%e6%8f%90%e7%a4%ba%e6%a1%86 class=nav-提示框>提示框</a></li><li><a href=#%e7%bd%91%e7%ab%99%e5%9b%be%e6%a0%87 class=nav-网站图标>网站图标</a></li><li><a href=#%e4%bb%a3%e7%a0%81%e9%ab%98%e4%ba%ae class=nav-代码高亮>代码高亮</a></li><ul><li><a href=#%e6%96%87%e4%bb%b6%e5%90%8d class=nav-文件名>文件名</a></li><li><a href=#%e6%96%87%e4%bb%b6%e9%93%be%e6%8e%a5 class=nav-文件链接>文件链接</a></li><li><a href=#%e8%a1%8c%e5%8f%b7 class=nav-行号>行号</a></li><li><a href=#%e9%ab%98%e4%ba%ae%e8%a1%8c class=nav-高亮行>高亮行</a></li></ul><li><a href=#%e7%9f%ad%e4%bb%a3%e7%a0%81 class=nav-短代码>短代码</a></li><ul><li><a href=#%e6%a0%87%e7%ad%be%e9%a1%b5 class=nav-标签页>标签页</a></li><li><a href=#%e6%ad%a5%e9%aa%a4 class=nav-步骤>步骤</a></li><li><a href=#%e5%8d%a1%e7%89%87 class=nav-卡片>卡片</a></li><li><a href=#%e6%8f%90%e7%a4%ba%e6%a1%86-1 class=nav-提示框-1>提示框</a></li><li><a href=#%e5%9b%be%e6%a0%87 class=nav-图标>图标</a></li><li><a href=#%e6%96%87%e4%bb%b6%e6%a0%91 class=nav-文件树>文件树</a></li><li><a href=#%e8%af%a6%e6%83%85 class=nav-详情>详情</a></li></ul><li><a href=#%e6%80%bb%e7%bb%93 class=nav-总结>总结</a></li></ul></div></div></div></div></div><transition name=fade><div id=drawer-mask v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if=isDrawerOpen v-on:click=toggleDrawer></div></transition><nav id=navBar class="navbar sticky-top navbar-light single-column-nav-container"><div id=navBackground class=nav-background></div><div class="container container-narrow nav-content"><button id=nav_dropdown_btn class=nav-dropdown-toggle type=button v-on:click=toggleDrawer>
+<i class=material-icons>menu
+</i></button>
+<a id=navTitle class=navbar-brand href=https://www.panwenbin.cn/>潘文斌的技术文章
+</a><button type=button class=nav-darkmode-toggle id=darkModeToggleButton2>
+<i class=material-icons id=darkModeToggleIcon2>dark_mode</i></button></div></nav><div class=single-column-header-container id=pageHead v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }"><a href=https://www.panwenbin.cn/><div class=single-column-header-title>潘文斌的技术文章</div><div class=single-column-header-subtitle>每一篇都认真修改，网罗更多内容</div></a></div><div id=content><div id=streamContainer class=stream-container><div class="post-list-container post-list-container-shadow"><div class=post><div class=post-head-wrapper-text-only><div class=post-title>Hugo模板之Hextra使用记录<div class=post-meta><time itemprop=datePublished>2025-06-16 08:00
+</time><i class=material-icons>folder</i>
+<a href=/categories/%E8%AE%B0%E5%BD%95>记录</a>
+&nbsp;
+<i class=material-icons>label</i>
+<a href=/tags/hugo>Hugo</a>
+&nbsp;</div></div></div><div class=post-body-wrapper><div class=post-body v-pre><h2 id=原因>原因</h2><blockquote><p>Hextra是一个较新的Hugo主题，使用Tailwind CSS提供了现代化的设计。作者是国人，主题也比较符合国人审美。
+左侧导航更美观，还提供了一些组件，使得整体美观度更高。</p></blockquote><h2 id=安装>安装</h2><p>Hextra推荐的安装方式是使用<code>hextra-starter-template</code>，也可以使用Hugo模块或者git子模块来使用。相比Doks，对Hugo的影响较少。</p><p>打开 <a href=https://github.com/imfing/hextra-starter-template>imfing/hextra-starter-template</a>，在页面右上角点击<code>Use this template</code>，创建一个新的仓库，就可以了。</p><p>支持部署到 GitHub Pages 和 netlify</p><h2 id=基本设置>基本设置</h2><p>在<code>hugo.yaml</code>中修改标题，顶部菜单，启用Logo。</p><div class=highlight><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#e06c75>title</span>: <span style=color:#63c381>&#34;潘文斌的文档馆&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#e06c75>menu</span>:
+</span></span><span style=display:flex><span>  <span style=color:#e06c75>main</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#e06c75>name</span>: <span style=color:#98c379>Docs</span>
+</span></span><span style=display:flex><span>      <span style=color:#e06c75>pageRef</span>: <span style=color:#98c379>/docs</span>
+</span></span><span style=display:flex><span>      <span style=color:#e06c75>weight</span>: <span style=color:#d19a66>1</span>
+</span></span><span style=display:flex><span>    - <span style=color:#e06c75>name</span>: <span style=color:#98c379>About</span>
+</span></span><span style=display:flex><span>      <span style=color:#e06c75>pageRef</span>: <span style=color:#98c379>/about</span>
+</span></span><span style=display:flex><span>      <span style=color:#e06c75>weight</span>: <span style=color:#d19a66>2</span>
+</span></span><span style=display:flex><span>    - <span style=color:#e06c75>name</span>: <span style=color:#98c379>Blog ↗</span>
+</span></span><span style=display:flex><span>      <span style=color:#e06c75>url</span>: <span style=color:#63c381>&#34;https://www.panwenbin.cn&#34;</span>
+</span></span><span style=display:flex><span>      <span style=color:#e06c75>weight</span>: <span style=color:#d19a66>3</span>
+</span></span><span style=display:flex><span>    - <span style=color:#e06c75>name</span>: <span style=color:#98c379>Search</span>
+</span></span><span style=display:flex><span>      <span style=color:#e06c75>weight</span>: <span style=color:#d19a66>4</span>
+</span></span><span style=display:flex><span>      <span style=color:#e06c75>params</span>:
+</span></span><span style=display:flex><span>        <span style=color:#e06c75>type</span>: <span style=color:#98c379>search</span>
+</span></span><span style=display:flex><span>    - <span style=color:#e06c75>name</span>: <span style=color:#98c379>GitHub</span>
+</span></span><span style=display:flex><span>      <span style=color:#e06c75>weight</span>: <span style=color:#d19a66>5</span>
+</span></span><span style=display:flex><span>      <span style=color:#e06c75>url</span>: <span style=color:#63c381>&#34;https://github.com/panwenbin&#34;</span>
+</span></span><span style=display:flex><span>      <span style=color:#e06c75>params</span>:
+</span></span><span style=display:flex><span>        <span style=color:#e06c75>icon</span>: <span style=color:#98c379>github</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#e06c75>params</span>:
+</span></span><span style=display:flex><span>  <span style=color:#e06c75>navbar</span>:
+</span></span><span style=display:flex><span>    <span style=color:#e06c75>displayTitle</span>: <span style=color:#b756ff;font-weight:700>true</span>
+</span></span><span style=display:flex><span>    <span style=color:#e06c75>displayLogo</span>: <span style=color:#b756ff;font-weight:700>true</span>
+</span></span><span style=display:flex><span>    <span style=color:#e06c75>logo</span>:
+</span></span><span style=display:flex><span>      <span style=color:#e06c75>path</span>: <span style=color:#98c379>images/logo.svg</span>
+</span></span><span style=display:flex><span>      <span style=color:#e06c75>dark</span>: <span style=color:#98c379>images/logo-dark.svg</span>
+</span></span></code></pre></div><h2 id=布局>布局</h2><p><code>content/docs/</code>下默认是<code>docs</code>布局，<code>content/blog/</code>下是<code>blog</code>布局，其他目录目录是<code>default</code>布局。</p><h2 id=面包屑>面包屑</h2><p>默认以<code>title</code>生成，可以用<code>linkTitle</code>自定义面包屑文字。通过页面中<code>breadcrumbs: false</code>可以关闭面包屑。</p><h2 id=提示框>提示框</h2><div class=highlight><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span><span style=color:#c678dd>&gt; </span><span style=font-style:italic>[!NOTE]
+</span></span></span><span style=display:flex><span><span style=font-style:italic></span><span style=color:#c678dd>&gt; </span><span style=font-style:italic>用户应该知道的有用信息，即使是在浏览内容时。
+</span></span></span><span style=display:flex><span><span style=font-style:italic></span><span style=color:#c678dd>
+</span></span></span><span style=display:flex><span><span style=color:#c678dd>&gt; </span><span style=font-style:italic>[!TIP]
+</span></span></span><span style=display:flex><span><span style=font-style:italic></span><span style=color:#c678dd>&gt; </span><span style=font-style:italic>帮助用户更好地或更轻松地完成任务的建议。
+</span></span></span><span style=display:flex><span><span style=font-style:italic></span><span style=color:#c678dd>
+</span></span></span><span style=display:flex><span><span style=color:#c678dd>&gt; </span><span style=font-style:italic>[!IMPORTANT]
+</span></span></span><span style=display:flex><span><span style=font-style:italic></span><span style=color:#c678dd>&gt; </span><span style=font-style:italic>用户需要了解的关键信息，以实现他们的目标。
+</span></span></span><span style=display:flex><span><span style=font-style:italic></span><span style=color:#c678dd>
+</span></span></span><span style=display:flex><span><span style=color:#c678dd>&gt; </span><span style=font-style:italic>[!WARNING]
+</span></span></span><span style=display:flex><span><span style=font-style:italic></span><span style=color:#c678dd>&gt; </span><span style=font-style:italic>需要用户立即注意的紧急信息，以避免问题。
+</span></span></span><span style=display:flex><span><span style=font-style:italic></span><span style=color:#c678dd>
+</span></span></span><span style=display:flex><span><span style=color:#c678dd>&gt; </span><span style=font-style:italic>[!CAUTION]
+</span></span></span><span style=display:flex><span><span style=font-style:italic></span><span style=color:#c678dd>&gt; </span><span style=font-style:italic>关于某些操作的风险或负面结果的建议。
+</span></span></span></code></pre></div><h2 id=网站图标>网站图标</h2><p>在<code>static</code>目录下，放置网站图标和相关文件。Hextra主题已经预设了常用的图标文件。</p><ul><li>android-chrome-192x192.png</li><li>android-chrome-512x512.png</li><li>apple-touch-icon.png</li><li>favicon-16x16.png</li><li>favicon-32x32.png</li><li>favicon-dark.svg</li><li>favicon.ico</li><li>favicon.svg</li><li>site.webmanifest</li></ul><h2 id=代码高亮>代码高亮</h2><h3 id=文件名>文件名</h3><div class=highlight filename=Markdown><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span><span style=color:#98c379>```python
+</span></span></span><span style=display:flex><span><span style=color:#98c379></span><span style=color:#c678dd>def</span> <span style=color:#00b1f7>say_hello</span>():
+</span></span><span style=display:flex><span>    <span style=color:#ef8383>print</span>(<span style=color:#63c381>&#34;Hello!&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#98c379>```</span>
+</span></span></code></pre></div><h3 id=文件链接>文件链接</h3><div class=highlight filename=Markdown><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span>``<span style=color:#98c379>`go {base_url=&#34;https://github.com/imfing/hextra/blob/main/&#34;,filename=&#34;exampleSite/hugo.work&#34;}
+</span></span></span><span style=display:flex><span><span style=color:#98c379>go 1.20
+</span></span></span><span style=display:flex><span><span style=color:#98c379>`</span>``
+</span></span></code></pre></div><h3 id=行号>行号</h3><div class=highlight filename=Markdown><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span>``<span style=color:#98c379>`python {linenos=table,linenostart=42}
+</span></span></span><span style=display:flex><span><span style=color:#98c379>def say_hello():
+</span></span></span><span style=display:flex><span><span style=color:#98c379>    print(&#34;Hello!&#34;)
+</span></span></span><span style=display:flex><span><span style=color:#98c379>`</span>``
+</span></span></code></pre></div><h3 id=高亮行>高亮行</h3><div class=highlight filename=Markdown><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span>``<span style=color:#98c379>`python {linenos=table,hl_lines=[2,4],linenostart=1,filename=&#34;hello.py&#34;}
+</span></span></span><span style=display:flex><span><span style=color:#98c379>def say_hello():
+</span></span></span><span style=display:flex><span><span style=color:#98c379>    print(&#34;Hello!&#34;)
+</span></span></span><span style=display:flex><span><span style=color:#98c379>
+</span></span></span><span style=display:flex><span><span style=color:#98c379>def main():
+</span></span></span><span style=display:flex><span><span style=color:#98c379>    say_hello()
+</span></span></span><span style=display:flex><span><span style=color:#98c379>`</span>``
+</span></span></code></pre></div><h2 id=短代码>短代码</h2><h3 id=标签页>标签页</h3><pre tabindex=0><code>{{&lt; tabs items=&#34;JSON,YAML,TOML&#34; &gt;}}
+
+  {{&lt; tab &gt;}}**JSON**: JavaScript 对象表示法（JSON）是一种基于 JavaScript 对象语法的标准文本格式，用于表示结构化数据。{{&lt; /tab &gt;}}
+  {{&lt; tab &gt;}}**YAML**: YAML 是一种人类可读的数据序列化语言。{{&lt; /tab &gt;}}
+  {{&lt; tab &gt;}}**TOML**: TOML 旨在成为一种最小化的配置文件格式，由于其明显的语义，易于阅读。{{&lt; /tab &gt;}}
+
+{{&lt; /tabs &gt;}}
+</code></pre><p>使用 <code>defaultIndex</code> 属性来指定选中的标签页。索引从 0 开始。</p><pre tabindex=0><code>{{&lt; tabs items=&#34;JSON,YAML,TOML&#34; defaultIndex=&#34;1&#34; &gt;}}
+
+  {{&lt; tab &gt;}}**JSON**: JavaScript 对象表示法（JSON）是一种基于 JavaScript 对象语法的标准文本格式，用于表示结构化数据。{{&lt; /tab &gt;}}
+  {{&lt; tab &gt;}}**YAML**: YAML 是一种人类可读的数据序列化语言。{{&lt; /tab &gt;}}
+  {{&lt; tab &gt;}}**TOML**: TOML 旨在成为一种最小化的配置文件格式，由于其明显的语义，易于阅读。{{&lt; /tab &gt;}}
+
+{{&lt; /tabs &gt;}}
+</code></pre><h3 id=步骤>步骤</h3><pre tabindex=0><code>{{% steps %}}
+
+### 第一步
+
+这是第一步。
+
+### 第二步
+
+这是第二步。
+
+{{% /steps %}}
+</code></pre><h3 id=卡片>卡片</h3><pre tabindex=0><code>{{&lt; cards &gt;}}
+  {{&lt; card link=&#34;../callout&#34; title=&#34;提示框&#34; icon=&#34;warning&#34; &gt;}}
+  {{&lt; card link=&#34;../callout&#34; title=&#34;带标签的卡片&#34; icon=&#34;tag&#34; tag= &#34;自定义标签&#34; &gt;}}
+  {{&lt; card link=&#34;/&#34; title=&#34;无图标&#34; &gt;}}
+{{&lt; /cards &gt;}}
+</code></pre><pre tabindex=0><code>{{&lt; cards &gt;}}
+  {{&lt; card link=&#34;/&#34; title=&#34;图片卡片&#34; image=&#34;https://source.unsplash.com/featured/800x600?landscape&#34; subtitle=&#34;Unsplash 风景&#34; &gt;}}
+  {{&lt; card link=&#34;/&#34; title=&#34;本地图片&#34; image=&#34;/images/card-image-unprocessed.jpg&#34; subtitle=&#34;静态目录下的原始图片。&#34; &gt;}}
+  {{&lt; card link=&#34;/&#34; title=&#34;本地图片&#34; image=&#34;images/space.jpg&#34; subtitle=&#34;资源目录下的图片，由 Hugo 处理。&#34; method=&#34;Resize&#34; options=&#34;600x q80 webp&#34; &gt;}}
+{{&lt; /cards &gt;}}
+</code></pre><pre tabindex=0><code>{{&lt; cards &gt;}}
+  {{&lt; card link=&#34;../callout&#34; title=&#34;带默认标签颜色的卡片&#34; tag=&#34;标签文本&#34; &gt;}}
+  {{&lt; card link=&#34;../callout&#34; title=&#34;带红色标签的卡片&#34; tag=&#34;标签文本&#34; tagType=&#34;error&#34; &gt;}}
+  {{&lt; card link=&#34;../callout&#34; title=&#34;带蓝色标签的卡片&#34; tag=&#34;标签文本&#34; tagType=&#34;info&#34; &gt;}}
+  {{&lt; card link=&#34;../callout&#34; title=&#34;带黄色标签的卡片&#34; tag=&#34;标签文本&#34; tagType=&#34;warning&#34; &gt;}}
+{{&lt; /cards &gt;}}
+</code></pre><pre tabindex=0><code>{{&lt; cards cols=&#34;1&#34; &gt;}}
+  {{&lt; card link=&#34;/&#34; title=&#34;顶部卡片&#34; &gt;}}
+  {{&lt; card link=&#34;/&#34; title=&#34;底部卡片&#34; &gt;}}
+{{&lt; /cards &gt;}}
+
+{{&lt; cards cols=&#34;2&#34; &gt;}}
+  {{&lt; card link=&#34;/&#34; title=&#34;左侧卡片&#34; &gt;}}
+  {{&lt; card link=&#34;/&#34; title=&#34;右侧卡片&#34; &gt;}}
+{{&lt; /cards &gt;}}
+</code></pre><h3 id=提示框-1>提示框</h3><div class=highlight><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span>{{&lt; <span style=color:#e06c75>callout</span> <span style=color:#b3d23c>emoji</span><span style=color:#c7bf54>=</span><span style=color:#98c379>&#34;🌐&#34;</span> &gt;}}
+</span></span><span style=display:flex><span>  Hugo 可用于创建各种类型的网站，包括博客、作品集、文档站点等。
+</span></span><span style=display:flex><span>{{&lt; /<span style=color:#e06c75>callout</span> &gt;}}
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span>{{&lt; <span style=color:#e06c75>callout</span> <span style=color:#b3d23c>type</span><span style=color:#c7bf54>=</span><span style=color:#98c379>&#34;info&#34;</span> &gt;}}
+</span></span><span style=display:flex><span>  请访问 GitHub 查看最新版本。
+</span></span><span style=display:flex><span>{{&lt; /<span style=color:#e06c75>callout</span> &gt;}}
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span>{{&lt; <span style=color:#e06c75>callout</span> <span style=color:#b3d23c>type</span><span style=color:#c7bf54>=</span><span style=color:#98c379>&#34;warning&#34;</span> &gt;}}
+</span></span><span style=display:flex><span>  <span style=font-weight:700>**提示框**</span> 是一段简短的文本，旨在吸引注意力。
+</span></span><span style=display:flex><span>{{&lt; /<span style=color:#e06c75>callout</span> &gt;}}
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span>{{&lt; <span style=color:#e06c75>callout</span> <span style=color:#b3d23c>type</span><span style=color:#c7bf54>=</span><span style=color:#98c379>&#34;error&#34;</span> &gt;}}
+</span></span><span style=display:flex><span>  出错了，系统即将崩溃。
+</span></span><span style=display:flex><span>{{&lt; /<span style=color:#e06c75>callout</span> &gt;}}
+</span></span></code></pre></div><h3 id=图标>图标</h3><pre tabindex=0><code>{{&lt; icon &#34;github&#34; &gt;}}
+</code></pre><h3 id=文件树>文件树</h3><div class=highlight filename=Markdown><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>{{&lt; filetree/container &gt;}}
+</span></span><span style=display:flex><span>  {{&lt; filetree/folder name=&#34;content&#34; &gt;}}
+</span></span><span style=display:flex><span>    {{&lt; filetree/file name=&#34;_index.md&#34; &gt;}}
+</span></span><span style=display:flex><span>    {{&lt; filetree/folder name=&#34;docs&#34; state=&#34;closed&#34; &gt;}}
+</span></span><span style=display:flex><span>      {{&lt; filetree/file name=&#34;_index.md&#34; &gt;}}
+</span></span><span style=display:flex><span>      {{&lt; filetree/file name=&#34;introduction.md&#34; &gt;}}
+</span></span><span style=display:flex><span>      {{&lt; filetree/file name=&#34;introduction.fr.md&#34; &gt;}}
+</span></span><span style=display:flex><span>    {{&lt; /filetree/folder &gt;}}
+</span></span><span style=display:flex><span>  {{&lt; /filetree/folder &gt;}}
+</span></span><span style=display:flex><span>  {{&lt; filetree/file name=&#34;hugo.toml&#34; &gt;}}
+</span></span><span style=display:flex><span>{{&lt; /filetree/container &gt;}}
+</span></span></code></pre></div><h3 id=详情>详情</h3><div class=highlight><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span>{{% details title=&#34;详情&#34; %}}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>这是详情的内容。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>支持 <span style=font-weight:700>**Markdown**</span>。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>{{% /details %}}
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span>{{% details title=&#34;点击我展开&#34; closed=&#34;true&#34; %}}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>默认情况下，这部分内容会被隐藏。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>{{% /details %}}
+</span></span></code></pre></div><h2 id=总结>总结</h2><p>相比Doks，结构上更简洁，功能上比Doks更丰富一点，并且美观上更好看。</p><hr width=100% id=EOF><p style=color:#777>最后修改于 2025-06-16</p></div></div><nav class=post-pagination><a class=newer-posts>下回<br>已经到头啦。
+</a><a class=older-posts href=/posts/hugo-doks/>上回<br>Hugo模板之Doks使用记录</a></nav><div class=post-comment-wrapper><script src=https://giscus.app/client.js data-repo=panwenbin/panwenbin.github.io data-repo-id=R_kgDOLq44LQ data-category=General data-category-id=DIC_kwDOLq44Lc4Cegdb data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-theme=preferred_color_scheme data-lang=zh-CN crossorigin=anonymous async></script></div></div></div></div></div><div id=sideContainer class=side-container><a class="a-block nav-head false" href=https://www.panwenbin.cn/><div class=nav-title>潘文斌的技术文章</div><div class=nav-subtitle>每一篇都认真修改，网罗更多内容</div></a><div class=nav-link-list><a class="a-block nav-link-item active" href=/posts>归档 Archive
+</a><a class="a-block nav-link-item false" href=/categories>分类 Categories
+</a><a class="a-block nav-link-item false" href=/tags>标签 Tags
+</a><a class="a-block nav-link-item false" href=/index.xml>RSS Feed</a></div><div class=nav-footer>Hugo Theme <a href=https://github.com/amazingrise/hugo-theme-diary>Diary</a> by <a href=https://risehere.net/>Rise</a><br>移植自 <a href=https://mak1t0.cc/ target=_blank rel="noreferrer noopener">Makito</a>'s <a href=https://github.com/SumiMakito/hexo-theme-journal/ target=_blank rel="noreferrer noopener">Journal.</a><br><br>&copy;
+2025 潘文斌
+<a target=_blank rel=noopener href=http://beian.miit.gov.cn/>苏ICP备05017240号-8</a></div></div><div id=extraContainer class=extra-container><div class=toc-wrapper><div class=toc><div class=toc-content><center>- 目录 -</center><ul><ul><li><a href=#%e5%8e%9f%e5%9b%a0 class=nav-原因>原因</a></li><li><a href=#%e5%ae%89%e8%a3%85 class=nav-安装>安装</a></li><li><a href=#%e5%9f%ba%e6%9c%ac%e8%ae%be%e7%bd%ae class=nav-基本设置>基本设置</a></li><li><a href=#%e5%b8%83%e5%b1%80 class=nav-布局>布局</a></li><li><a href=#%e9%9d%a2%e5%8c%85%e5%b1%91 class=nav-面包屑>面包屑</a></li><li><a href=#%e6%8f%90%e7%a4%ba%e6%a1%86 class=nav-提示框>提示框</a></li><li><a href=#%e7%bd%91%e7%ab%99%e5%9b%be%e6%a0%87 class=nav-网站图标>网站图标</a></li><li><a href=#%e4%bb%a3%e7%a0%81%e9%ab%98%e4%ba%ae class=nav-代码高亮>代码高亮</a></li><ul><li><a href=#%e6%96%87%e4%bb%b6%e5%90%8d class=nav-文件名>文件名</a></li><li><a href=#%e6%96%87%e4%bb%b6%e9%93%be%e6%8e%a5 class=nav-文件链接>文件链接</a></li><li><a href=#%e8%a1%8c%e5%8f%b7 class=nav-行号>行号</a></li><li><a href=#%e9%ab%98%e4%ba%ae%e8%a1%8c class=nav-高亮行>高亮行</a></li></ul><li><a href=#%e7%9f%ad%e4%bb%a3%e7%a0%81 class=nav-短代码>短代码</a></li><ul><li><a href=#%e6%a0%87%e7%ad%be%e9%a1%b5 class=nav-标签页>标签页</a></li><li><a href=#%e6%ad%a5%e9%aa%a4 class=nav-步骤>步骤</a></li><li><a href=#%e5%8d%a1%e7%89%87 class=nav-卡片>卡片</a></li><li><a href=#%e6%8f%90%e7%a4%ba%e6%a1%86-1 class=nav-提示框-1>提示框</a></li><li><a href=#%e5%9b%be%e6%a0%87 class=nav-图标>图标</a></li><li><a href=#%e6%96%87%e4%bb%b6%e6%a0%91 class=nav-文件树>文件树</a></li><li><a href=#%e8%af%a6%e6%83%85 class=nav-详情>详情</a></li></ul><li><a href=#%e6%80%bb%e7%bb%93 class=nav-总结>总结</a></li></ul></div></div></div><div class=pagination><a id=globalBackToTop class="pagination-action animated-visibility" href=#top :class="{ invisible: scrollY == 0 }"><i class="material-icons pagination-action-icon">keyboard_arrow_up
+</i></a><a type=button class=pagination-action id=darkModeToggleButton><span class="material-icons pagination-action-icon" id=darkModeToggleIcon>dark_mode</span></a></div></div><div id=single-column-footer>Hugo Theme <a href=https://github.com/amazingrise/hugo-theme-diary>Diary</a> by <a href=https://risehere.net/>Rise</a><br>移植自 <a href=https://mak1t0.cc/ target=_blank rel="noreferrer noopener">Makito</a>'s <a href=https://github.com/SumiMakito/hexo-theme-journal/ target=_blank rel="noreferrer noopener">Journal.</a><br><br>&copy;
+2025 潘文斌
+<a target=_blank rel=noopener href=http://beian.miit.gov.cn/>苏ICP备05017240号-8</a></div></div><script src=/js/journal.js></script></body></html>

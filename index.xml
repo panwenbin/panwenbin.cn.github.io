@@ -1,4 +1,185 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Thu, 05 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo模板之Doks使用记录</title><link>https://www.panwenbin.cn/posts/hugo-doks/</link><pubDate>Thu, 05 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/hugo-doks/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/hugo-doks/ -&lt;h2 id="喜新厌旧">喜新厌旧&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Mon, 16 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo模板之Hextra使用记录</title><link>https://www.panwenbin.cn/posts/hugo-hextra/</link><pubDate>Mon, 16 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/hugo-hextra/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/hugo-hextra/ -&lt;h2 id="原因">原因&lt;/h2>
+&lt;blockquote>
+&lt;p>Hextra是一个较新的Hugo主题，使用Tailwind CSS提供了现代化的设计。作者是国人，主题也比较符合国人审美。
+左侧导航更美观，还提供了一些组件，使得整体美观度更高。&lt;/p>&lt;/blockquote>
+&lt;h2 id="安装">安装&lt;/h2>
+&lt;p>Hextra推荐的安装方式是使用&lt;code>hextra-starter-template&lt;/code>，也可以使用Hugo模块或者git子模块来使用。相比Doks，对Hugo的影响较少。&lt;/p>
+&lt;p>打开 &lt;a href="https://github.com/imfing/hextra-starter-template">imfing/hextra-starter-template&lt;/a>，在页面右上角点击&lt;code>Use this template&lt;/code>，创建一个新的仓库，就可以了。&lt;/p>
+&lt;p>支持部署到 GitHub Pages 和 netlify&lt;/p>
+&lt;h2 id="基本设置">基本设置&lt;/h2>
+&lt;p>在&lt;code>hugo.yaml&lt;/code>中修改标题，顶部菜单，启用Logo。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">title&lt;/span>: &lt;span style="color:#63c381">&amp;#34;潘文斌的文档馆&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">menu&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">main&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#e06c75">name&lt;/span>: &lt;span style="color:#98c379">Docs&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">pageRef&lt;/span>: &lt;span style="color:#98c379">/docs&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">weight&lt;/span>: &lt;span style="color:#d19a66">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#e06c75">name&lt;/span>: &lt;span style="color:#98c379">About&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">pageRef&lt;/span>: &lt;span style="color:#98c379">/about&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">weight&lt;/span>: &lt;span style="color:#d19a66">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#e06c75">name&lt;/span>: &lt;span style="color:#98c379">Blog ↗&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">url&lt;/span>: &lt;span style="color:#63c381">&amp;#34;https://www.panwenbin.cn&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">weight&lt;/span>: &lt;span style="color:#d19a66">3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#e06c75">name&lt;/span>: &lt;span style="color:#98c379">Search&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">weight&lt;/span>: &lt;span style="color:#d19a66">4&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">params&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">type&lt;/span>: &lt;span style="color:#98c379">search&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#e06c75">name&lt;/span>: &lt;span style="color:#98c379">GitHub&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">weight&lt;/span>: &lt;span style="color:#d19a66">5&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">url&lt;/span>: &lt;span style="color:#63c381">&amp;#34;https://github.com/panwenbin&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">params&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">icon&lt;/span>: &lt;span style="color:#98c379">github&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">params&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">navbar&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">displayTitle&lt;/span>: &lt;span style="color:#b756ff;font-weight:bold">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">displayLogo&lt;/span>: &lt;span style="color:#b756ff;font-weight:bold">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">logo&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">path&lt;/span>: &lt;span style="color:#98c379">images/logo.svg&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">dark&lt;/span>: &lt;span style="color:#98c379">images/logo-dark.svg&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="布局">布局&lt;/h2>
+&lt;p>&lt;code>content/docs/&lt;/code>下默认是&lt;code>docs&lt;/code>布局，&lt;code>content/blog/&lt;/code>下是&lt;code>blog&lt;/code>布局，其他目录目录是&lt;code>default&lt;/code>布局。&lt;/p>
+&lt;h2 id="面包屑">面包屑&lt;/h2>
+&lt;p>默认以&lt;code>title&lt;/code>生成，可以用&lt;code>linkTitle&lt;/code>自定义面包屑文字。通过页面中&lt;code>breadcrumbs: false&lt;/code>可以关闭面包屑。&lt;/p>
+&lt;h2 id="提示框">提示框&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">&amp;gt; &lt;/span>&lt;span style="font-style:italic">[!NOTE]
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="font-style:italic">&lt;/span>&lt;span style="color:#c678dd">&amp;gt; &lt;/span>&lt;span style="font-style:italic">用户应该知道的有用信息，即使是在浏览内容时。
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="font-style:italic">&lt;/span>&lt;span style="color:#c678dd">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">&amp;gt; &lt;/span>&lt;span style="font-style:italic">[!TIP]
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="font-style:italic">&lt;/span>&lt;span style="color:#c678dd">&amp;gt; &lt;/span>&lt;span style="font-style:italic">帮助用户更好地或更轻松地完成任务的建议。
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="font-style:italic">&lt;/span>&lt;span style="color:#c678dd">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">&amp;gt; &lt;/span>&lt;span style="font-style:italic">[!IMPORTANT]
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="font-style:italic">&lt;/span>&lt;span style="color:#c678dd">&amp;gt; &lt;/span>&lt;span style="font-style:italic">用户需要了解的关键信息，以实现他们的目标。
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="font-style:italic">&lt;/span>&lt;span style="color:#c678dd">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">&amp;gt; &lt;/span>&lt;span style="font-style:italic">[!WARNING]
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="font-style:italic">&lt;/span>&lt;span style="color:#c678dd">&amp;gt; &lt;/span>&lt;span style="font-style:italic">需要用户立即注意的紧急信息，以避免问题。
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="font-style:italic">&lt;/span>&lt;span style="color:#c678dd">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">&amp;gt; &lt;/span>&lt;span style="font-style:italic">[!CAUTION]
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="font-style:italic">&lt;/span>&lt;span style="color:#c678dd">&amp;gt; &lt;/span>&lt;span style="font-style:italic">关于某些操作的风险或负面结果的建议。
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="网站图标">网站图标&lt;/h2>
+&lt;p>在&lt;code>static&lt;/code>目录下，放置网站图标和相关文件。Hextra主题已经预设了常用的图标文件。&lt;/p>
+&lt;ul>
+&lt;li>android-chrome-192x192.png&lt;/li>
+&lt;li>android-chrome-512x512.png&lt;/li>
+&lt;li>apple-touch-icon.png&lt;/li>
+&lt;li>favicon-16x16.png&lt;/li>
+&lt;li>favicon-32x32.png&lt;/li>
+&lt;li>favicon-dark.svg&lt;/li>
+&lt;li>favicon.ico&lt;/li>
+&lt;li>favicon.svg&lt;/li>
+&lt;li>site.webmanifest&lt;/li>
+&lt;/ul>
+&lt;h2 id="代码高亮">代码高亮&lt;/h2>
+&lt;h3 id="文件名">文件名&lt;/h3>
+&lt;div class="highlight" filename="Markdown">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">```python
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">&lt;/span>&lt;span style="color:#c678dd">def&lt;/span> &lt;span style="color:#00b1f7">say_hello&lt;/span>():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ef8383">print&lt;/span>(&lt;span style="color:#63c381">&amp;#34;Hello!&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">```&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="文件链接">文件链接&lt;/h3>
+&lt;div class="highlight" filename="Markdown">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>``&lt;span style="color:#98c379">`go {base_url=&amp;#34;https://github.com/imfing/hextra/blob/main/&amp;#34;,filename=&amp;#34;exampleSite/hugo.work&amp;#34;}
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">go 1.20
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">`&lt;/span>``
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="行号">行号&lt;/h3>
+&lt;div class="highlight" filename="Markdown">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>``&lt;span style="color:#98c379">`python {linenos=table,linenostart=42}
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">def say_hello():
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379"> print(&amp;#34;Hello!&amp;#34;)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">`&lt;/span>``
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="高亮行">高亮行&lt;/h3>
+&lt;div class="highlight" filename="Markdown">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>``&lt;span style="color:#98c379">`python {linenos=table,hl_lines=[2,4],linenostart=1,filename=&amp;#34;hello.py&amp;#34;}
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">def say_hello():
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379"> print(&amp;#34;Hello!&amp;#34;)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">def main():
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379"> say_hello()
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">`&lt;/span>``
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="短代码">短代码&lt;/h2>
+&lt;h3 id="标签页">标签页&lt;/h3>
+&lt;pre tabindex="0">&lt;code>{{&amp;lt; tabs items=&amp;#34;JSON,YAML,TOML&amp;#34; &amp;gt;}}
+{{&amp;lt; tab &amp;gt;}}**JSON**: JavaScript 对象表示法（JSON）是一种基于 JavaScript 对象语法的标准文本格式，用于表示结构化数据。{{&amp;lt; /tab &amp;gt;}}
+{{&amp;lt; tab &amp;gt;}}**YAML**: YAML 是一种人类可读的数据序列化语言。{{&amp;lt; /tab &amp;gt;}}
+{{&amp;lt; tab &amp;gt;}}**TOML**: TOML 旨在成为一种最小化的配置文件格式，由于其明显的语义，易于阅读。{{&amp;lt; /tab &amp;gt;}}
+{{&amp;lt; /tabs &amp;gt;}}
+&lt;/code>&lt;/pre>&lt;p>使用 &lt;code>defaultIndex&lt;/code> 属性来指定选中的标签页。索引从 0 开始。&lt;/p>
+&lt;pre tabindex="0">&lt;code>{{&amp;lt; tabs items=&amp;#34;JSON,YAML,TOML&amp;#34; defaultIndex=&amp;#34;1&amp;#34; &amp;gt;}}
+{{&amp;lt; tab &amp;gt;}}**JSON**: JavaScript 对象表示法（JSON）是一种基于 JavaScript 对象语法的标准文本格式，用于表示结构化数据。{{&amp;lt; /tab &amp;gt;}}
+{{&amp;lt; tab &amp;gt;}}**YAML**: YAML 是一种人类可读的数据序列化语言。{{&amp;lt; /tab &amp;gt;}}
+{{&amp;lt; tab &amp;gt;}}**TOML**: TOML 旨在成为一种最小化的配置文件格式，由于其明显的语义，易于阅读。{{&amp;lt; /tab &amp;gt;}}
+{{&amp;lt; /tabs &amp;gt;}}
+&lt;/code>&lt;/pre>&lt;h3 id="步骤">步骤&lt;/h3>
+&lt;pre tabindex="0">&lt;code>{{% steps %}}
+### 第一步
+这是第一步。
+### 第二步
+这是第二步。
+{{% /steps %}}
+&lt;/code>&lt;/pre>&lt;h3 id="卡片">卡片&lt;/h3>
+&lt;pre tabindex="0">&lt;code>{{&amp;lt; cards &amp;gt;}}
+{{&amp;lt; card link=&amp;#34;../callout&amp;#34; title=&amp;#34;提示框&amp;#34; icon=&amp;#34;warning&amp;#34; &amp;gt;}}
+{{&amp;lt; card link=&amp;#34;../callout&amp;#34; title=&amp;#34;带标签的卡片&amp;#34; icon=&amp;#34;tag&amp;#34; tag= &amp;#34;自定义标签&amp;#34; &amp;gt;}}
+{{&amp;lt; card link=&amp;#34;/&amp;#34; title=&amp;#34;无图标&amp;#34; &amp;gt;}}
+{{&amp;lt; /cards &amp;gt;}}
+&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>{{&amp;lt; cards &amp;gt;}}
+{{&amp;lt; card link=&amp;#34;/&amp;#34; title=&amp;#34;图片卡片&amp;#34; image=&amp;#34;https://source.unsplash.com/featured/800x600?landscape&amp;#34; subtitle=&amp;#34;Unsplash 风景&amp;#34; &amp;gt;}}
+{{&amp;lt; card link=&amp;#34;/&amp;#34; title=&amp;#34;本地图片&amp;#34; image=&amp;#34;/images/card-image-unprocessed.jpg&amp;#34; subtitle=&amp;#34;静态目录下的原始图片。&amp;#34; &amp;gt;}}
+{{&amp;lt; card link=&amp;#34;/&amp;#34; title=&amp;#34;本地图片&amp;#34; image=&amp;#34;images/space.jpg&amp;#34; subtitle=&amp;#34;资源目录下的图片，由 Hugo 处理。&amp;#34; method=&amp;#34;Resize&amp;#34; options=&amp;#34;600x q80 webp&amp;#34; &amp;gt;}}
+{{&amp;lt; /cards &amp;gt;}}
+&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>{{&amp;lt; cards &amp;gt;}}
+{{&amp;lt; card link=&amp;#34;../callout&amp;#34; title=&amp;#34;带默认标签颜色的卡片&amp;#34; tag=&amp;#34;标签文本&amp;#34; &amp;gt;}}
+{{&amp;lt; card link=&amp;#34;../callout&amp;#34; title=&amp;#34;带红色标签的卡片&amp;#34; tag=&amp;#34;标签文本&amp;#34; tagType=&amp;#34;error&amp;#34; &amp;gt;}}
+{{&amp;lt; card link=&amp;#34;../callout&amp;#34; title=&amp;#34;带蓝色标签的卡片&amp;#34; tag=&amp;#34;标签文本&amp;#34; tagType=&amp;#34;info&amp;#34; &amp;gt;}}
+{{&amp;lt; card link=&amp;#34;../callout&amp;#34; title=&amp;#34;带黄色标签的卡片&amp;#34; tag=&amp;#34;标签文本&amp;#34; tagType=&amp;#34;warning&amp;#34; &amp;gt;}}
+{{&amp;lt; /cards &amp;gt;}}
+&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>{{&amp;lt; cards cols=&amp;#34;1&amp;#34; &amp;gt;}}
+{{&amp;lt; card link=&amp;#34;/&amp;#34; title=&amp;#34;顶部卡片&amp;#34; &amp;gt;}}
+{{&amp;lt; card link=&amp;#34;/&amp;#34; title=&amp;#34;底部卡片&amp;#34; &amp;gt;}}
+{{&amp;lt; /cards &amp;gt;}}
+{{&amp;lt; cards cols=&amp;#34;2&amp;#34; &amp;gt;}}
+{{&amp;lt; card link=&amp;#34;/&amp;#34; title=&amp;#34;左侧卡片&amp;#34; &amp;gt;}}
+{{&amp;lt; card link=&amp;#34;/&amp;#34; title=&amp;#34;右侧卡片&amp;#34; &amp;gt;}}
+{{&amp;lt; /cards &amp;gt;}}
+&lt;/code>&lt;/pre>&lt;h3 id="提示框-1">提示框&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#e06c75">callout&lt;/span> &lt;span style="color:#b3d23c">emoji&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;🌐&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Hugo 可用于创建各种类型的网站，包括博客、作品集、文档站点等。
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /&lt;span style="color:#e06c75">callout&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#e06c75">callout&lt;/span> &lt;span style="color:#b3d23c">type&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;info&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 请访问 GitHub 查看最新版本。
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /&lt;span style="color:#e06c75">callout&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#e06c75">callout&lt;/span> &lt;span style="color:#b3d23c">type&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;warning&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="font-weight:bold">**提示框**&lt;/span> 是一段简短的文本，旨在吸引注意力。
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /&lt;span style="color:#e06c75">callout&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#e06c75">callout&lt;/span> &lt;span style="color:#b3d23c">type&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;error&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 出错了，系统即将崩溃。
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /&lt;span style="color:#e06c75">callout&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="图标">图标&lt;/h3>
+&lt;pre tabindex="0">&lt;code>{{&amp;lt; icon &amp;#34;github&amp;#34; &amp;gt;}}
+&lt;/code>&lt;/pre>&lt;h3 id="文件树">文件树&lt;/h3>
+&lt;div class="highlight" filename="Markdown">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>{{&amp;lt; filetree/container &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {{&amp;lt; filetree/folder name=&amp;#34;content&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {{&amp;lt; filetree/file name=&amp;#34;_index.md&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {{&amp;lt; filetree/folder name=&amp;#34;docs&amp;#34; state=&amp;#34;closed&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {{&amp;lt; filetree/file name=&amp;#34;_index.md&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {{&amp;lt; filetree/file name=&amp;#34;introduction.md&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {{&amp;lt; filetree/file name=&amp;#34;introduction.fr.md&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {{&amp;lt; /filetree/folder &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {{&amp;lt; /filetree/folder &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {{&amp;lt; filetree/file name=&amp;#34;hugo.toml&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /filetree/container &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="详情">详情&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{% details title=&amp;#34;详情&amp;#34; %}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>这是详情的内容。
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>支持 &lt;span style="font-weight:bold">**Markdown**&lt;/span>。
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{% /details %}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{% details title=&amp;#34;点击我展开&amp;#34; closed=&amp;#34;true&amp;#34; %}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>默认情况下，这部分内容会被隐藏。
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{% /details %}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>相比Doks，结构上更简洁，功能上比Doks更丰富一点，并且美观上更好看。&lt;/p>- https://www.panwenbin.cn/posts/hugo-hextra/ - 2025 潘文斌</description></item><item><title>Hugo模板之Doks使用记录</title><link>https://www.panwenbin.cn/posts/hugo-doks/</link><pubDate>Thu, 05 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/hugo-doks/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/hugo-doks/ -&lt;h2 id="喜新厌旧">喜新厌旧&lt;/h2>
 &lt;blockquote>
 &lt;p>之前在Hugo上找文档的模板，相中了Doks，但是最近再去看，更喜欢Hextra了。&lt;br>
 再换掉它之前，先做个记录吧。&lt;/p>&lt;/blockquote>
@@ -78,6 +259,7 @@ $$
 这个做得很彻底呢！接上电脑，scrcpy连接到照片页面还是黑屏，adb shell screencap返回文件是空的。防范做得真好！再继续也没有意义了。&lt;/p>
 &lt;p>第二个尝试的是ChatGPT推荐的&lt;code>证件照研究院&lt;/code>，说是免费保存的，试了也已经不行了，结果图那边还带水印。&lt;/p>
 &lt;p>第三个尝试了支付宝里的，也是收费的。&lt;/p>
+&lt;p>第四个尝试的是夸克，也是收费的。&lt;/p>
 &lt;p>无奈去论坛搜，得到了下面这些。&lt;/p>
 &lt;h2 id="良心选择">良心选择&lt;/h2>
 &lt;ol>
@@ -118,6 +300,7 @@ $$
 主要是一些盈利性质不明显的论坛和个人博客，还默认提供着RSS。有一些商业性的网站还提供RSS，但是开启了全站防护，导致RSS订阅也会触发防护，形同虚设了。&lt;/p>
 &lt;p>另一方面，随着信息爆炸，以及App化，很多软件改用个性推送的方式了，我们很容易就被淹没在信息流中。&lt;br>
 一些人意识到了这个问题，采用回归订阅的方式来获取信息，以提高获取效率。&lt;/p>
+&lt;p>有个开源项目&lt;a href="https://rss.tips/">ALL-about-RSS&lt;/a>收集了RSS的相关文章、工具、阅读器等。&lt;/p>
 &lt;h2 id="rsshub">RSSHub&lt;/h2>
 &lt;p>经过搜索，发现有个RSSHub的项目，已经提供了不少对不支持RSS的网站而开发的RSS，由各个提交者来维护。&lt;br>
 并且宣传工作似乎做得不错，聚集了不少人对项目做出贡献。&lt;/p>
@@ -264,78 +447,4 @@ State : NotPresent
 &lt;li>SSH的登录名称是账户的本地账户名&lt;/li>
 &lt;li>SSH的密码如果使用的联网账户，则是联网账户密码，如果是本地账户，则是本地账户密码。&lt;/li>
 &lt;li>如果用Pubkey验证，管理员的公钥需要放在&lt;code>C:\ProgramData\ssh\administrators_authorized_keys&lt;/code>文件中，其他用户的公钥放在&lt;code>C:\Users\&amp;lt;username&amp;gt;\.ssh\authorized_keys&lt;/code>文件中。&lt;/li>
-&lt;/ol>- https://www.panwenbin.cn/posts/windows-openssh-server/ - 2025 潘文斌</description></item><item><title>Linux使用FFmpeg制作简易云电脑</title><link>https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/</link><pubDate>Sat, 03 May 2025 16:30:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/ -&lt;h2 id="起因">起因&lt;/h2>
-&lt;blockquote>
-&lt;p>最近挺流行云电脑、云游戏的。试一下Linux下使用FFmpeg制作简易云电脑的效果。&lt;/p>&lt;/blockquote>
-&lt;h2 id="先上总结">先上总结&lt;/h2>
-&lt;blockquote>
-&lt;p>最低延时为网络延时+60ms。显示效果不错。内网延时很小，外网鼠标略飘，键盘响应还行&lt;br>
-因为鼠标在远端渲染，不像VNC鼠标是在本地渲染。&lt;/p>&lt;/blockquote>
-&lt;h2 id="步骤">步骤&lt;/h2>
-&lt;h3 id="录制屏幕">录制屏幕&lt;/h3>
-&lt;p>FFmpeg使用x11grab可以录制X11的屏幕。intel核显的硬件QSV编码延时太高了，只能用软件libx264编码了。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ffmpeg -framerate &lt;span style="color:#d19a66">25&lt;/span> -f x11grab -i :0.0 -c:v libx264 output.mp4
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此命令中&lt;br>
-&lt;code>-framerate 25&lt;/code>设置帧率为25&lt;br>
-&lt;code>-f x11grab -i :0.0&lt;/code>使用x11grab录制&lt;code>:0.0&lt;/code>显示器的屏幕&lt;br>
-输出到&lt;code>output.mp4&lt;/code>文件中。&lt;/p>
-&lt;p>如果使用ssh远程执行并把结果转发到本地呢？&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ssh user@remote ffmpeg -framerate &lt;span style="color:#d19a66">25&lt;/span> -f x11grab -i :0.0 -c:v libx264 -f h264 - | ffplay -fs -
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此命令通过ssh连接在远程执行录制命令，把user@remote替换为ssh服务器用户和地址。其中&lt;br>
-&lt;code>-c:v libx264&lt;/code>指定使用libx264编码器进行视频编码&lt;br>
-&lt;code>-f h264&lt;/code>指定输出封装为raw的h264格式，因为直接输出到标准输出，就无法根据输出文件推断适合的格式了&lt;br>
-这边可选的还有&lt;code>flv&lt;/code>和&lt;code>mpegts&lt;/code>，&lt;code>h264&lt;/code>因为是原始格式，延时会更低。&lt;code>flv&lt;/code>和&lt;code>mpegts&lt;/code>支持封装音频，&lt;code>flv&lt;/code>更简单更适合直播。&lt;br>
-使用&lt;code>ffplay&lt;/code>在本地播放标准输入。但是延时很高。&lt;/p>
-&lt;p>延时高的第一反应是播放器做了缓冲，尽量关闭播放器的缓冲&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ffplay -framedrop -fflags nobuffer -flags low_delay -strict experimental -probesize &lt;span style="color:#d19a66">32&lt;/span> -analyzeduration &lt;span style="color:#d19a66">0&lt;/span> -an -vf &lt;span style="color:#dcaeea">setpts&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#d19a66">0&lt;/span> -
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此命令中&lt;br>
-&lt;code>-framedrop&lt;/code>允许丢帧&lt;br>
-&lt;code>-fflags nobuffer&lt;/code>关闭缓冲&lt;br>
-&lt;code>-flags low_delay&lt;/code>设置低延时模式&lt;br>
-&lt;code>-strict experimental&lt;/code>使用实验性功能，允许使用不稳定的编解码器。&lt;br>
-&lt;code>-probesize 32&lt;/code>设置探测大小为32字节&lt;br>
-&lt;code>-analyzeduration 0&lt;/code>设置分析持续时间为0&lt;br>
-&lt;code>-an&lt;/code>禁用音频&lt;br>
-&lt;code>-vf setpts=0&lt;/code>设置视频时间戳为0&lt;/p>
-&lt;p>效果非常明显，已经只能感觉到很小的延时了。&lt;br>
-编码的时候也可以设置一些参数减少延时&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ssh user@remote ffmpeg -framerate &lt;span style="color:#d19a66">25&lt;/span> -f x11grab -i :0.0 -preset ultrafast -tune zerolatency -c:v libx264 -f h264 - | ffplay -framedrop -fflags nobuffer -flags low_delay -strict experimental -probesize &lt;span style="color:#d19a66">32&lt;/span> -analyzeduration &lt;span style="color:#d19a66">0&lt;/span> -an -vf &lt;span style="color:#dcaeea">setpts&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#d19a66">0&lt;/span> -
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>-preset ultrafast&lt;/code>设置编码速度为最快&lt;br>
-&lt;code>-tune zerolatency&lt;/code>设置编码延时为0&lt;/p>
-&lt;h3 id="声音">声音&lt;/h3>
-&lt;p>声音处理有2种方式：一种是封装进flv一起播放出来，另一种是单独再开一个通道播放。&lt;br>
-方式依然采用ffmpeg+ffplay&lt;/p>
-&lt;p>先找到声卡设备，可以借助pulse。最简单也可能有效的直接选择default设备。&lt;/p>
-&lt;p>方式一：改用flv。把&lt;code>-an&lt;/code>换成了&lt;code>-sync ext&lt;/code>，做一下音视频同步。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ssh user@remote ffmpeg -framerate &lt;span style="color:#d19a66">25&lt;/span> -f x11grab -i :0.0 -f pulse -i default -preset ultrafast -tune zerolatency -c:v libx264 -f flv - | ffplay -framedrop -fflags nobuffer -flags low_delay -strict experimental -probesize &lt;span style="color:#d19a66">32&lt;/span> -analyzeduration &lt;span style="color:#d19a66">0&lt;/span> -sync ext -vf &lt;span style="color:#dcaeea">setpts&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#d19a66">0&lt;/span> -
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果不行，可能要手动选择。先列出所有的声卡设备&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>pactl list short sources
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>会列出所有的声卡设备，找到对应的设备名称，比如&lt;code>alsa_input.pci-0000_00_1b.0.analog-stereo&lt;/code>。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>pactl set-default-source alsa_input.pci-0000_00_1b.0.analog-stereo
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>设置为默认设备，再试就可以了，或者命令里直接&lt;code>-f pulse -i alsa_input.pci-0000_00_1b.0.analog-stereo&lt;/code>。&lt;/p>
-&lt;p>经测试，用flv封装音频比较正常，画面延时会比h264稍微高一点点，效果很不错了。&lt;br>
-mpegts封装aac容易不识别，改为ac3可以，但是和hevc一起有会播放不了音频。&lt;/p>
-&lt;p>方式二：画面还是用h264，音频单独再开一个通道，用adts封装。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ssh user@remote ffmpeg -f pulse -i default -c:a aac -b:a 128k -f adts - | ffplay -fflags nobuffer -framedrop -flags low_delay -vn -nodisp -
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中&lt;br>
-&lt;code>-c:a aac&lt;/code>设置音频编码器为aac&lt;br>
-&lt;code>-b:a 128k&lt;/code>设置音频比特率为128kbps&lt;br>
-&lt;code>-f adts&lt;/code>设置音频封装格式为adts&lt;br>
-&lt;code>-vn&lt;/code>禁用视频流&lt;br>
-&lt;code>-nodisp&lt;/code>禁用显示窗口&lt;/p>
-&lt;p>这样画面延时会更低，音频延时会高一点点，会有不同步的情况。但有另一个好处是单独音频可以搭配VNC使用。&lt;/p>
-&lt;h3 id="键鼠">键鼠&lt;/h3>
-&lt;p>键鼠方案其实挺多的，如usbip、x2x、x2vnc、evdev转发等，但是鼠标映射都会带来一些延时，最好是VNC哪种本地渲染鼠标发送到远程的方式，暂未尝试。&lt;/p>
-&lt;p>这边使用x2vnc，远端只要有VNC Server就行，相对简单。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>/usr/bin/x2vnc remote:0 -west -passwdfile ~/.vnc/passwd -shared
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中&lt;br>
-&lt;code>remote:0&lt;/code>指定远程VNC服务器的显示器，remote替换为VNC服务器地址&lt;br>
-&lt;code>-west&lt;/code>指定鼠标从本地屏幕向西移动时切换到远程屏幕&lt;br>
-&lt;code>-passwdfile ~/.vnc/passwd&lt;/code>指定VNC密码文件&lt;br>
-&lt;code>-shared&lt;/code>允许多个客户端同时连接&lt;/p>
-&lt;h2 id="延伸">延伸&lt;/h2>
-&lt;ol>
-&lt;li>鼠标在本地移动和点击后，发送相对于显示内容的位置和事件到远程，可以改善鼠标漂移的体验。&lt;/li>
-&lt;li>通过&lt;code>-window_id&lt;/code>可以指定录制窗口，后台窗口也可以。如果配合xdotool应该可以操作单个窗口。&lt;/li>
-&lt;li>如果录制端是Windows系统和N卡，能做到最低多少延时。&lt;/li>
-&lt;/ol>- https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/ - 2025 潘文斌</description></item></channel></rss>
+&lt;/ol>- https://www.panwenbin.cn/posts/windows-openssh-server/ - 2025 潘文斌</description></item></channel></rss>
