@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ranger on 潘文斌的技术文章</title><link>https://www.panwenbin.cn/tags/ranger/</link><description>Recent content in Ranger on 潘文斌的技术文章</description><generator>Hugo</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Sun, 22 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/tags/ranger/index.xml" rel="self" type="application/rss+xml"/><item><title>Ranger添加自定义操作</title><link>https://www.panwenbin.cn/posts/ranger-custom-operation/</link><pubDate>Sun, 22 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/ranger-custom-operation/</guid><description>&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>平时使用ranger就是遍历一下目录，选择打开一下文件。对于其他操作不太顺手。
+这次想选择文件并执行一个自定义操作，比如用ffmpeg把flv无损转为mp4。&lt;/p>&lt;/blockquote></description></item></channel></rss>
