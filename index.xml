@@ -350,6 +350,9 @@ $$
 &lt;blockquote>
 &lt;p>Debian上GoogleChrome升级到&lt;code>137.0.7151.55&lt;/code>后，键盘输入没反应，但是键盘灯是亮的，还以为键盘失灵了，
 重新插拔USB后，现象依旧，但是切换到中文输入后可以正常输入。再测试其他地方键盘工作正常，那显然是Chrome更新后造成的了。&lt;/p>&lt;/blockquote>
+&lt;h2 id="2025-06-25更新">2025-06-25更新&lt;/h2>
+&lt;blockquote>
+&lt;p>升级到&lt;code>137.0.7151.119-1&lt;/code>后，已经正常。&lt;/p>&lt;/blockquote>
 &lt;h2 id="初步判断">初步判断&lt;/h2>
 &lt;p>输入法与GUI框架设置问题。Linux上有诸多GUI框架，如GTK、QT等。&lt;/p>
 &lt;h2 id="探寻">探寻&lt;/h2>
