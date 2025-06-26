@@ -1,4 +1,22 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Mon, 23 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>KVM虚拟机空闲却占用CPU很高</title><link>https://www.panwenbin.cn/posts/kvm-high-cpu/</link><pubDate>Wed, 11 Dec 2024 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/kvm-high-cpu/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/kvm-high-cpu/ -&lt;h2 id="问题描述">问题描述&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Thu, 26 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>旧Mac安装新MacOS系统</title><link>https://www.panwenbin.cn/posts/old-mac-new-macos/</link><pubDate>Sun, 16 Feb 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/old-mac-new-macos/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/old-mac-new-macos/ -&lt;h2 id="现状">现状&lt;/h2>
+&lt;blockquote>
+&lt;p>有一台2012年中的MacBook Air (13-inch, Mid 2012)，标识为&lt;code>MacBookAir5,2&lt;/code>，型号为A1466，内存4G，硬盘128G，官方支持的最新系统为macOS Catalina（10.15），但是从macOS Monterey（12）开始逐渐增加了随航等互联互通的功能，很多软件也需要系统版本12或13才能安装了，非常希望能升到较新的系统。&lt;/p>&lt;/blockquote>
+&lt;h2 id="方案">方案&lt;/h2>
+&lt;blockquote>
+&lt;p>通过检索，使用OpenCore Legacy Patcher工具可以安装官方不支持macOS系统。并且A1466的Intel Graphics HD 4000显卡刚好开始支持Metal，有显卡加速，流畅度较好。唯一限制较大的是只有4G内存。
+系统则选择了Monterey（12），因为从Ventura（13）开始显卡加速变了，虽然OCLP v0.5.0开始有支持，但还是有一些问题的，详见&lt;a href="https://github.com/dortania/OpenCore-Legacy-Patcher/issues/1008">Legacy Metal&lt;/a>。&lt;/p>&lt;/blockquote>
+&lt;h2 id="步骤">步骤&lt;/h2>
+&lt;p>准备工作：一个U盘(不低于16G，如果15系统则需要大于16G)&lt;/p>
+&lt;ol>
+&lt;li>下载OpenCore Legacy Patcher工具，&lt;a href="https://dortania.github.io/OpenCore-Legacy-Patcher/">官方网站&lt;/a> 到Release页面下载OpenCore-Patcher-GUI.app.zip&lt;/li>
+&lt;li>打开OpenCore-Patcher-GUI.app，点击&lt;code>Create macOS Installer&lt;/code>，然后选择&lt;code>Download macOS Installer&lt;/code>，接着选择版本，我这边选择&lt;code>Monterey 12&lt;/code>，下载完系统镜像会提示是否制作安装盘，此时把U盘插入，选择&lt;code>Flash Installer&lt;/code>，根据容量选择对应的U盘，会自动格式化并写入系统镜像。写完后会提示制作引导，如果错过了，也可以从软件主界面选择&lt;code>Build and Install OpenCore&lt;/code>，然后选择U盘，来制作引导。&lt;/li>
+&lt;li>完成后会提示重启，此时按住&lt;code>Option&lt;/code>键，选择EFI boot，按&lt;code>Control+回车&lt;/code>选择，进入后再选择&lt;code>Install macOS&lt;/code>，之后就安装系统，安装过程中会重启几次，没问题的话最后会到登录界面或者初始化界面。&lt;/li>
+&lt;li>进入新系统，此时引导还在U盘上，打开OpenCore-Patcher-GUI，选择&lt;code>Build and Install OpenCore&lt;/code>，此时选择系统硬盘，安装引导到硬盘上，然后重启，此时就可以直接从硬盘启动了。&lt;/li>
+&lt;/ol>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>Monterey系统让我可以用Mac的键盘和触控板直接控制iPad2020，让两个老设备无缝配合，相当于有两个屏幕，iPad上可以运行网页或者iOS的App，Mac上可以运行工作软件。并且手不需要离开Macbook就可以操作。&lt;/p>
+&lt;h2 id="其他">其他&lt;/h2>
+&lt;p>虽然Sequoia的iPhone镜像功能也很好用，但是需要Apple Silicon（M系）处理器或者带T2芯片才能使用。并且我尝试安装Sequoia最后并没有成功，卡在了一个升级画面就过不去了。&lt;/p>- https://www.panwenbin.cn/posts/old-mac-new-macos/ - 2025 潘文斌</description></item><item><title>KVM虚拟机空闲却占用CPU很高</title><link>https://www.panwenbin.cn/posts/kvm-high-cpu/</link><pubDate>Wed, 11 Dec 2024 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/kvm-high-cpu/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/kvm-high-cpu/ -&lt;h2 id="问题描述">问题描述&lt;/h2>
 &lt;blockquote>
 &lt;p>一台KVM客户机系统是Windows系统，当Windows系统空闲时，从Linux看到的qemu-system-x86_64进程CPU占用率却很高。&lt;br>
 这肯定是有问题的。&lt;/p>&lt;/blockquote>

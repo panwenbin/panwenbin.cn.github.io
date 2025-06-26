@@ -1,4 +1,14 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Mon, 23 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux上使用V4L2摄像头</title><link>https://www.panwenbin.cn/posts/linux-v4l-camera/</link><pubDate>Thu, 08 May 2025 21:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-v4l-camera/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-v4l-camera/ -&lt;h2 id="目标">目标&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Thu, 26 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Tmux 出現 missing or unsuitable terminal: xterm-256color</title><link>https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/</link><pubDate>Wed, 21 May 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;blockquote>
+&lt;p>新开的VPS，安装tmux后进入tmux，提示&lt;code>missing or unsuitable terminal: xterm-256color&lt;/code>&lt;br>
+进vim也会有这个提示。&lt;/p>&lt;/blockquote>
+&lt;h2 id="思路">思路&lt;/h2>
+&lt;p>显然是哪里指定了TERM为&lt;code>xterm-256color&lt;/code>，但是缺少支持文件。&lt;/p>
+&lt;p>从packages.debian.org上，查找一下256color结尾的文件。可以看到大多数来自&lt;code>ncurses-term&lt;/code>这个包，大概安装上就行了。&lt;/p>
+&lt;p>或者另一个思路，不使用256配色呢。&lt;/p>
+&lt;h2 id="回答">回答&lt;/h2>
+&lt;p>安装&lt;code>ncurses-term&lt;/code>包，问题解决。&lt;br>
+如果实在不想安装，&lt;code>export TERM=xterm&lt;/code>临时不再使用256配色。&lt;/p>- https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/ - 2025 潘文斌</description></item><item><title>Linux上使用V4L2摄像头</title><link>https://www.panwenbin.cn/posts/linux-v4l-camera/</link><pubDate>Thu, 08 May 2025 21:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-v4l-camera/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-v4l-camera/ -&lt;h2 id="目标">目标&lt;/h2>
 &lt;blockquote>
 &lt;p>Linux下查看摄像头画面，录制摄像头画面。&lt;/p>&lt;/blockquote>
 &lt;h2 id="v4l内核模块">V4L内核模块&lt;/h2>
@@ -261,17 +271,4 @@ mpegts封装aac容易不识别，改为ac3可以，但是和hevc一起有会播�
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>winget settings --enable ProxyCommandLineOptions
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行时指定参数&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>winget install &amp;lt;package&amp;gt; --proxy http://&amp;lt;host&amp;gt;:&amp;lt;port&amp;gt;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/winget-use-proxy/ - 2025 潘文斌</description></item><item><title>macOS VNC连接提示No matching security types</title><link>https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/</link><pubDate>Wed, 23 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>macOS开启了屏幕共享，通过其他电脑用VNC连接时，提示&lt;br>
-No matching security types when connect to MacOS VNC&lt;/p>&lt;/blockquote>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;p>因为macOS的屏幕共享使用的是系统帐号验证，默认没有开启VNC密码验证。&lt;br>
-解决方法是开启VNC密码验证，步骤如下：&lt;/p>
-&lt;ul>
-&lt;li>点开&lt;code>系统偏好设置&lt;/code>，&lt;/li>
-&lt;li>选择&lt;code>共享&lt;/code>，&lt;/li>
-&lt;li>然后在左侧选择&lt;code>屏幕共享&lt;/code>，&lt;/li>
-&lt;li>点击右侧的&lt;code>计算机设置...&lt;/code>按钮，&lt;/li>
-&lt;li>勾选&lt;code>VNC查看器可以使用密码进行访问&lt;/code>，并设置一个密码。&lt;/li>
-&lt;/ul>- https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/ - 2025 潘文斌</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/winget-use-proxy/ - 2025 潘文斌</description></item></channel></rss>

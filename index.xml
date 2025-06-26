@@ -1,4 +1,34 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Mon, 23 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux下怎么查看进程的环境变量</title><link>https://www.panwenbin.cn/posts/linux-process-env/</link><pubDate>Mon, 23 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-process-env/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-process-env/ -&lt;h2 id="问题">问题&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Thu, 26 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux安装VNC服务器</title><link>https://www.panwenbin.cn/posts/linux-vnc-server/</link><pubDate>Thu, 26 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-vnc-server/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-vnc-server/ -&lt;blockquote>
+&lt;p>Linux服务器通常是不安装桌面的，如果自用的，安装桌面环境后，使用VNC连接当云电脑使用。&lt;/p>&lt;/blockquote>
+&lt;h2 id="安装软件包">安装软件包&lt;/h2>
+&lt;p>这边使用xfce作为桌面，使用lightdm作为桌面管理器，使用TigerVNC作为VNC服务器。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo apt-get update
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get install xfce4 lightdm tigervnc-standalone-server
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="使用">使用&lt;/h2>
+&lt;p>输入&lt;code>vncserver&lt;/code>就可以启动VNC服务器，第一次运行会提示设置密码，但是默认设置启动的是监听到&lt;code>127.0.0.1&lt;/code>的，远程无法连接&lt;/p>
+&lt;h3 id="配置vnc">配置VNC&lt;/h3>
+&lt;p>修改&lt;code>.vnc/config&lt;/code>，写入如下配置&lt;/p>
+&lt;pre tabindex="0">&lt;code>session=xfce
+localhost=no
+alwaysshared
+&lt;/code>&lt;/pre>&lt;p>设置使用xfce桌面，不监听到localhost，alwaysshared允许x2vnc等用来键鼠控制。&lt;/p>
+&lt;p>使用&lt;code>vncserver -kill :1&lt;/code>关闭之前打开的session，再次运行&lt;code>vncserver&lt;/code>，这次就可以远程连接了，默认端口是5901。&lt;/p>
+&lt;h2 id="xorg">xorg&lt;/h2>
+&lt;p>上面的方式启动的VNC都是虚拟桌面的，如果要使用物理显示器的桌面，需要使用xorg扩展。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sdudo apt-get install tigervnc-xorg-extension
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="配置xorg-extension">配置xorg-extension&lt;/h3>
+&lt;p>新建&lt;code>/etc/X11/xorg.conf.d/10-vnc.conf&lt;/code>文件，内容如下&lt;/p>
+&lt;pre tabindex="0">&lt;code>Section &amp;#34;Module&amp;#34;
+Load &amp;#34;vnc&amp;#34;
+EndSection
+Section &amp;#34;Screen&amp;#34;
+Identifier &amp;#34;Screen0&amp;#34;
+Option &amp;#34;UserPasswdVerifier&amp;#34; &amp;#34;VncAuth&amp;#34;
+Option &amp;#34;PasswordFile&amp;#34; &amp;#34;/home/&amp;lt;user&amp;gt;/.vnc/passwd&amp;#34;
+EndSection
+&lt;/code>&lt;/pre>&lt;p>把&lt;code>&amp;lt;user&amp;gt;&lt;/code>替换成实际的用户名。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo systemctl restart lightdm
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启lightdm服务后，就可以&lt;code>5900&lt;/code>端口，连接到物理显示器的桌面了。&lt;/p>- https://www.panwenbin.cn/posts/linux-vnc-server/ - 2025 潘文斌</description></item><item><title>Linux下怎么查看进程的环境变量</title><link>https://www.panwenbin.cn/posts/linux-process-env/</link><pubDate>Mon, 23 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-process-env/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-process-env/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>Linux下怎么查看进程的环境变量？&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
@@ -402,14 +432,4 @@ $$
 &lt;li>Linux端NewsFlash客户端，支持miniflux的API。&lt;/li>
 &lt;li>其他端直接使用miniflux的Web界面，体验也还行。&lt;/li>
 &lt;/ol>
-&lt;p>手机端想要一个客户端提供推送的能力，但是实在是没什么好的选择，另外RSS本身实时性不高，推送的意义也不怎么大，就这样吧。&lt;/p>- https://www.panwenbin.cn/posts/repick-rss/ - 2025 潘文斌</description></item><item><title>Tmux 出現 missing or unsuitable terminal: xterm-256color</title><link>https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/</link><pubDate>Wed, 21 May 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>新开的VPS，安装tmux后进入tmux，提示&lt;code>missing or unsuitable terminal: xterm-256color&lt;/code>&lt;br>
-进vim也会有这个提示。&lt;/p>&lt;/blockquote>
-&lt;h2 id="思路">思路&lt;/h2>
-&lt;p>显然是哪里指定了TERM为&lt;code>xterm-256color&lt;/code>，但是缺少支持文件。&lt;/p>
-&lt;p>从packages.debian.org上，查找一下256color结尾的文件。可以看到大多数来自&lt;code>ncurses-term&lt;/code>这个包，大概安装上就行了。&lt;/p>
-&lt;p>或者另一个思路，不使用256配色呢。&lt;/p>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;p>安装&lt;code>ncurses-term&lt;/code>包，问题解决。&lt;br>
-如果实在不想安装，&lt;code>export TERM=xterm&lt;/code>临时不再使用256配色。&lt;/p>- https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/ - 2025 潘文斌</description></item></channel></rss>
+&lt;p>手机端想要一个客户端提供推送的能力，但是实在是没什么好的选择，另外RSS本身实时性不高，推送的意义也不怎么大，就这样吧。&lt;/p>- https://www.panwenbin.cn/posts/repick-rss/ - 2025 潘文斌</description></item></channel></rss>
