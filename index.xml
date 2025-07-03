@@ -1,4 +1,25 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Thu, 26 Jun 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux安装VNC服务器</title><link>https://www.panwenbin.cn/posts/linux-vnc-server/</link><pubDate>Thu, 26 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-vnc-server/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-vnc-server/ -&lt;blockquote>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Wed, 02 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Git命令方便的Alias</title><link>https://www.panwenbin.cn/posts/git-alias/</link><pubDate>Wed, 02 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/git-alias/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/git-alias/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>Git命令很多，不说不常用的完全记不住。就算常用的，也略显太长了，用起来不方便。&lt;/p>&lt;/blockquote>
+&lt;h2 id="git别名">Git别名&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 树形 log（简洁视图）&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.lg &lt;span style="color:#63c381">&amp;#34;log --oneline --graph --decorate --all&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># Git 仓库根目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.root &lt;span style="color:#98c379">&amp;#39;rev-parse --show-toplevel&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 状态 + 简洁信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.st &lt;span style="color:#63c381">&amp;#34;status -sb&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 简洁的 diff（侧边-by-side + 颜色增强）&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.df &lt;span style="color:#63c381">&amp;#34;diff --color-words&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 快速 amend（修改上次提交）&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.amend &lt;span style="color:#63c381">&amp;#34;commit --amend --no-edit&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 当前分支推送并设置上游&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.pushup &lt;span style="color:#63c381">&amp;#34;push --set-upstream origin HEAD&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后就可以使用&lt;code>git lg&lt;/code>查看树形日志等操作，简短好记。&lt;/p>- https://www.panwenbin.cn/posts/git-alias/ - 2025 潘文斌</description></item><item><title>Linux安装VNC服务器</title><link>https://www.panwenbin.cn/posts/linux-vnc-server/</link><pubDate>Thu, 26 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-vnc-server/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-vnc-server/ -&lt;blockquote>
 &lt;p>Linux服务器通常是不安装桌面的，如果自用的，安装桌面环境后，使用VNC连接当云电脑使用。&lt;/p>&lt;/blockquote>
 &lt;h2 id="安装软件包">安装软件包&lt;/h2>
 &lt;p>这边使用xfce作为桌面，使用lightdm作为桌面管理器，使用TigerVNC作为VNC服务器。&lt;/p>
@@ -402,34 +423,4 @@ $$
 &lt;/code>&lt;/pre>&lt;h2 id="结论">结论&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>google-chrome --gtk-version&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#d19a66">4&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果从快捷图标启动，修改desktop文件，在Exec的命令上都加上参数。&lt;/p>
-&lt;p>目前看依然属于bug，以上方式可以临时解决，后续可能官方更新后就没问题了。&lt;/p>- https://www.panwenbin.cn/posts/chrome-keyboard-no-input/ - 2025 潘文斌</description></item><item><title>重拾RSS - 一种复古的信息订阅方式</title><link>https://www.panwenbin.cn/posts/repick-rss/</link><pubDate>Sat, 31 May 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/repick-rss/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/repick-rss/ -&lt;h2 id="起因">起因&lt;/h2>
-&lt;blockquote>
-&lt;p>一开始倒是也没想到RSS，想的是给自己常用的网站统一API，方便自己使用和集成。&lt;br>
-根据网站类型可以抽象出统一接口。首先对于最常见的资讯类网站，抽象也比较简单。&lt;br>
-突然想到这类网站曾经都提供RSS订阅，貌似就可以满足我的需求了。&lt;/p>&lt;/blockquote>
-&lt;h2 id="rss现状">RSS现状&lt;/h2>
-&lt;p>随着各平台和软件逐渐封闭，变成一个个信息孤岛，现在依然提供RSS订阅的网站已经比较少了。&lt;br>
-主要是一些盈利性质不明显的论坛和个人博客，还默认提供着RSS。有一些商业性的网站还提供RSS，但是开启了全站防护，导致RSS订阅也会触发防护，形同虚设了。&lt;/p>
-&lt;p>另一方面，随着信息爆炸，以及App化，很多软件改用个性推送的方式了，我们很容易就被淹没在信息流中。&lt;br>
-一些人意识到了这个问题，采用回归订阅的方式来获取信息，以提高获取效率。&lt;/p>
-&lt;p>有个开源项目&lt;a href="https://rss.tips/">ALL-about-RSS&lt;/a>收集了RSS的相关文章、工具、阅读器等。&lt;/p>
-&lt;h2 id="rsshub">RSSHub&lt;/h2>
-&lt;p>经过搜索，发现有个RSSHub的项目，已经提供了不少对不支持RSS的网站而开发的RSS，由各个提交者来维护。&lt;br>
-并且宣传工作似乎做得不错，聚集了不少人对项目做出贡献。&lt;/p>
-&lt;p>经过体验，一些国外站点效果倒是不错，国内普遍不稳定。总结一下发现的问题。&lt;/p>
-&lt;ol>
-&lt;li>可用率不高。毕竟除了项目发起人，其他人似乎不会花很多时间来维护。而且对于现在普遍给网站套防护的情况下，直接抓取HTML的成功率越来越低了。&lt;/li>
-&lt;li>开发不算友好。框架并没有让编写一个RSS源变得更简单，反而为了适应项目而增加一些上手难度。&lt;/li>
-&lt;li>逐渐依赖爬虫技术。我常去的网站虽有提供RSS，也会防护检测，不用浏览器就不行。而对商业性的更是可能触碰他们的利益而惹麻烦。&lt;/li>
-&lt;/ol>
-&lt;h2 id="阅读器">阅读器&lt;/h2>
-&lt;p>阅读器市场就更离谱了。虽然RSS已经不那么流行，但还是有一批死忠粉。为了收割这群人，阅读器市场的商业化非常严重。&lt;br>
-各种订阅平台，多是收费的；各种阅读软件，多是收费的。&lt;/p>
-&lt;p>试了一圈，总体感觉，虽然都想收费，但是体验上其实并没有特别出色。因为本身RSS订阅是个很简单纯粹的事情。&lt;/p>
-&lt;h2 id="我的选择">我的选择&lt;/h2>
-&lt;ol>
-&lt;li>miniflux 管理订阅&lt;/li>
-&lt;li>Linux端NewsFlash客户端，支持miniflux的API。&lt;/li>
-&lt;li>其他端直接使用miniflux的Web界面，体验也还行。&lt;/li>
-&lt;/ol>
-&lt;p>手机端想要一个客户端提供推送的能力，但是实在是没什么好的选择，另外RSS本身实时性不高，推送的意义也不怎么大，就这样吧。&lt;/p>- https://www.panwenbin.cn/posts/repick-rss/ - 2025 潘文斌</description></item></channel></rss>
+&lt;p>目前看依然属于bug，以上方式可以临时解决，后续可能官方更新后就没问题了。&lt;/p>- https://www.panwenbin.cn/posts/chrome-keyboard-no-input/ - 2025 潘文斌</description></item></channel></rss>
