@@ -1,4 +1,21 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Wed, 02 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Git命令方便的Alias</title><link>https://www.panwenbin.cn/posts/git-alias/</link><pubDate>Wed, 02 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/git-alias/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/git-alias/ -&lt;h2 id="起因">起因&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Fri, 04 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>JS匿名函数直接执行怎么写</title><link>https://www.panwenbin.cn/posts/js-anonymous-function/</link><pubDate>Fri, 04 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/js-anonymous-function/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/js-anonymous-function/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;blockquote>
+&lt;p>Javascript中匿名函数直接执行怎么写？&lt;br>
+&lt;code>function(){}()&lt;/code>这种写法为什么会报错？&lt;/p>&lt;/blockquote>
+&lt;h2 id="回答">回答&lt;/h2>
+&lt;p>常规写法，最通用，ES5支持，最外层的括号使得function识别为表达式，如果没有括号会被识别为函数声明。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="display:flex;">&lt;span>(&lt;span style="color:#c678dd">function&lt;/span> () {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;IIFE 1&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})();
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>箭头函数写法，最简短，ES6支持。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="display:flex;">&lt;span>(() =&amp;gt; {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;IIFE 2&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})();
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>前操作符写法，不太常用，ES5支持。同样可以防止识别为函数声明。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c7bf54">!&lt;/span>&lt;span style="color:#c678dd">function&lt;/span> () { &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;IIFE 3&amp;#39;&lt;/span>); }();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c7bf54">+&lt;/span>&lt;span style="color:#c678dd">function&lt;/span> () { &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;IIFE 3&amp;#39;&lt;/span>); }();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c7bf54">-&lt;/span>&lt;span style="color:#c678dd">function&lt;/span> () { &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;IIFE 3&amp;#39;&lt;/span>); }();
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>总结：如果function外没有括号或者前操作符，function会被识别为函数声明，而不作为匿名函数来执行。&lt;/p>- https://www.panwenbin.cn/posts/js-anonymous-function/ - 2025 潘文斌</description></item><item><title>Git命令方便的Alias</title><link>https://www.panwenbin.cn/posts/git-alias/</link><pubDate>Wed, 02 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/git-alias/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/git-alias/ -&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>Git命令很多，不说不常用的完全记不住。就算常用的，也略显太长了，用起来不方便。&lt;/p>&lt;/blockquote>
 &lt;h2 id="git别名">Git别名&lt;/h2>
@@ -397,30 +414,4 @@ $$
 &lt;li>小米相册自带 没有试，手头没有小米手机。&lt;/li>
 &lt;li>&lt;a href="https://tool.browser.qq.com">腾讯在线工具箱&lt;/a> 试了也可以，但是有个貌似是BUG，照片处理时会旋转90度。&lt;/li>
 &lt;/ol>
-&lt;p>应该还有不少的，以后发现再补充吧。&lt;/p>- https://www.panwenbin.cn/posts/free-id-photo/ - 2025 潘文斌</description></item><item><title>Chrome升级137后无法键盘输入英文</title><link>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</link><pubDate>Sun, 01 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/chrome-keyboard-no-input/ -&lt;h2 id="现象">现象&lt;/h2>
-&lt;blockquote>
-&lt;p>Debian上GoogleChrome升级到&lt;code>137.0.7151.55&lt;/code>后，键盘输入没反应，但是键盘灯是亮的，还以为键盘失灵了，
-重新插拔USB后，现象依旧，但是切换到中文输入后可以正常输入。再测试其他地方键盘工作正常，那显然是Chrome更新后造成的了。&lt;/p>&lt;/blockquote>
-&lt;h2 id="2025-06-25更新">2025-06-25更新&lt;/h2>
-&lt;blockquote>
-&lt;p>升级到&lt;code>137.0.7151.119-1&lt;/code>后，已经正常。&lt;/p>&lt;/blockquote>
-&lt;h2 id="初步判断">初步判断&lt;/h2>
-&lt;p>输入法与GUI框架设置问题。Linux上有诸多GUI框架，如GTK、QT等。&lt;/p>
-&lt;h2 id="探寻">探寻&lt;/h2>
-&lt;p>重启Chrome，无效。重启系统，无效。&lt;/p>
-&lt;p>修改Chrome的设置-外观-主题，当前是GTK，改为QT和经典，均无效。
-看起来和预想的不一样呢。&lt;/p>
-&lt;p>从命令行启动&lt;code>google-chrome&lt;/code>，当键盘输入时，控制台会输出如下错误：&lt;/p>
-&lt;pre tabindex="0">&lt;code>(google-chrome:7096): Gdk-WARNING **: 18:40:25.582: Event with type 8 not holding a GdkDevice. It is most likely synthesized outside Gdk/GTK+
-&lt;/code>&lt;/pre>&lt;p>搜索错误信息，有人反馈，未找到解决方案。&lt;/p>
-&lt;p>最终在chromium的&lt;a href="https://issues.chromium.org/issues/408449463">issue 408449463&lt;/a>中找到相关问题。
-经测试，对我有效的参数是 &lt;code>--gtk-version=4&lt;/code>&lt;/p>
-&lt;p>验证，先用&lt;code>ps -ef|grep chrome&lt;/code>找到主进程ID，
-当不加参数时，&lt;code>lsof -p &amp;lt;pid&amp;gt;|grep libgtk&lt;/code>得到的是&lt;/p>
-&lt;pre tabindex="0">&lt;code>chrome 24064 user mem REG 8,6 8497304 6295827 /usr/lib/x86_64-linux-gnu/libgtk-3.so.0.2406.32
-&lt;/code>&lt;/pre>&lt;p>加上参数后，得到的是&lt;/p>
-&lt;pre tabindex="0">&lt;code>chrome 24806 user mem REG 8,6 8698432 6303568 /usr/lib/x86_64-linux-gnu/libgtk-4.so.1.800.3
-&lt;/code>&lt;/pre>&lt;h2 id="结论">结论&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>google-chrome --gtk-version&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#d19a66">4&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果从快捷图标启动，修改desktop文件，在Exec的命令上都加上参数。&lt;/p>
-&lt;p>目前看依然属于bug，以上方式可以临时解决，后续可能官方更新后就没问题了。&lt;/p>- https://www.panwenbin.cn/posts/chrome-keyboard-no-input/ - 2025 潘文斌</description></item></channel></rss>
+&lt;p>应该还有不少的，以后发现再补充吧。&lt;/p>- https://www.panwenbin.cn/posts/free-id-photo/ - 2025 潘文斌</description></item></channel></rss>
