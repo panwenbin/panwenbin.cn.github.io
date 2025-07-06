@@ -1,4 +1,17 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Sun, 06 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux如何使用iSCSI挂载NAS远程磁盘</title><link>https://www.panwenbin.cn/posts/linux-use-iscsi/</link><pubDate>Sun, 06 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-use-iscsi/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-use-iscsi/ -&lt;h2 id="问答">问答&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Sun, 06 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Kodi如何重置所有配置</title><link>https://www.panwenbin.cn/posts/kodi-reset/</link><pubDate>Sun, 06 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/kodi-reset/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/kodi-reset/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;blockquote>
+&lt;p>Kodi配置和插件搞乱了，如何重置所有配置？&lt;/p>&lt;/blockquote>
+&lt;h2 id="回答">回答&lt;/h2>
+&lt;p>只要删除配置目录即可。以下是Kodi在不同操作系统上的配置目录：&lt;/p>
+&lt;pre tabindex="0">&lt;code>Android - Android/data/org.xbmc.kodi/files/.kodi
+iOS - /private/var/mobile/Library/Preferences/Kodi
+LibreELEC - /storage/.kodi
+Linux - ~/.kodi
+OSMC - /home/osmc/.kodi
+Mac - /Users/&amp;lt;your_user_name&amp;gt;/Library/Application Support/Kodi
+Windows - %APPDATA%\Kodi
+Windows UWP - %LOCALAPPDATA%\Packages\XBMCFoundation.Kodi_4n2hpmxwrvr6p\LocalCache\Roaming\Kodi\
+&lt;/code>&lt;/pre>- https://www.panwenbin.cn/posts/kodi-reset/ - 2025 潘文斌</description></item><item><title>Linux如何使用iSCSI挂载NAS远程磁盘</title><link>https://www.panwenbin.cn/posts/linux-use-iscsi/</link><pubDate>Sun, 06 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-use-iscsi/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-use-iscsi/ -&lt;h2 id="问答">问答&lt;/h2>
 &lt;blockquote>
 &lt;p>使用NAS磁盘时体验最接近本地盘的是iSCSI，那么如何在Linux上使用iSCSI挂载NAS远程磁盘呢？&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
@@ -388,24 +401,4 @@ $$
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="总结">总结&lt;/h2>
 &lt;p>一开始感觉样式比较简单，后来看着样式有点太素了。左侧菜单越看越丑，深深的加粗黑字感觉生硬，其他样式也没什么好看的。&lt;br>
-而且作为Hugo模板，在样式上做的一般，本身素质不具备让人抛弃其他选择而选择它。单独的项目结构，有点脱离Hugo Theme的范畴了，使得绑定太强，更换其他theme变得不方便。&lt;/p>- https://www.panwenbin.cn/posts/hugo-doks/ - 2025 潘文斌</description></item><item><title>Linux如何关闭IPv4并保留IPv6</title><link>https://www.panwenbin.cn/posts/linux-disable-ipv4/</link><pubDate>Thu, 05 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-disable-ipv4/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-disable-ipv4/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>之前写了Linux如何关闭IPv6，在Linux上如何关闭IPv4呢？&lt;br>
-想当然觉得&lt;code>net.ipv4.conf.all.disable_ipv4&lt;/code>就行吧，结果没有这个选项。&lt;/p>&lt;/blockquote>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;h3 id="临时关闭">临时关闭&lt;/h3>
-&lt;p>sysctl可能没有相关选项，使用删除ip的方式来实现。&lt;/p>
-&lt;p>先查一下接口的ipv4地址，如eth0接口&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ip -4 addr show eth0
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>根据查到的IP地址，删除&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo ip addr del 192.168.1.100/24 dev eth0 &lt;span style="color:#8a93a5;font-style:italic"># ip和dev改为自己电脑的&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="持久关闭">持久关闭&lt;/h3>
-&lt;p>如果安装了&lt;code>Network Manager&lt;/code>，也可以用&lt;code>nmtui&lt;/code> - Edit a connection - 选中后Edit，到IPv4 CONFIGRATION 选Disabled，禁用ipv4。&lt;/p>
-&lt;p>或者直接执行&lt;code>nmcli&lt;/code>命令&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>nmcli connection modify &lt;span style="color:#63c381">&amp;#34;Wired connection 1&amp;#34;&lt;/span> ipv4.method disabled
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>将&lt;code>Wired connection 1&lt;/code>改为自己的连接名称。查看连接名称可以执行&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>nmcli connection show
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>改完后重启网络生效&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>nmcli connection down &lt;span style="color:#63c381">&amp;#34;Wired connection 1&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>nmcli connection up &lt;span style="color:#63c381">&amp;#34;Wired connection 1&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-disable-ipv4/ - 2025 潘文斌</description></item></channel></rss>
+而且作为Hugo模板，在样式上做的一般，本身素质不具备让人抛弃其他选择而选择它。单独的项目结构，有点脱离Hugo Theme的范畴了，使得绑定太强，更换其他theme变得不方便。&lt;/p>- https://www.panwenbin.cn/posts/hugo-doks/ - 2025 潘文斌</description></item></channel></rss>

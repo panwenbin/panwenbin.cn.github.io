@@ -1,4 +1,17 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Sun, 06 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>带有LaTeX的markdown转pdf</title><link>https://www.panwenbin.cn/posts/latex-markdown-to-pdf/</link><pubDate>Mon, 24 Mar 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/latex-markdown-to-pdf/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/latex-markdown-to-pdf/ -&lt;h2 id="事出有因">事出有因&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Sun, 06 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>KVM安装系统时没有对应的系统选择</title><link>https://www.panwenbin.cn/posts/kvm-no-os/</link><pubDate>Wed, 02 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/kvm-no-os/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/kvm-no-os/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;blockquote>
+&lt;p>使用virt-manager创建虚拟机时，比较新的系统没有对应的选择，比如创建debian12的系统，只有看到最高到debian11。大概数据太旧了，所以来尝试更新一下这个操作系统列表的数据。&lt;/p>&lt;/blockquote>
+&lt;h2 id="分析">分析&lt;/h2>
+&lt;p>这些系统数据肯定是存储在某个地方的，经过搜索，使用&lt;code>osinfo-query os&lt;/code>可以查看&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo apt-get install libosinfo-bin
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>执行&lt;code>osinfo-query os&lt;/code>后，确实没有debian12。&lt;/p>
+&lt;p>还有一个包是&lt;code>osinfo-db&lt;/code>，已经安装过了的。&lt;code>dpkg -L osinfo-db&lt;/code>也可以看到一个个系统对应的文件。众所周知debian的官方源中的包都是比较旧的，估计要下个版本发布才会更新了。&lt;/p>
+&lt;h2 id="更新">更新&lt;/h2>
+&lt;p>通过官方站点&lt;a href="https://releases.pagure.org/libosinfo/">下载db数据&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo apt-get install osinfo-db-tools
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>wget https://releases.pagure.org/libosinfo/osinfo-db-20250124.tar.xz
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo osinfo-db-import --system osinfo-db-20250124.tar.xz
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>关闭virt-manager重新打开，再创建虚拟机时就可以看到debian12了。&lt;/p>- https://www.panwenbin.cn/posts/kvm-no-os/ - 2025 潘文斌</description></item><item><title>带有LaTeX的markdown转pdf</title><link>https://www.panwenbin.cn/posts/latex-markdown-to-pdf/</link><pubDate>Mon, 24 Mar 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/latex-markdown-to-pdf/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/latex-markdown-to-pdf/ -&lt;h2 id="事出有因">事出有因&lt;/h2>
 &lt;blockquote>
 &lt;p>用Obsidian写了些数学笔记，要打印出来，看到Obsidian只有导出pdf的选项，那也还算方便打印吧。结果导出的pdf在公式那边出错了，然后就有了这个markdown转pdf的探索过程。&lt;/p>&lt;/blockquote>
 &lt;h2 id="其他方案">其他方案&lt;/h2>
