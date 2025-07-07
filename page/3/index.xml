@@ -1,4 +1,13 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Sun, 06 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux串口访问/dev/ttyUSB0提示[screen is terminating]</title><link>https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/</link><pubDate>Mon, 28 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/ -&lt;h2 id="问题">问题&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Mon, 07 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux如何定时关机</title><link>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</link><pubDate>Sat, 03 May 2025 16:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-scheduled-shutdown/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;blockquote>
+&lt;p>Linux下如何定时关机？&lt;/p>&lt;/blockquote>
+&lt;h2 id="回答">回答&lt;/h2>
+&lt;p>使用&lt;code>shutdown&lt;/code>命令可以实现定时关机。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>shutdown -h 23:00 &lt;span style="color:#8a93a5;font-style:italic"># 在23:00关机&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>shutdown -h +60 &lt;span style="color:#8a93a5;font-style:italic"># 60分钟后关机&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>shutdown -c &lt;span style="color:#8a93a5;font-style:italic"># 取消定时关机&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>shutdown -h now &lt;span style="color:#8a93a5;font-style:italic"># 立即关机&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>需要管理员身份运行或者加上&lt;code>sudo&lt;/code>。&lt;/p>- https://www.panwenbin.cn/posts/linux-scheduled-shutdown/ - 2025 潘文斌</description></item><item><title>Linux串口访问/dev/ttyUSB0提示[screen is terminating]</title><link>https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/</link><pubDate>Mon, 28 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>当使用&lt;code>screen /dev/ttyUSB0 115200&lt;/code>命令访问串口时，提示&lt;code>[screen is terminating]&lt;/code>，无法正常使用。&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
@@ -170,21 +179,4 @@ Environment=&amp;#34;NO_PROXY=localhost,127.0.0.1,.example.com&amp;#34;
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>net.ipv6.conf.all.disable_ipv6 &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#d19a66">1&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启或者执行如下命令生效&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo sysctl -p
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-disable-ipv6/ - 2025 潘文斌</description></item><item><title>如何在Linux TTY终端正确显示中文</title><link>https://www.panwenbin.cn/posts/linux-tty-chinese/</link><pubDate>Mon, 21 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-tty-chinese/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-tty-chinese/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>当Xorg出现问题时，会尝试切换到TTY下执行命令，但是中文是不能正常显示的。&lt;br>
-那么在Linux TTY终端中，如何正确显示中文呢？&lt;/p>&lt;/blockquote>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;p>使用fbterm。FbTerm是一个使用frame buffer 设备或VESA 显卡的终端模拟器。&lt;/p>
-&lt;p>先安装fbterm&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo apt-get install fbterm
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>权限设置：需要将当前用户添加到video组，并给fbterm设置suid的权限。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo adduser &lt;span style="color:#c678dd">$(&lt;/span>whoami&lt;span style="color:#c678dd">)&lt;/span> video
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo chmod u+s /usr/bin/fbterm
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行&lt;code>fbterm&lt;/code>&lt;/p>
-&lt;p>默认字体和大小效果不太好，可以指定字体和大小。比如使用Nerd Font（需要另外安装）：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>fbterm --font-names&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#63c381">&amp;#34;SauceCodePro Nerd Font Mono&amp;#34;&lt;/span> --font-size&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#d19a66">16&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>也可以把参数写入配置文件&lt;code>~/.fbtermrc&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-ini" data-lang="ini">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b3d23c">font-names&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;SauceCodePro Nerd Font Mono&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b3d23c">font-size&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">16&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-tty-chinese/ - 2025 潘文斌</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-disable-ipv6/ - 2025 潘文斌</description></item></channel></rss>
