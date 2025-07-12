@@ -5,7 +5,8 @@
 &lt;p>打开&lt;code>chrome://flags/&lt;/code>，搜索manifest，找到&lt;code>Allow legacy extension manifest versions&lt;/code>，默认是Default，改为Enabled。
 然后会提示重启浏览器，重启后并不能直接使用，此选项只是开启了加载未打包的开发版本的选项。&lt;/p>
 &lt;p>然后打开&lt;code>chrome://extensions/&lt;/code>，开启右上角的开发者模式，点击左上角的&lt;code>加载未打包的扩展程序&lt;/code>，选择扩展所在目录即可正常添加扩展。&lt;/p>
-&lt;p>至于扩展的未打包版本，需要找到扩展的开源代码，通常是Github上，下载源代码自己编译。&lt;/p>- https://www.panwenbin.cn/posts/chrome-extension-disabled/ - 2025 潘文斌</description></item><item><title>HTTP中的chunked是什么</title><link>https://www.panwenbin.cn/posts/http-chunked/</link><pubDate>Thu, 10 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/http-chunked/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/http-chunked/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;p>至于扩展的未打包版本，需要找到扩展的开源代码，通常是Github上，下载源代码自己编译。
+或者直接下载打包好的crx文件，后缀改为zip，解压后放到某个目录，然后加载未打包的扩展程序选择此目录即可。&lt;/p>- https://www.panwenbin.cn/posts/chrome-extension-disabled/ - 2025 潘文斌</description></item><item><title>HTTP中的chunked是什么</title><link>https://www.panwenbin.cn/posts/http-chunked/</link><pubDate>Thu, 10 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/http-chunked/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/http-chunked/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>HTTP/1.1中，响应头中的&lt;code>Transfer-Encoding: chunked&lt;/code>是什么意思？&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
