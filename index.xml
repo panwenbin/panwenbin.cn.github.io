@@ -1,5 +1,6 @@
 <?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Sat, 12 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Chrome138扩展被禁用怎么启用</title><link>https://www.panwenbin.cn/posts/chrome-extension-disabled/</link><pubDate>Sat, 12 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/chrome-extension-disabled/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/chrome-extension-disabled/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;p>Chrome升级到138版本了，之前安装的某些扩展被禁用了，&amp;ldquo;此扩展程序不再受支持，因此已停用&amp;rdquo;，并且这次无法手动启用。&lt;/p>
+&lt;blockquote>
+&lt;p>Chrome升级到138版本了，之前安装的某些扩展被禁用了，&amp;ldquo;此扩展程序不再受支持，因此已停用&amp;rdquo;，并且这次无法手动启用。&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
 &lt;p>打开&lt;code>chrome://flags/&lt;/code>，搜索manifest，找到&lt;code>Allow legacy extension manifest versions&lt;/code>，默认是Default，改为Enabled。
 然后会提示重启浏览器，重启后并不能直接使用，此选项只是开启了加载未打包的开发版本的选项。&lt;/p>
