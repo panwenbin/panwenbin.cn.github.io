@@ -7,9 +7,12 @@
 &lt;p>Windows系统下，按&lt;code>Win + R&lt;/code>打开运行窗口，输入&lt;code>regedit&lt;/code>打开注册表编辑器，找到以下路径：&lt;/p>
 &lt;pre tabindex="0">&lt;code>Software\Policies\Google\Chrome
 &lt;/code>&lt;/pre>&lt;p>添加一个名为&lt;code>ExtensionManifestV2Availability&lt;/code>的DWORD值，设置为&lt;code>2&lt;/code>。如果没有此路径，可以手动创建。&lt;/p>
-&lt;p>Linux和macOS系统下，打开终端，输入以下命令：&lt;/p>
+&lt;p>Linux系统下，打开终端，输入以下命令：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mkdir -p /etc/opt/chrome/policies/managed
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">echo&lt;/span> &lt;span style="color:#98c379">&amp;#39;{ &amp;#34;ExtensionManifestV2Availability&amp;#34;: 2 }&amp;#39;&lt;/span> | sudo tee /etc/opt/chrome/policies/managed/manifest_v2.json
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>macOS系统下，打开终端，输入以下命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mkdir -p /Library/Managed&lt;span style="color:#d26464;font-weight:bold">\ &lt;/span>Preferences/com.google.Chrome
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo defaults write /Library/Managed&lt;span style="color:#d26464;font-weight:bold">\ &lt;/span>Preferences/com.google.Chrome ExtensionManifestV2Availability -int &lt;span style="color:#d19a66">2&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>打开&lt;code>chrome://policy/&lt;/code>，点击&lt;code>重新加载政策&lt;/code>，可以看到&lt;code>ExtensionManifestV2Availability&lt;/code>的值已经设置为&lt;code>2&lt;/code>。这样就可以正常使用扩展了。&lt;/p>
 &lt;h3 id="未打包扩展">未打包扩展&lt;/h3>
 &lt;p>打开&lt;code>chrome://flags/&lt;/code>，搜索manifest，找到&lt;code>Allow legacy extension manifest versions&lt;/code>，默认是Default，改为Enabled。
