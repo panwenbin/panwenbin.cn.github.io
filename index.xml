@@ -1,4 +1,10 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Thu, 10 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>HTTP中的chunked是什么</title><link>https://www.panwenbin.cn/posts/http-chunked/</link><pubDate>Thu, 10 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/http-chunked/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/http-chunked/ -&lt;h2 id="问题">问题&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Sat, 12 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Chrome138扩展被禁用怎么启用</title><link>https://www.panwenbin.cn/posts/chrome-extension-disabled/</link><pubDate>Sat, 12 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/chrome-extension-disabled/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/chrome-extension-disabled/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;p>Chrome升级到138版本了，之前安装的某些扩展被禁用了，&amp;ldquo;此扩展程序不再受支持，因此已停用&amp;rdquo;，并且这次无法手动启用。&lt;/p>
+&lt;h2 id="回答">回答&lt;/h2>
+&lt;p>打开&lt;code>chrome://flags/&lt;/code>，搜索manifest，找到&lt;code>Allow legacy extension manifest versions&lt;/code>，默认是Default，改为Enabled。
+然后会提示重启浏览器，重启后并不能直接使用，此选项只是开启了加载未打包的开发版本的选项。&lt;/p>
+&lt;p>然后打开&lt;code>chrome://extensions/&lt;/code>，开启右上角的开发者模式，点击左上角的&lt;code>加载未打包的扩展程序&lt;/code>，选择扩展所在目录即可正常添加扩展。&lt;/p>
+&lt;p>至于扩展的未打包版本，需要找到扩展的开源代码，通常是Github上，下载源代码自己编译。&lt;/p>- https://www.panwenbin.cn/posts/chrome-extension-disabled/ - 2025 潘文斌</description></item><item><title>HTTP中的chunked是什么</title><link>https://www.panwenbin.cn/posts/http-chunked/</link><pubDate>Thu, 10 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/http-chunked/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/http-chunked/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>HTTP/1.1中，响应头中的&lt;code>Transfer-Encoding: chunked&lt;/code>是什么意思？&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
@@ -94,7 +100,7 @@ OSMC - /home/osmc/.kodi
 Mac - /Users/&amp;lt;your_user_name&amp;gt;/Library/Application Support/Kodi
 Windows - %APPDATA%\Kodi
 Windows UWP - %LOCALAPPDATA%\Packages\XBMCFoundation.Kodi_4n2hpmxwrvr6p\LocalCache\Roaming\Kodi\
-&lt;/code>&lt;/pre>- https://www.panwenbin.cn/posts/kodi-reset/ - 2025 潘文斌</description></item><item><title>Linux如何使用iSCSI挂载NAS远程磁盘</title><link>https://www.panwenbin.cn/posts/linux-use-iscsi/</link><pubDate>Sun, 06 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-use-iscsi/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-use-iscsi/ -&lt;h2 id="问答">问答&lt;/h2>
+&lt;/code>&lt;/pre>- https://www.panwenbin.cn/posts/kodi-reset/ - 2025 潘文斌</description></item><item><title>Linux如何使用iSCSI挂载NAS远程磁盘</title><link>https://www.panwenbin.cn/posts/linux-use-iscsi/</link><pubDate>Sun, 06 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-use-iscsi/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-use-iscsi/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>使用NAS磁盘时体验最接近本地盘的是iSCSI，那么如何在Linux上使用iSCSI挂载NAS远程磁盘呢？&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
@@ -218,40 +224,4 @@ EndSection
 &lt;p>在&lt;code>~/.config/ranger/rc.conf&lt;/code>中添加绑定&lt;code>fm&lt;/code>键为自定义操作。&lt;/p>
 &lt;pre tabindex="0">&lt;code>map fm flv_to_mp4
 &lt;/code>&lt;/pre>&lt;h2 id="使用">使用&lt;/h2>
-&lt;p>在ranger中选中文件，然后按&lt;code>fm&lt;/code>键执行转换操作。&lt;/p>- https://www.panwenbin.cn/posts/ranger-custom-operation/ - 2025 潘文斌</description></item><item><title>TLS指纹检测识别客户端</title><link>https://www.panwenbin.cn/posts/tls-fingerprint/</link><pubDate>Tue, 17 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/tls-fingerprint/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/tls-fingerprint/ -&lt;h2 id="什么是tls指纹">什么是TLS指纹&lt;/h2>
-&lt;blockquote>
-&lt;p>TLS指纹（TLS Fingerprinting）是一种用于识别和分类网络流量中使用的TLS（Transport Layer Security）协议版本、加密套件及其他相关参数的技术。通过分析TLS握手阶段的特征（如Client Hello报文中的字段排列、扩展列表等），可以生成一个独特的“指纹”，用于识别客户端（如浏览器、应用程序或设备）的类型、版本甚至是否为自动化工具（如爬虫）。&lt;/p>&lt;/blockquote>
-&lt;h2 id="实现原理">实现原理&lt;/h2>
-&lt;p>Client Hello 报文分析&lt;br>
-TLS握手开始时，客户端会发送Client Hello报文，包含以下关键信息：&lt;/p>
-&lt;ul>
-&lt;li>TLS版本（如TLS 1.2、TLS 1.3）。&lt;/li>
-&lt;li>支持的加密套件（Cipher Suites）列表及其顺序。&lt;/li>
-&lt;li>扩展（Extensions）类型及顺序（如SNI、ALPN、签名算法等）。&lt;/li>
-&lt;li>其他字段（如椭圆曲线类型、签名算法等）。&lt;/li>
-&lt;/ul>
-&lt;p>指纹生成方式&lt;br>
-将这些字段的组合（尤其是顺序和特定选项）通过哈希（如JA3算法）或规则匹配转换为唯一标识符。例如：&lt;/p>
-&lt;ul>
-&lt;li>JA3/JA3S：将TLS版本、加密套件、扩展等字段按顺序拼接后计算MD5哈希，生成指纹（如771,4865-4866-4867-&amp;hellip;,23-65281-10-11-16-5-13-&amp;hellip; → MD5哈希）。&lt;/li>
-&lt;li>其他方法：如TLSH、Akamai的指纹方案等。&lt;/li>
-&lt;/ul>
-&lt;h2 id="检测">检测&lt;/h2>
-&lt;p>有一些网站提供了tls指纹检测&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="https://tls.browserleaks.com/json">https://tls.browserleaks.com/json&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://tls.peet.ws">https://tls.peet.ws&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;h2 id="模拟">模拟&lt;/h2>
-&lt;p>通过定制化TLS栈模拟浏览器的握手过程。维护比较活跃的有 &lt;code>curl_cffi&lt;/code>（python库）&lt;/p>
-&lt;p>&lt;a href="https://github.com/lexiforest/curl_cffi">curl_cffi&lt;/a>是一个对&lt;a href="https://github.com/lexiforest/curl-impersonate">curl-impersonate&lt;/a>的binding。维护活跃，截止目前支持到chrome136。&lt;/p>
-&lt;p>安装&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>pip install curl_cffi --upgrade
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">import&lt;/span> &lt;span style="color:#76a9f9">curl_cffi&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># Notice the impersonate parameter&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c1abea">r&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">curl_cffi&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">get&lt;/span>(&lt;span style="color:#63c381">&amp;#34;https://tls.browserleaks.com/json&amp;#34;&lt;/span>, &lt;span style="color:#c1abea">impersonate&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#63c381">&amp;#34;chrome&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">print&lt;/span>(&lt;span style="color:#c1abea">r&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">json&lt;/span>())
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/tls-fingerprint/ - 2025 潘文斌</description></item></channel></rss>
+&lt;p>在ranger中选中文件，然后按&lt;code>fm&lt;/code>键执行转换操作。&lt;/p>- https://www.panwenbin.cn/posts/ranger-custom-operation/ - 2025 潘文斌</description></item></channel></rss>

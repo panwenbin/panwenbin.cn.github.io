@@ -4,7 +4,8 @@
 &lt;p>Linux服务器通常是不安装桌面的，如果自用的，安装桌面环境后，使用VNC连接当云电脑使用。&lt;/p>&lt;/blockquote></description></item><item><title>Ranger添加自定义操作</title><link>https://www.panwenbin.cn/posts/ranger-custom-operation/</link><pubDate>Sun, 22 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/ranger-custom-operation/</guid><description>&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>平时使用ranger就是遍历一下目录，选择打开一下文件。对于其他操作不太顺手。
-这次想选择文件并执行一个自定义操作，比如用ffmpeg把flv无损转为mp4。&lt;/p>&lt;/blockquote></description></item><item><title>TLS指纹检测识别客户端</title><link>https://www.panwenbin.cn/posts/tls-fingerprint/</link><pubDate>Tue, 17 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/tls-fingerprint/</guid><description>&lt;h2 id="什么是tls指纹">什么是TLS指纹&lt;/h2>
+这次想选择文件并执行一个自定义操作，比如用ffmpeg把flv无损转为mp4。&lt;/p>&lt;/blockquote></description></item><item><title>Linux下RSS阅读器</title><link>https://www.panwenbin.cn/posts/linux-rss-reader/</link><pubDate>Thu, 19 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-rss-reader/</guid><description>&lt;blockquote>
+&lt;p>Linux下RSS阅读器使用记录。&lt;/p>&lt;/blockquote></description></item><item><title>TLS指纹检测识别客户端</title><link>https://www.panwenbin.cn/posts/tls-fingerprint/</link><pubDate>Tue, 17 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/tls-fingerprint/</guid><description>&lt;h2 id="什么是tls指纹">什么是TLS指纹&lt;/h2>
 &lt;blockquote>
 &lt;p>TLS指纹（TLS Fingerprinting）是一种用于识别和分类网络流量中使用的TLS（Transport Layer Security）协议版本、加密套件及其他相关参数的技术。通过分析TLS握手阶段的特征（如Client Hello报文中的字段排列、扩展列表等），可以生成一个独特的“指纹”，用于识别客户端（如浏览器、应用程序或设备）的类型、版本甚至是否为自动化工具（如爬虫）。&lt;/p>&lt;/blockquote></description></item><item><title>Hugo模板之Hextra使用记录</title><link>https://www.panwenbin.cn/posts/hugo-hextra/</link><pubDate>Mon, 16 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/hugo-hextra/</guid><description>&lt;h2 id="原因">原因&lt;/h2>
 &lt;blockquote>
