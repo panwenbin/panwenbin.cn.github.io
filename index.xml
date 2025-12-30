@@ -1,4 +1,61 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Thu, 17 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Chrome138扩展被禁用怎么启用</title><link>https://www.panwenbin.cn/posts/chrome-extension-disabled/</link><pubDate>Sat, 12 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/chrome-extension-disabled/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/chrome-extension-disabled/ -&lt;h2 id="问题">问题&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Thu, 17 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo新建模板引入Tailwind记录</title><link>https://www.panwenbin.cn/posts/hugo-new-theme-tailwind/</link><pubDate>Thu, 17 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/hugo-new-theme-tailwind/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/hugo-new-theme-tailwind/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>为了更好的使用Hugo模板，尝试新建一个模板，从而学习和理解模板的工作方式。&lt;br>
+理想情况下创建属于自己的模板。&lt;/p>&lt;/blockquote>
+&lt;h2 id="环境">环境&lt;/h2>
+&lt;p>&lt;code>hugo version&lt;/code>查看hugo版本&lt;/p>
+&lt;pre tabindex="0">&lt;code>hugo version
+hugo v0.148.1+extended linux/amd64 BuildDate=unknown
+&lt;/code>&lt;/pre>&lt;h2 id="创建">创建&lt;/h2>
+&lt;p>&lt;code>hugo new theme learn&lt;/code>会在目录&lt;code>themes/&lt;/code>下创建一个名为&lt;code>learn&lt;/code>的新主题，里面包含了基本的目录结构。&lt;/p>
+&lt;pre tabindex="0">&lt;code>learn
+├── archetypes
+├── assets
+├── content
+├── data
+├── hugo.toml
+├── i18n
+├── layouts
+└── static
+&lt;/code>&lt;/pre>&lt;h3 id="与site结构对比">与site结构对比&lt;/h3>
+&lt;p>使用&lt;code>hugo new site somesite&lt;/code>生成的目录结构，除了少一个&lt;code>themes&lt;/code>目录，其他都有。&lt;br>
+并且site的目录内都是空的，theme的目录内还带不少基础内容。&lt;br>
+theme也可以直接用&lt;code>hugo serve&lt;/code>运行起来，非常方便theme的调试。&lt;/p>
+&lt;h2 id="运行">运行&lt;/h2>
+&lt;p>运行起来后，是一个有文本填充的Blog示例。有内容结构，但没有样式。&lt;br>
+页面有Home、Posts、Tags，以及Post的详情页面。&lt;/p>
+&lt;h2 id="引入tailwind">引入tailwind&lt;/h2>
+&lt;p>根据&lt;a href="https://gohugo.io/functions/css/tailwindcss">Hudo Function css.TailwindCSS&lt;/a>，使用TailwindCSS CLI应该是最简单的方式了。&lt;/p>
+&lt;p>从&lt;a href="https://github.com/tailwindlabs/tailwindcss/releases">tailwindcss github&lt;/a>下载&lt;code>tailwindcss-linux-x64&lt;/code>文件重命名为&lt;code>tailwindcss&lt;/code>，放到PATH路径下，给予执行权限。&lt;/p>
+&lt;p>创建文件&lt;code>assets/css/tailwind.css&lt;/code>，这是v4的写法。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-css" data-lang="css">&lt;span style="display:flex;">&lt;span>@&lt;span style="color:#c678dd">import&lt;/span> &lt;span style="color:#63c381">&amp;#34;tailwindcss&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建文件&lt;code>tailwind.config.js&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c1abea">module&lt;/span>.&lt;span style="color:#c1abea">exports&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">content&lt;/span>&lt;span style="color:#c7bf54">:&lt;/span> [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#63c381">&amp;#34;./layouts/**/*.html&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#63c381">&amp;#34;./content/**/*.md&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ],
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">theme&lt;/span>&lt;span style="color:#c7bf54">:&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">extend&lt;/span>&lt;span style="color:#c7bf54">:&lt;/span> {},
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">plugins&lt;/span>&lt;span style="color:#c7bf54">:&lt;/span> [],
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建&lt;code>layouts/_default/baseof.html&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-html" data-lang="html">&lt;span style="display:flex;">&lt;span>{{ with resources.Get &amp;#34;css/tailwind.css&amp;#34; | css.TailwindCSS | minify | fingerprint }}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#e06c75">link&lt;/span> &lt;span style="color:#b3d23c">rel&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;stylesheet&amp;#34;&lt;/span> &lt;span style="color:#b3d23c">href&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;{{ .RelPermalink }}&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{ end }}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改&lt;code>hugo.toml&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-toml" data-lang="toml">&lt;span style="display:flex;">&lt;span>[&lt;span style="color:#c1abea">module&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[&lt;span style="color:#c1abea">module&lt;/span>.&lt;span style="color:#c1abea">hugoVersion&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c1abea">extended&lt;/span> = &lt;span style="color:#b756ff;font-weight:bold">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[&lt;span style="color:#c1abea">build&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c1abea">writeStats&lt;/span> = &lt;span style="color:#b756ff;font-weight:bold">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[&lt;span style="color:#c1abea">security&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[&lt;span style="color:#c1abea">security&lt;/span>.&lt;span style="color:#c1abea">exec&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c1abea">allow&lt;/span> = [&lt;span style="color:#98c379">&amp;#39;^tailwindcss$&amp;#39;&lt;/span>] &lt;span style="color:#8a93a5;font-style:italic"># 允许 Hugo 执行 Tailwind CLI&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/hugo-new-theme-tailwind/ - 2025 潘文斌</description></item><item><title>Chrome138扩展被禁用怎么启用</title><link>https://www.panwenbin.cn/posts/chrome-extension-disabled/</link><pubDate>Sat, 12 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/chrome-extension-disabled/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/chrome-extension-disabled/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>Chrome升级到138版本了，之前安装的某些扩展被禁用了，&amp;ldquo;此扩展程序不再受支持，因此已停用&amp;rdquo;，并且这次无法手动启用。&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
@@ -211,42 +268,4 @@ EndSection
 &lt;p>Linux下怎么查看进程的环境变量？&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>cat /proc/&amp;lt;pid&amp;gt;/environ | tr &lt;span style="color:#98c379">&amp;#39;\0&amp;#39;&lt;/span> &lt;span style="color:#98c379">&amp;#39;\n&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-process-env/ - 2025 潘文斌</description></item><item><title>Ranger添加自定义操作</title><link>https://www.panwenbin.cn/posts/ranger-custom-operation/</link><pubDate>Sun, 22 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/ranger-custom-operation/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/ranger-custom-operation/ -&lt;h2 id="起因">起因&lt;/h2>
-&lt;blockquote>
-&lt;p>平时使用ranger就是遍历一下目录，选择打开一下文件。对于其他操作不太顺手。
-这次想选择文件并执行一个自定义操作，比如用ffmpeg把flv无损转为mp4。&lt;/p>&lt;/blockquote>
-&lt;h2 id="步骤">步骤&lt;/h2>
-&lt;h3 id="定义操作">定义操作&lt;/h3>
-&lt;p>修改&lt;code>~/.config/ranger/commands.py&lt;/code>，添加&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">from&lt;/span> &lt;span style="color:#76a9f9">ranger.api.commands&lt;/span> &lt;span style="color:#c678dd">import&lt;/span> &lt;span style="color:#c1abea">Command&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">import&lt;/span> &lt;span style="color:#76a9f9">os&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">class&lt;/span> &lt;span style="color:#76a9f9">flv_to_mp4&lt;/span>(&lt;span style="color:#c1abea">Command&lt;/span>):
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#63c381">&amp;#34;&amp;#34;&amp;#34;
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#63c381"> :flv_to_mp4
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#63c381">
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#63c381"> 使用 ffmpeg 将选中的 .flv 文件转为 .mp4（使用 -c copy ）
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#63c381"> &amp;#34;&amp;#34;&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">def&lt;/span> &lt;span style="color:#00b1f7">execute&lt;/span>(&lt;span style="color:#ef8383">self&lt;/span>):
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">files&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> [&lt;span style="color:#c1abea">f&lt;/span> &lt;span style="color:#c678dd">for&lt;/span> &lt;span style="color:#c1abea">f&lt;/span> &lt;span style="color:#b756ff;font-weight:bold">in&lt;/span> &lt;span style="color:#ef8383">self&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">fm&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">thistab&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">get_selection&lt;/span>() &lt;span style="color:#c678dd">if&lt;/span> &lt;span style="color:#c1abea">f&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">path&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">endswith&lt;/span>(&lt;span style="color:#63c381">&amp;#34;.flv&amp;#34;&lt;/span>)]
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">if&lt;/span> &lt;span style="color:#b756ff;font-weight:bold">not&lt;/span> &lt;span style="color:#c1abea">files&lt;/span>:
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ef8383">self&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">fm&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">notify&lt;/span>(&lt;span style="color:#63c381">&amp;#34;未选中 .flv 文件&amp;#34;&lt;/span>, &lt;span style="color:#c1abea">bad&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#b756ff;font-weight:bold">True&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">return&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">for&lt;/span> &lt;span style="color:#c1abea">f&lt;/span> &lt;span style="color:#b756ff;font-weight:bold">in&lt;/span> &lt;span style="color:#c1abea">files&lt;/span>:
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">input_path&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">f&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">path&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">output_path&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">os&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">path&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">splitext&lt;/span>(&lt;span style="color:#c1abea">input_path&lt;/span>)[&lt;span style="color:#d19a66">0&lt;/span>] &lt;span style="color:#c7bf54">+&lt;/span> &lt;span style="color:#63c381">&amp;#34;.mp4&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8a93a5;font-style:italic"># 如果输出文件已存在，则跳过&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">if&lt;/span> &lt;span style="color:#c1abea">os&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">path&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">exists&lt;/span>(&lt;span style="color:#c1abea">output_path&lt;/span>):
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ef8383">self&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">fm&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">notify&lt;/span>(&lt;span style="color:#98c379">f&lt;/span>&lt;span style="color:#63c381">&amp;#34;已存在，跳过: &lt;/span>&lt;span style="color:#98c379">{&lt;/span>&lt;span style="color:#c1abea">output_path&lt;/span>&lt;span style="color:#98c379">}&lt;/span>&lt;span style="color:#63c381">&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">continue&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">cmd&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#98c379">f&lt;/span>&lt;span style="color:#63c381">&amp;#34;ffmpeg -y -i &amp;#39;&lt;/span>&lt;span style="color:#98c379">{&lt;/span>&lt;span style="color:#c1abea">input_path&lt;/span>&lt;span style="color:#98c379">}&lt;/span>&lt;span style="color:#63c381">&amp;#39; -c copy &amp;#39;&lt;/span>&lt;span style="color:#98c379">{&lt;/span>&lt;span style="color:#c1abea">output_path&lt;/span>&lt;span style="color:#98c379">}&lt;/span>&lt;span style="color:#63c381">&amp;#39;&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ef8383">self&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">fm&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">run&lt;/span>(&lt;span style="color:#c1abea">cmd&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ef8383">self&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">fm&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">notify&lt;/span>(&lt;span style="color:#98c379">f&lt;/span>&lt;span style="color:#63c381">&amp;#34;转换完成: &lt;/span>&lt;span style="color:#98c379">{&lt;/span>&lt;span style="color:#c1abea">output_path&lt;/span>&lt;span style="color:#98c379">}&lt;/span>&lt;span style="color:#63c381">&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="绑定按键">绑定按键&lt;/h3>
-&lt;p>在&lt;code>~/.config/ranger/rc.conf&lt;/code>中添加绑定&lt;code>fm&lt;/code>键为自定义操作。&lt;/p>
-&lt;pre tabindex="0">&lt;code>map fm flv_to_mp4
-&lt;/code>&lt;/pre>&lt;h2 id="使用">使用&lt;/h2>
-&lt;p>在ranger中选中文件，然后按&lt;code>fm&lt;/code>键执行转换操作。&lt;/p>- https://www.panwenbin.cn/posts/ranger-custom-operation/ - 2025 潘文斌</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-process-env/ - 2025 潘文斌</description></item></channel></rss>

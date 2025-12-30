@@ -1,4 +1,56 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Thu, 17 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>什么是UEFI安全启动</title><link>https://www.panwenbin.cn/posts/uefi-secure-boot/</link><pubDate>Thu, 08 May 2025 20:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/uefi-secure-boot/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/uefi-secure-boot/ -&lt;h2 id="问题">问题&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Thu, 17 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux上使用V4L2摄像头</title><link>https://www.panwenbin.cn/posts/linux-v4l-camera/</link><pubDate>Thu, 08 May 2025 21:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-v4l-camera/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-v4l-camera/ -&lt;h2 id="目标">目标&lt;/h2>
+&lt;blockquote>
+&lt;p>Linux下查看摄像头画面，录制摄像头画面。&lt;/p>&lt;/blockquote>
+&lt;h2 id="v4l内核模块">V4L内核模块&lt;/h2>
+&lt;p>Video for Linux (V4L)，现在已经是V4L2了，V4L2是Linux内核中用于视频设备的API。它提供了一种标准化的方式来访问视频设备，如摄像头、电视调谐器等。&lt;/p>
+&lt;p>没有安装V4L模块之前是看不到 /dev/video* 设备的，
+通过命令&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ls /dev/video*
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>zsh: no matches found: /dev/video*
+&lt;/code>&lt;/pre>&lt;p>尝试加载v4l2loopback&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo modprobe v4l2loopback
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>提示&lt;/p>
+&lt;pre tabindex="0">&lt;code>modprobe: FATAL: Module v4l2loopback not found in directory /lib/modules/6.1.0-18-amd64
+&lt;/code>&lt;/pre>&lt;p>看样子没安装，尝试安装v4l2loopback&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo apt-get install v4l2loopback-dkms
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后再modprobe，如果这边提示&lt;/p>
+&lt;pre tabindex="0">&lt;code>modprobe: ERROR: could not insert &amp;#39;v4l2loopback&amp;#39;: Key was rejected by service
+&lt;/code>&lt;/pre>&lt;p>则是启用了SecureBoot，需要对模块签名才能加载。&lt;/p>
+&lt;h2 id="签名问题">签名问题&lt;/h2>
+&lt;p>如果没有上面提示，则直接跳过签名部分。&lt;/p>
+&lt;p>签名问题的解决方案是关闭SecureBoot或者自签名模块。这里只讨论自签名。&lt;/p>
+&lt;h3 id="mokutil">mokutil&lt;/h3>
+&lt;p>mokutil是一个用于管理MOK（Machine Owner Key）列表的工具。MOK是UEFI Secure Boot的一部分，用于允许用户添加自定义密钥以签名内核模块。&lt;/p>
+&lt;p>确认一下SecureBoot状态&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mokutil --sb-state
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>SecureBoot enabled
+&lt;/code>&lt;/pre>&lt;p>注册dkms证书到MOK管理器&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mokutil --import /var/lib/dkms/mok.pub
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启系统后，会进入 MOK 管理界面，选择 &amp;ldquo;Enroll MOK&amp;rdquo;，注册证书，供内核信任。&lt;/p>
+&lt;h2 id="uvc内核模块">UVC内核模块&lt;/h2>
+&lt;p>v4l2loopback加载成功了。现在可以看到设备&lt;code>/dev/video0&lt;/code>了。
+但是貌似&lt;code>/dev/video0&lt;/code>不是usb摄像头，而是虚拟摄像头。
+安装&lt;code>v4l-utils&lt;/code>来查看摄像头信息。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo apt-get install v4l-utils
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>v4l2-ctl --list-devices
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>Dummy video device (0x0000) (platform:v4l2loopback-000):
+/dev/video0
+&lt;/code>&lt;/pre>&lt;p>尝试加载uvc驱动，再次查看设备&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo modprobe uvcvideo
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>v4l2-ctl --list-devices
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>Dummy video device (0x0000) (platform:v4l2loopback-000):
+/dev/video0
+Microsoft® LifeCam HD-6000 for (usb-0000:00:14.0-8):
+/dev/video1
+/dev/video2
+/dev/media0
+&lt;/code>&lt;/pre>&lt;p>USB摄像头出来了。
+如果查看内容，可以用&lt;code>ffplay&lt;/code>直接播放设备。或者&lt;code>mpv&lt;/code>、&lt;code>vlc&lt;/code>等播放器应该也可以。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ffplay /dev/video1
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到摄像头画面，是YUYV格式的&lt;/p>
+&lt;p>使用&lt;code>ffmpeg&lt;/code>可以方便的录制视频。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ffmpeg -f v4l2 -i /dev/video1 -c:v libx264 -preset ultrafast -tune zerolatency -f flv camera.flv
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-v4l-camera/ - 2025 潘文斌</description></item><item><title>什么是UEFI安全启动</title><link>https://www.panwenbin.cn/posts/uefi-secure-boot/</link><pubDate>Thu, 08 May 2025 20:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/uefi-secure-boot/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/uefi-secure-boot/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>什么是UEFI安全启动？&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
@@ -222,26 +274,4 @@ No matching security types when connect to MacOS VNC&lt;/p>&lt;/blockquote>
 &lt;li>然后在左侧选择&lt;code>屏幕共享&lt;/code>，&lt;/li>
 &lt;li>点击右侧的&lt;code>计算机设置...&lt;/code>按钮，&lt;/li>
 &lt;li>勾选&lt;code>VNC查看器可以使用密码进行访问&lt;/code>，并设置一个密码。&lt;/li>
-&lt;/ul>- https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/ - 2025 潘文斌</description></item><item><title>Linux上使用Wacom打草稿</title><link>https://www.panwenbin.cn/posts/linux-wacom-usage/</link><pubDate>Tue, 22 Apr 2025 22:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-wacom-usage/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-wacom-usage/ -&lt;h2 id="起因">起因&lt;/h2>
-&lt;blockquote>
-&lt;p>最近想静下来学习一下，做个草稿的时候发现手边没有工具。&lt;br>
-虽然用平板配笔是不错的选择，但是平板在我用电脑的时候通常不在手边。想起之前入手后一直吃灰的Wacom BAMBOO ONE数位板，看看能不能用吧。&lt;/p>&lt;/blockquote>
-&lt;h2 id="软件选择">软件选择&lt;/h2>
-&lt;p>找了一下，看中了&lt;code>Xournal++&lt;/code>，直接在源里安装&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo apt install xournalpp
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>打开后是一个本子的样子。&lt;/p>
-&lt;h2 id="屏幕">屏幕&lt;/h2>
-&lt;p>但是因为我双屏幕，数位板是在两个屏幕上活动的，实际上软件只在第二个屏幕上运行着。&lt;br>
-想着能不能设置到只在一个屏幕内活动。&lt;/p>
-&lt;h3 id="使用-xsetwacom-设置映射区域">使用 xsetwacom 设置映射区域&lt;/h3>
-&lt;p>先获取设备&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ xsetwacom --list devices
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Wacom Bamboo One S Pen stylus id: &lt;span style="color:#d19a66">19&lt;/span> type: STYLUS
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Wacom Bamboo One S Pen eraser id: &lt;span style="color:#d19a66">20&lt;/span> type: ERASER
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>再获取屏幕&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ xrandr
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>HDMI-2 connected 1920x1200+2560+0 &lt;span style="color:#c7bf54">(&lt;/span>normal left inverted right x axis y axis&lt;span style="color:#c7bf54">)&lt;/span> 518mm x 324mm
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>HDMI-3 connected 2560x1440+0+0 &lt;span style="color:#c7bf54">(&lt;/span>normal left inverted right x axis y axis&lt;span style="color:#c7bf54">)&lt;/span> 597mm x 336mm
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>将数位板映射到指定屏幕&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>xsetwacom --set &lt;span style="color:#63c381">&amp;#34;Wacom Bamboo One S Pen stylus&amp;#34;&lt;/span> MapToOutput &lt;span style="color:#63c381">&amp;#34;HDMI-2&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>验证有效！&lt;/p>- https://www.panwenbin.cn/posts/linux-wacom-usage/ - 2025 潘文斌</description></item></channel></rss>
+&lt;/ul>- https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/ - 2025 潘文斌</description></item></channel></rss>

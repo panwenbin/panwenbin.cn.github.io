@@ -1,4 +1,22 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Thu, 17 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux下RAID5增加磁盘来增加容量</title><link>https://www.panwenbin.cn/posts/raid5-add-disk/</link><pubDate>Mon, 09 Dec 2024 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/raid5-add-disk/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/raid5-add-disk/ -&lt;h2 id="前情回顾">前情回顾&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2025 潘文斌</copyright><lastBuildDate>Thu, 17 Jul 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>KVM虚拟机空闲却占用CPU很高</title><link>https://www.panwenbin.cn/posts/kvm-high-cpu/</link><pubDate>Wed, 11 Dec 2024 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/kvm-high-cpu/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/kvm-high-cpu/ -&lt;h2 id="问题描述">问题描述&lt;/h2>
+&lt;blockquote>
+&lt;p>一台KVM客户机系统是Windows系统，当Windows系统空闲时，从Linux看到的qemu-system-x86_64进程CPU占用率却很高。&lt;br>
+这肯定是有问题的。&lt;/p>&lt;/blockquote>
+&lt;h2 id="搜索">搜索&lt;/h2>
+&lt;p>&lt;a href="https://codingpackets.com/blog/kvm-host-high-cpu-fix/">https://codingpackets.com/blog/kvm-host-high-cpu-fix/&lt;/a>
+&lt;a href="https://www.kernel.org/doc/Documentation/virtual/kvm/halt-polling.txt">https://www.kernel.org/doc/Documentation/virtual/kvm/halt-polling.txt&lt;/a>&lt;/p>
+&lt;blockquote>
+&lt;p>halt-polling用于在客户机选择不再运行后再轮询一段时间，以减少客户机延时。适用于客户机程序经常需要唤醒的场景。&lt;br>
+但是对于长期空闲的客户机，这种轮询会导致CPU占用率很高。&lt;/p>&lt;/blockquote>
+&lt;h2 id="处理">处理&lt;/h2>
+&lt;p>可以选择关闭此功能。&lt;/p>
+&lt;h3 id="临时关闭">临时关闭&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ &lt;span style="color:#ef8383">echo&lt;/span> &lt;span style="color:#d19a66">0&lt;/span> | sudo tee /sys/module/kvm/parameters/halt_poll_ns
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="永久关闭">永久关闭&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ &lt;span style="color:#ef8383">echo&lt;/span> &lt;span style="color:#63c381">&amp;#34;options kvm halt_poll_ns=0&amp;#34;&lt;/span> | sudo tee -a /etc/modprobe.d/qemu-system-x86.conf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="后续">后续&lt;/h2>
+&lt;p>Windows11客户机依然在空闲时占用单核心80%-110%的CPU。
+尝试再安装一个Windows10的客户机，空闲占用单核心15%-25%的CPU。未找到原因。&lt;/p>- https://www.panwenbin.cn/posts/kvm-high-cpu/ - 2025 潘文斌</description></item><item><title>Linux下RAID5增加磁盘来增加容量</title><link>https://www.panwenbin.cn/posts/raid5-add-disk/</link><pubDate>Mon, 09 Dec 2024 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/raid5-add-disk/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/raid5-add-disk/ -&lt;h2 id="前情回顾">前情回顾&lt;/h2>
 &lt;blockquote>
 &lt;p>之前使用3块500G硬盘组了一个软RAID5，实际可用容量也就1T。现在有一块相同的硬盘闲置了，想增加进去，把容量扩到1.5T。&lt;/p>&lt;/blockquote>
 &lt;h2 id="步骤">步骤&lt;/h2>
