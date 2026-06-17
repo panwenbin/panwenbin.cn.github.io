@@ -1,4 +1,165 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 30 Dec 2025 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux上使用V4L2摄像头</title><link>https://www.panwenbin.cn/posts/linux-v4l-camera/</link><pubDate>Thu, 08 May 2025 21:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-v4l-camera/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-v4l-camera/ -&lt;h2 id="目标">目标&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 16 Jun 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Chrome升级137后无法键盘输入英文</title><link>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</link><pubDate>Sun, 01 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/chrome-keyboard-no-input/ -&lt;h2 id="现象">现象&lt;/h2>
+&lt;blockquote>
+&lt;p>Debian上GoogleChrome升级到&lt;code>137.0.7151.55&lt;/code>后，键盘输入没反应，但是键盘灯是亮的，还以为键盘失灵了，
+重新插拔USB后，现象依旧，但是切换到中文输入后可以正常输入。再测试其他地方键盘工作正常，那显然是Chrome更新后造成的了。&lt;/p>&lt;/blockquote>
+&lt;h2 id="2025-06-25更新">2025-06-25更新&lt;/h2>
+&lt;blockquote>
+&lt;p>升级到&lt;code>137.0.7151.119-1&lt;/code>后，已经正常。&lt;/p>&lt;/blockquote>
+&lt;h2 id="初步判断">初步判断&lt;/h2>
+&lt;p>输入法与GUI框架设置问题。Linux上有诸多GUI框架，如GTK、QT等。&lt;/p>
+&lt;h2 id="探寻">探寻&lt;/h2>
+&lt;p>重启Chrome，无效。重启系统，无效。&lt;/p>
+&lt;p>修改Chrome的设置-外观-主题，当前是GTK，改为QT和经典，均无效。
+看起来和预想的不一样呢。&lt;/p>
+&lt;p>从命令行启动&lt;code>google-chrome&lt;/code>，当键盘输入时，控制台会输出如下错误：&lt;/p>
+&lt;pre tabindex="0">&lt;code>(google-chrome:7096): Gdk-WARNING **: 18:40:25.582: Event with type 8 not holding a GdkDevice. It is most likely synthesized outside Gdk/GTK+
+&lt;/code>&lt;/pre>&lt;p>搜索错误信息，有人反馈，未找到解决方案。&lt;/p>
+&lt;p>最终在chromium的&lt;a href="https://issues.chromium.org/issues/408449463">issue 408449463&lt;/a>中找到相关问题。
+经测试，对我有效的参数是 &lt;code>--gtk-version=4&lt;/code>&lt;/p>
+&lt;p>验证，先用&lt;code>ps -ef|grep chrome&lt;/code>找到主进程ID，
+当不加参数时，&lt;code>lsof -p &amp;lt;pid&amp;gt;|grep libgtk&lt;/code>得到的是&lt;/p>
+&lt;pre tabindex="0">&lt;code>chrome 24064 user mem REG 8,6 8497304 6295827 /usr/lib/x86_64-linux-gnu/libgtk-3.so.0.2406.32
+&lt;/code>&lt;/pre>&lt;p>加上参数后，得到的是&lt;/p>
+&lt;pre tabindex="0">&lt;code>chrome 24806 user mem REG 8,6 8698432 6303568 /usr/lib/x86_64-linux-gnu/libgtk-4.so.1.800.3
+&lt;/code>&lt;/pre>&lt;h2 id="结论">结论&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>google-chrome --gtk-version&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#d19a66">4&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果从快捷图标启动，修改desktop文件，在Exec的命令上都加上参数。&lt;/p>
+&lt;p>目前看依然属于bug，以上方式可以临时解决，后续可能官方更新后就没问题了。&lt;/p>- https://www.panwenbin.cn/posts/chrome-keyboard-no-input/ - 2026 潘文斌</description></item><item><title>重拾RSS - 一种复古的信息订阅方式</title><link>https://www.panwenbin.cn/posts/repick-rss/</link><pubDate>Sat, 31 May 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/repick-rss/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/repick-rss/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>一开始倒是也没想到RSS，想的是给自己常用的网站统一API，方便自己使用和集成。&lt;br>
+根据网站类型可以抽象出统一接口。首先对于最常见的资讯类网站，抽象也比较简单。&lt;br>
+突然想到这类网站曾经都提供RSS订阅，貌似就可以满足我的需求了。&lt;/p>&lt;/blockquote>
+&lt;h2 id="rss现状">RSS现状&lt;/h2>
+&lt;p>随着各平台和软件逐渐封闭，变成一个个信息孤岛，现在依然提供RSS订阅的网站已经比较少了。&lt;br>
+主要是一些盈利性质不明显的论坛和个人博客，还默认提供着RSS。有一些商业性的网站还提供RSS，但是开启了全站防护，导致RSS订阅也会触发防护，形同虚设了。&lt;/p>
+&lt;p>另一方面，随着信息爆炸，以及App化，很多软件改用个性推送的方式了，我们很容易就被淹没在信息流中。&lt;br>
+一些人意识到了这个问题，采用回归订阅的方式来获取信息，以提高获取效率。&lt;/p>
+&lt;p>有个开源项目&lt;a href="https://rss.tips/">ALL-about-RSS&lt;/a>收集了RSS的相关文章、工具、阅读器等。&lt;/p>
+&lt;h2 id="rsshub">RSSHub&lt;/h2>
+&lt;p>经过搜索，发现有个RSSHub的项目，已经提供了不少对不支持RSS的网站而开发的RSS，由各个提交者来维护。&lt;br>
+并且宣传工作似乎做得不错，聚集了不少人对项目做出贡献。&lt;/p>
+&lt;p>经过体验，一些国外站点效果倒是不错，国内普遍不稳定。总结一下发现的问题。&lt;/p>
+&lt;ol>
+&lt;li>可用率不高。毕竟除了项目发起人，其他人似乎不会花很多时间来维护。而且对于现在普遍给网站套防护的情况下，直接抓取HTML的成功率越来越低了。&lt;/li>
+&lt;li>开发不算友好。框架并没有让编写一个RSS源变得更简单，反而为了适应项目而增加一些上手难度。&lt;/li>
+&lt;li>逐渐依赖爬虫技术。我常去的网站虽有提供RSS，也会防护检测，不用浏览器就不行。而对商业性的更是可能触碰他们的利益而惹麻烦。&lt;/li>
+&lt;/ol>
+&lt;h2 id="阅读器">阅读器&lt;/h2>
+&lt;p>阅读器市场就更离谱了。虽然RSS已经不那么流行，但还是有一批死忠粉。为了收割这群人，阅读器市场的商业化非常严重。&lt;br>
+各种订阅平台，多是收费的；各种阅读软件，多是收费的。&lt;/p>
+&lt;p>试了一圈，总体感觉，虽然都想收费，但是体验上其实并没有特别出色。因为本身RSS订阅是个很简单纯粹的事情。&lt;/p>
+&lt;h2 id="我的选择">我的选择&lt;/h2>
+&lt;ol>
+&lt;li>miniflux 管理订阅&lt;/li>
+&lt;li>Linux端NewsFlash客户端，支持miniflux的API。&lt;/li>
+&lt;li>其他端直接使用miniflux的Web界面，体验也还行。&lt;/li>
+&lt;/ol>
+&lt;p>手机端想要一个客户端提供推送的能力，但是实在是没什么好的选择，另外RSS本身实时性不高，推送的意义也不怎么大，就这样吧。&lt;/p>- https://www.panwenbin.cn/posts/repick-rss/ - 2026 潘文斌</description></item><item><title>Web 自动化测试工具演变</title><link>https://www.panwenbin.cn/posts/web-autotest-history/</link><pubDate>Wed, 28 May 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/web-autotest-history/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/web-autotest-history/ -&lt;h2 id="概述">概述&lt;/h2>
+&lt;p>Web 自动化测试工具经历了从单一垄断到多方竞争的演变，从 Selenium 的长期统治到 Google、Microsoft 推出的新一代工具，再到 Selenium 4 的回归。&lt;/p>
+&lt;h2 id="selenium经典时代">Selenium（经典时代）&lt;/h2>
+&lt;p>Selenium 长期主导 Web 自动化测试领域。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>发展阶段&lt;/strong>：从 Selenium IDE → Selenium RC → Selenium WebDriver&lt;/li>
+&lt;li>&lt;strong>优势&lt;/strong>：成熟度高、生态完整、支持多语言、多浏览器&lt;/li>
+&lt;li>&lt;strong>现状&lt;/strong>：虽然有新工具挑战，但仍是事实标准&lt;/li>
+&lt;/ul>
+&lt;h2 id="puppeteerchrome-时代">Puppeteer（Chrome 时代）&lt;/h2>
+&lt;p>Google 推出的 Node.js 库，针对 Chrome/Chromium 高度优化。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>驱动方式&lt;/strong>：通过 Chrome DevTools Protocol（CDP）控制浏览器&lt;/li>
+&lt;li>&lt;strong>优势&lt;/strong>：性能高、API 简洁、支持 headless 模式&lt;/li>
+&lt;li>&lt;strong>局限&lt;/strong>：仅支持 Chrome/Chromium，不支持 Firefox/Safari&lt;/li>
+&lt;/ul>
+&lt;h2 id="playwright跨浏览器时代">Playwright（跨浏览器时代）&lt;/h2>
+&lt;p>Microsoft 推出，继承了 Puppeteer 的优点并扩展功能。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>浏览器支持&lt;/strong>：Chromium、Firefox、WebKit（Safari 兼容）&lt;/li>
+&lt;li>&lt;strong>优势&lt;/strong>：跨平台、多浏览器、DevTools 集成、自动等待机制&lt;/li>
+&lt;li>&lt;strong>应用&lt;/strong>：更适合需要多浏览器覆盖的测试场景&lt;/li>
+&lt;/ul>
+&lt;h2 id="selenium-4回归与演进">Selenium 4（回归与演进）&lt;/h2>
+&lt;p>新版本重新焕发活力，吸收新工具的经验。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>改进&lt;/strong>：更好的 API、BiDi 协议（双向通信）、提升性能&lt;/li>
+&lt;li>&lt;strong>定位&lt;/strong>：继续保持生态优势和广泛支持&lt;/li>
+&lt;li>&lt;strong>现状&lt;/strong>：Selenium 4 + 现代工具生态形成竞争格局&lt;/li>
+&lt;/ul>- https://www.panwenbin.cn/posts/web-autotest-history/ - 2026 潘文斌</description></item><item><title>Tmux 出現 missing or unsuitable terminal: xterm-256color</title><link>https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/</link><pubDate>Wed, 21 May 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;blockquote>
+&lt;p>新开的VPS，安装tmux后进入tmux，提示&lt;code>missing or unsuitable terminal: xterm-256color&lt;/code>&lt;br>
+进vim也会有这个提示。&lt;/p>&lt;/blockquote>
+&lt;h2 id="思路">思路&lt;/h2>
+&lt;p>显然是哪里指定了TERM为&lt;code>xterm-256color&lt;/code>，但是缺少支持文件。&lt;/p>
+&lt;p>从packages.debian.org上，查找一下256color结尾的文件。可以看到大多数来自&lt;code>ncurses-term&lt;/code>这个包，大概安装上就行了。&lt;/p>
+&lt;p>或者另一个思路，不使用256配色呢。&lt;/p>
+&lt;h2 id="回答">回答&lt;/h2>
+&lt;p>安装&lt;code>ncurses-term&lt;/code>包，问题解决。&lt;br>
+如果实在不想安装，&lt;code>export TERM=xterm&lt;/code>临时不再使用256配色。&lt;/p>- https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/ - 2026 潘文斌</description></item><item><title>Go Read 接口的错误处理</title><link>https://www.panwenbin.cn/posts/golang-read-err-handle/</link><pubDate>Tue, 20 May 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/golang-read-err-handle/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/golang-read-err-handle/ -&lt;h2 id="背景">背景&lt;/h2>
+&lt;p>&lt;code>io.Reader&lt;/code> 和 &lt;code>binary.Read&lt;/code> 的错误返回方式不直观，需要理解其特定约定才能正确处理。&lt;/p>
+&lt;h2 id="reader-接口约定">Reader 接口约定&lt;/h2>
+&lt;p>看 Reader 的接口定义和注释：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-golang" data-lang="golang">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Reader is the interface that wraps the basic Read method.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Read reads up to len(p) bytes into p. It returns the number of bytes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// read (0 &amp;lt;= n &amp;lt;= len(p)) and any error encountered. Even if Read&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// returns n &amp;lt; len(p), it may use all of p as scratch space during the call.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// If some data is available but not len(p) bytes, Read conventionally&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// returns what is available instead of waiting for more.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// When Read encounters an error or end-of-file condition after&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// successfully reading n &amp;gt; 0 bytes, it returns the number of&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// bytes read. It may return the (non-nil) error from the same call&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// or return the error (and n == 0) from a subsequent call.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// An instance of this general case is that a Reader returning&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// a non-zero number of bytes at the end of the input stream may&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// return either err == EOF or err == nil. The next Read should&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// return 0, EOF.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Callers should always process the n &amp;gt; 0 bytes returned before&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// considering the error err. Doing so correctly handles I/O errors&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// that happen after reading some bytes and also both of the&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// allowed EOF behaviors.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// If len(p) == 0, Read should always return n == 0. It may return a&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// non-nil error if some error condition is known, such as EOF.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Implementations of Read are discouraged from returning a&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// zero byte count with a nil error, except when len(p) == 0.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Callers should treat a return of 0 and nil as indicating that&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// nothing happened; in particular it does not indicate EOF.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Implementations must not retain p.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">type&lt;/span> &lt;span style="color:#c1abea">Reader&lt;/span> &lt;span style="color:#c678dd">interface&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#00b1f7">Read&lt;/span>(&lt;span style="color:#c1abea">p&lt;/span> []&lt;span style="color:#ef8383">byte&lt;/span>) (&lt;span style="color:#c1abea">n&lt;/span> &lt;span style="color:#ef8383">int&lt;/span>, &lt;span style="color:#c1abea">err&lt;/span> &lt;span style="color:#ef8383">error&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>关键点：&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>返回 &lt;code>(n, err)&lt;/code>，其中 &lt;code>n &amp;gt; 0&lt;/code> 时必须处理返回的数据，即使同时返回了错误&lt;/li>
+&lt;li>错误可能在当前调用返回，或延迟到下一次调用时返回（此时 &lt;code>n = 0&lt;/code>）&lt;/li>
+&lt;li>不应该返回 &lt;code>n = 0&lt;/code> 和 &lt;code>err = nil&lt;/code> 的组合（除非 &lt;code>len(p) == 0&lt;/code>），这表示&amp;quot;什么都没发生&amp;quot;&lt;/li>
+&lt;/ul>
+&lt;h2 id="binaryread-的特殊约定">binary.Read 的特殊约定&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-golang" data-lang="golang">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Read reads structured binary data from r into data.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Data must be a pointer to a fixed-size value or a slice&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// of fixed-size values.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Bytes read from r are decoded using the specified byte order&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// and written to successive fields of the data.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// When decoding boolean values, a zero byte is decoded as false, and&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// any other non-zero byte is decoded as true.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// When reading into structs, the field data for fields with&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// blank (_) field names is skipped; i.e., blank field names&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// may be used for padding.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// When reading into a struct, all non-blank fields must be exported&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// or Read may panic.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// The error is [io.EOF] only if no bytes were read.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// If an [io.EOF] happens after reading some but not all the bytes,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Read returns [io.ErrUnexpectedEOF].&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">func&lt;/span> &lt;span style="color:#00b1f7">Read&lt;/span>(&lt;span style="color:#c1abea">r&lt;/span> &lt;span style="color:#c1abea">io&lt;/span>.&lt;span style="color:#c1abea">Reader&lt;/span>, &lt;span style="color:#c1abea">order&lt;/span> &lt;span style="color:#c1abea">ByteOrder&lt;/span>, &lt;span style="color:#c1abea">data&lt;/span> &lt;span style="color:#ef8383">any&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>关键点：&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>io.EOF&lt;/code> 只在完全没有读到数据时返回&lt;/li>
+&lt;li>如果读到了部分数据后遇到 EOF，返回 &lt;code>io.ErrUnexpectedEOF&lt;/code>&lt;/li>
+&lt;/ul>- https://www.panwenbin.cn/posts/golang-read-err-handle/ - 2026 潘文斌</description></item><item><title>Linux上使用V4L2摄像头</title><link>https://www.panwenbin.cn/posts/linux-v4l-camera/</link><pubDate>Thu, 08 May 2025 21:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-v4l-camera/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-v4l-camera/ -&lt;h2 id="目标">目标&lt;/h2>
 &lt;blockquote>
 &lt;p>Linux下查看摄像头画面，录制摄像头画面。&lt;/p>&lt;/blockquote>
 &lt;h2 id="v4l内核模块">V4L内核模块&lt;/h2>
@@ -198,80 +359,4 @@ mpegts封装aac容易不识别，改为ac3可以，但是和hevc一起有会播�
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>shutdown -h +60 &lt;span style="color:#8a93a5;font-style:italic"># 60分钟后关机&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>shutdown -c &lt;span style="color:#8a93a5;font-style:italic"># 取消定时关机&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>shutdown -h now &lt;span style="color:#8a93a5;font-style:italic"># 立即关机&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>需要管理员身份运行或者加上&lt;code>sudo&lt;/code>。&lt;/p>- https://www.panwenbin.cn/posts/linux-scheduled-shutdown/ - 2026 潘文斌</description></item><item><title>Linux串口访问/dev/ttyUSB0提示[screen is terminating]</title><link>https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/</link><pubDate>Mon, 28 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>当使用&lt;code>screen /dev/ttyUSB0 115200&lt;/code>命令访问串口时，提示&lt;code>[screen is terminating]&lt;/code>，无法正常使用。&lt;/p>&lt;/blockquote>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;p>遇到类似如下情况&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ screen /dev/ttyUSB0 &lt;span style="color:#d19a66">115200&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c7bf54">[&lt;/span>screen is terminating&lt;span style="color:#c7bf54">]&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以从dmesg中查看错误信息，一个可行的处理方式是&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo usermod -a -G dialout &lt;span style="color:#dcaeea">$USER&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后注销当前用户，重新登录即可。&lt;/p>- https://www.panwenbin.cn/posts/linux-tty-screen-is-terminating/ - 2026 潘文斌</description></item><item><title>Windows下的平铺窗口管理器komorebi尝试</title><link>https://www.panwenbin.cn/posts/win-wm-komorebi/</link><pubDate>Sun, 27 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/win-wm-komorebi/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/win-wm-komorebi/ -&lt;h2 id="关注">关注&lt;/h2>
-&lt;blockquote>
-&lt;p>是在关注yasb的时候，发现它可以和komorebi一起使用。经搜索，komorebi原来是一个Windows下的平铺窗口管理器。&lt;/p>&lt;/blockquote>
-&lt;h2 id="尝试">尝试&lt;/h2>
-&lt;p>项目地址是 &lt;a href="https://github.com/LGUG2Z/komorebi">https://github.com/LGUG2Z/komorebi&lt;/a>&lt;/p>
-&lt;p>安装程序，可以直接下载或者用winget等。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>winget install LGUG2Z.komorebi
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>winget install LGUG2Z.whkd
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>下载配置&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>komorebic quickstart
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>启动&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>komorebic start --whkd
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="配置">配置&lt;/h2>
-&lt;p>默认的边距太大了，尝试修改
-&lt;code>komorebi.json&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>{
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ...
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">&amp;#34;default_workspace_padding&amp;#34;&lt;/span>:&lt;span style="color:#d19a66">5&lt;/span>,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">&amp;#34;default_container_padding&amp;#34;&lt;/span>:&lt;span style="color:#d19a66">2&lt;/span>,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">&amp;#34;border&amp;#34;&lt;/span>:&lt;span style="color:#b756ff;font-weight:bold">false&lt;/span>,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ...
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>配置修改后大约1秒会生效，不用重启程序。&lt;/p>- https://www.panwenbin.cn/posts/win-wm-komorebi/ - 2026 潘文斌</description></item><item><title>Windows下好看的TopBar yasb尝试</title><link>https://www.panwenbin.cn/posts/win-topbar-yasb/</link><pubDate>Sun, 27 Apr 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/win-topbar-yasb/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/win-topbar-yasb/ -&lt;h2 id="关注">关注&lt;/h2>
-&lt;blockquote>
-&lt;p>在看B站视频时发现了这个漂亮的topbar，尝试装一下看看。&lt;/p>&lt;/blockquote>
-&lt;h2 id="尝试">尝试&lt;/h2>
-&lt;p>项目地址是 &lt;a href="https://github.com/amnweb/yasb">https://github.com/amnweb/yasb&lt;/a>&lt;/p>
-&lt;p>需要先安装Nerd Fonts，官方推荐了一个字体包&lt;a href="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip">JetBrainsMono&lt;/a>&lt;br>
-下载后解压，然后选中所有字体文件，右键-&amp;gt;安装。&lt;/p>
-&lt;p>接着安装程序，可以直接下载或者用winget等。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>winget install --id AmN.yasb
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>启动就可以看到顶部topbar了&lt;/p>
-&lt;h2 id="设置">设置&lt;/h2>
-&lt;p>运行后在系统托盘中会有一个图标&lt;/p>
-&lt;h3 id="开机启动">开机启动&lt;/h3>
-&lt;p>右键 -&amp;gt; Enable Autostart&lt;/p>
-&lt;h3 id="更换主题">更换主题&lt;/h3>
-&lt;p>右键 -&amp;gt; Get Themes，然后会出现主题列表预览并给你选择，直接&lt;code>Install&lt;/code>就生效。&lt;/p>
-&lt;h3 id="自定义配置">自定义配置&lt;/h3>
-&lt;p>右键 -&amp;gt; Open Config，会打开配置文件目录，编辑&lt;code>config.yaml&lt;/code>修改配置。&lt;/p>- https://www.panwenbin.cn/posts/win-topbar-yasb/ - 2026 潘文斌</description></item><item><title>Winget如何使用代理</title><link>https://www.panwenbin.cn/posts/winget-use-proxy/</link><pubDate>Wed, 23 Apr 2025 18:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/winget-use-proxy/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/winget-use-proxy/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>WinGet可以使用命令行安装软件，比较方便，但是有些软件是托管在github上的，下载困难。&lt;br>
-如何给Winget设置代理呢？&lt;/p>&lt;/blockquote>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;h3 id="默认代理">默认代理&lt;/h3>
-&lt;p>设置默认代理（需要管理员权限）&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>winget settings &lt;span style="color:#ef8383">set&lt;/span> DefaultProxy http://&amp;lt;host&amp;gt;:&amp;lt;port&amp;gt;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>关闭默认代理（需要管理员权限）&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>winget setting reset DefaultProxy
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="参数指定代理">参数指定代理&lt;/h3>
-&lt;p>先开启参数（需要管理员权限）&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>winget settings --enable ProxyCommandLineOptions
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行时指定参数&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>winget install &amp;lt;package&amp;gt; --proxy http://&amp;lt;host&amp;gt;:&amp;lt;port&amp;gt;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/winget-use-proxy/ - 2026 潘文斌</description></item><item><title>macOS VNC连接提示No matching security types</title><link>https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/</link><pubDate>Wed, 23 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>macOS开启了屏幕共享，通过其他电脑用VNC连接时，提示&lt;br>
-No matching security types when connect to MacOS VNC&lt;/p>&lt;/blockquote>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;p>因为macOS的屏幕共享使用的是系统帐号验证，默认没有开启VNC密码验证。&lt;br>
-解决方法是开启VNC密码验证，步骤如下：&lt;/p>
-&lt;ul>
-&lt;li>点开&lt;code>系统偏好设置&lt;/code>，&lt;/li>
-&lt;li>选择&lt;code>共享&lt;/code>，&lt;/li>
-&lt;li>然后在左侧选择&lt;code>屏幕共享&lt;/code>，&lt;/li>
-&lt;li>点击右侧的&lt;code>计算机设置...&lt;/code>按钮，&lt;/li>
-&lt;li>勾选&lt;code>VNC查看器可以使用密码进行访问&lt;/code>，并设置一个密码。&lt;/li>
-&lt;/ul>- https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/ - 2026 潘文斌</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>需要管理员身份运行或者加上&lt;code>sudo&lt;/code>。&lt;/p>- https://www.panwenbin.cn/posts/linux-scheduled-shutdown/ - 2026 潘文斌</description></item></channel></rss>
