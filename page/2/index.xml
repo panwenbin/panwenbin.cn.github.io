@@ -1,4 +1,25 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 16 Jun 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux安装VNC服务器</title><link>https://www.panwenbin.cn/posts/linux-vnc-server/</link><pubDate>Thu, 26 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-vnc-server/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-vnc-server/ -&lt;blockquote>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Wed, 17 Jun 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Git命令方便的Alias</title><link>https://www.panwenbin.cn/posts/git-alias/</link><pubDate>Wed, 02 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/git-alias/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/git-alias/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>Git命令很多，不说不常用的完全记不住。就算常用的，也略显太长了，用起来不方便。&lt;/p>&lt;/blockquote>
+&lt;h2 id="git别名">Git别名&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 树形 log（简洁视图）&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.lg &lt;span style="color:#63c381">&amp;#34;log --oneline --graph --decorate --all&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># Git 仓库根目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.root &lt;span style="color:#98c379">&amp;#39;rev-parse --show-toplevel&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 状态 + 简洁信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.st &lt;span style="color:#63c381">&amp;#34;status -sb&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 简洁的 diff（侧边-by-side + 颜色增强）&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.df &lt;span style="color:#63c381">&amp;#34;diff --color-words&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 快速 amend（修改上次提交）&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.amend &lt;span style="color:#63c381">&amp;#34;commit --amend --no-edit&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 当前分支推送并设置上游&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.pushup &lt;span style="color:#63c381">&amp;#34;push --set-upstream origin HEAD&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后就可以使用&lt;code>git lg&lt;/code>查看树形日志等操作，简短好记。&lt;/p>- https://www.panwenbin.cn/posts/git-alias/ - 2026 潘文斌</description></item><item><title>Linux安装VNC服务器</title><link>https://www.panwenbin.cn/posts/linux-vnc-server/</link><pubDate>Thu, 26 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-vnc-server/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-vnc-server/ -&lt;blockquote>
 &lt;p>Linux服务器通常是不安装桌面的，如果自用的，安装桌面环境后，使用VNC连接当云电脑使用。&lt;/p>&lt;/blockquote>
 &lt;h2 id="安装软件包">安装软件包&lt;/h2>
 &lt;p>这边使用xfce作为桌面，使用lightdm作为桌面管理器，使用TigerVNC作为VNC服务器。&lt;/p>
@@ -577,23 +598,4 @@ $$
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>改完后重启网络生效&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>nmcli connection down &lt;span style="color:#63c381">&amp;#34;Wired connection 1&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>nmcli connection up &lt;span style="color:#63c381">&amp;#34;Wired connection 1&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-disable-ipv4/ - 2026 潘文斌</description></item><item><title>免费证件照软件</title><link>https://www.panwenbin.cn/posts/free-id-photo/</link><pubDate>Wed, 04 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/free-id-photo/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/free-id-photo/ -&lt;h2 id="起因">起因&lt;/h2>
-&lt;blockquote>
-&lt;p>儿子学校信息采集需要一个蓝底证件照，于是拿起手机拍了照片就准备处理成证件照。&lt;br>
-记忆中曾经用过app最美证件照，只能导出低清晰度证件照，想着凑合用吧。&lt;br>
-下载后，一步步处理到保存页面。以为保存好了，相册里却没有。感情只有付费才能保存了？&lt;br>
-随后再一通找，都是收费的，我都傻眼了，这么一个简单的功能，怎么都要收费？&lt;/p>&lt;/blockquote>
-&lt;h2 id="折腾过程">折腾过程&lt;/h2>
-&lt;p>第一个尝试的是&lt;code>最美证件照&lt;/code>，结果是没有免费低清晰度保存了。灵机一动，拿手机截图不就行了？结果iOS按截图会出现另一个页面，Android截图会黑屏。
-这个做得很彻底呢！接上电脑，scrcpy连接到照片页面还是黑屏，adb shell screencap返回文件是空的。防范做得真好！再继续也没有意义了。&lt;/p>
-&lt;p>第二个尝试的是ChatGPT推荐的&lt;code>证件照研究院&lt;/code>，说是免费保存的，试了也已经不行了，结果图那边还带水印。&lt;/p>
-&lt;p>第三个尝试了支付宝里的，也是收费的。&lt;/p>
-&lt;p>第四个尝试的是夸克，也是收费的。&lt;/p>
-&lt;p>无奈去论坛搜，得到了下面这些。&lt;/p>
-&lt;h2 id="良心选择">良心选择&lt;/h2>
-&lt;ol>
-&lt;li>&lt;a href="https://www.neoimaging.cn">光影证件照&lt;/a> 试了不错，免费保存。配合&lt;code>光影魔术手&lt;/code>可以处理照片。&lt;/li>
-&lt;li>小米相册自带 没有试，手头没有小米手机。&lt;/li>
-&lt;li>&lt;a href="https://tool.browser.qq.com">腾讯在线工具箱&lt;/a> 试了也可以，但是有个貌似是BUG，照片处理时会旋转90度。&lt;/li>
-&lt;/ol>
-&lt;p>应该还有不少的，以后发现再补充吧。&lt;/p>- https://www.panwenbin.cn/posts/free-id-photo/ - 2026 潘文斌</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-disable-ipv4/ - 2026 潘文斌</description></item></channel></rss>

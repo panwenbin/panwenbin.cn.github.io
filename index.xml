@@ -1,4 +1,69 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 16 Jun 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux NVIDIA 驱动安装时的密钥签名</title><link>https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/</link><pubDate>Tue, 16 Jun 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/ -&lt;h2 id="起因">起因&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Wed, 17 Jun 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Stable Diffusion 使用记录</title><link>https://www.panwenbin.cn/posts/stable-diffusion/</link><pubDate>Wed, 17 Jun 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/stable-diffusion/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/stable-diffusion/ -&lt;blockquote>
+&lt;p>一段时间没有使用生图，本地的 Stable Diffusion 环境（Forge 和 ComfyUI）都出现问题。借此机会重新整理一遍使用要点，以便后续快速恢复。&lt;/p>&lt;/blockquote>
+&lt;h2 id="主流-ui-对比">主流 UI 对比&lt;/h2>
+&lt;p>Stable Diffusion 的官方 WebUI 已停止维护，主要替代方案有两种：&lt;/p>
+&lt;h3 id="forge">Forge&lt;/h3>
+&lt;ul>
+&lt;li>继承自官方 WebUI，保持了类似的操作方式&lt;/li>
+&lt;li>界面直观，上手难度低&lt;/li>
+&lt;li>功能完整，支持大部分扩展插件&lt;/li>
+&lt;li>适合快速生成和实验&lt;/li>
+&lt;/ul>
+&lt;h3 id="comfyui">ComfyUI&lt;/h3>
+&lt;ul>
+&lt;li>采用工作流（workflow）方式，以节点图表组织操作&lt;/li>
+&lt;li>灵活性强，可精细控制每一步参数&lt;/li>
+&lt;li>学习曲线陡峭，使用复杂度较高&lt;/li>
+&lt;li>适合需要精细调试和工程化应用&lt;/li>
+&lt;/ul>
+&lt;h2 id="comfyui-复用模型">ComfyUI 复用模型&lt;/h2>
+&lt;p>如果已有 Stable Diffusion WebUI 的模型库，ComfyUI 可以直接复用，避免重复下载。&lt;/p>
+&lt;p>&lt;strong>配置步骤：&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>找到 ComfyUI 根目录中的 &lt;code>extra_model_paths.yaml.example&lt;/code> 文件&lt;/li>
+&lt;li>重命名为 &lt;code>extra_model_paths.yaml&lt;/code>&lt;/li>
+&lt;li>编辑 &lt;code>base_path&lt;/code>，指向 stable-diffusion-webui 所在目录（支持相对路径）&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>示例配置：&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">checkpoints&lt;/span>: &lt;span style="color:#98c379">models/Stable-diffusion&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">configs&lt;/span>: &lt;span style="color:#98c379">models/Stable-diffusion&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">vae&lt;/span>: &lt;span style="color:#98c379">models/VAE&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">loras&lt;/span>: |&lt;span style="color:#7e97c3">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7e97c3"> models/Lora
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7e97c3"> models/LyCORIS&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">upscale_models&lt;/span>: |&lt;span style="color:#7e97c3">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7e97c3"> models/ESRGAN
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7e97c3"> models/RealESRGAN
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7e97c3"> models/SwinIR&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">embeddings&lt;/span>: &lt;span style="color:#98c379">embeddings&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">hypernetworks&lt;/span>: &lt;span style="color:#98c379">models/hypernetworks&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">controlnet&lt;/span>: &lt;span style="color:#98c379">models/ControlNet&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>配置后重启 ComfyUI，即可在 UI 中看到已有的模型。&lt;/p>
+&lt;h2 id="常见问题">常见问题&lt;/h2>
+&lt;h3 id="vram-不足警告">VRAM 不足警告&lt;/h3>
+&lt;p>&lt;strong>错误信息：&lt;/strong> &lt;code>This number is lower than the safe threshold; This may cause extreme slow performance&lt;/code>&lt;/p>
+&lt;p>&lt;strong>解决方案：&lt;/strong> 增加启动参数 &lt;code>--reserve-vram 2&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>bash ./webui.sh --reserve-vram &lt;span style="color:#d19a66">2&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这会为系统保留 2GB 显存，降低 OOM 风险，但代价是生成速度会变慢。根据显卡显存调整数值。&lt;/p>
+&lt;h3 id="生成黑色图像">生成黑色图像&lt;/h3>
+&lt;p>&lt;strong>原因：&lt;/strong> 模型使用了错误的 VAE&lt;/p>
+&lt;p>&lt;strong>解决方案：&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>查看模型说明文档，确认使用的 VAE 类型&lt;/li>
+&lt;li>检查 VAE 文件是否已下载到正确位置（&lt;code>models/VAE/&lt;/code>）&lt;/li>
+&lt;li>在 WebUI 或 ComfyUI 中显式选择正确的 VAE&lt;/li>
+&lt;li>重新生成&lt;/li>
+&lt;/ol>
+&lt;p>常见的 VAE 类型有 &lt;code>vae-ema-pruned.safetensors&lt;/code>（通用）和模型特定的 VAE。模型作者通常会在模型页面备注。&lt;/p>
+&lt;h2 id="恢复建议">恢复建议&lt;/h2>
+&lt;p>环境出现问题时，按以下顺序排查：&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>重新安装依赖&lt;/strong>：&lt;code>pip install -r requirements.txt&lt;/code>&lt;/li>
+&lt;li>&lt;strong>检查 Python 和 CUDA 版本&lt;/strong>：确保兼容性&lt;/li>
+&lt;li>&lt;strong>清理缓存&lt;/strong>：删除生成的临时文件&lt;/li>
+&lt;li>&lt;strong>更新到最新版本&lt;/strong>：UI 和依赖库可能有修复&lt;/li>
+&lt;li>&lt;strong>参考官方文档&lt;/strong>：Forge 和 ComfyUI 的 GitHub 仓库都有详细的故障排查指南&lt;/li>
+&lt;/ol>- https://www.panwenbin.cn/posts/stable-diffusion/ - 2026 潘文斌</description></item><item><title>Linux NVIDIA 驱动安装时的密钥签名</title><link>https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/</link><pubDate>Tue, 16 Jun 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/ -&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>在启用 Secure Boot 的 Linux 系统上安装 NVIDIA 显卡驱动时，需要对内核模块进行数字签名。每次更新驱动时都要处理密钥相关的选项，容易遗忘或配置不当，导致驱动加载失败。&lt;/p>&lt;/blockquote>
 &lt;h2 id="安装流程">安装流程&lt;/h2>
@@ -335,25 +400,4 @@ Windows UWP - %LOCALAPPDATA%\Packages\XBMCFoundation.Kodi_4n2hpmxwrvr6p\LocalCac
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c7bf54">!&lt;/span>&lt;span style="color:#c678dd">function&lt;/span> () { &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;IIFE 3&amp;#39;&lt;/span>); }();
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c7bf54">+&lt;/span>&lt;span style="color:#c678dd">function&lt;/span> () { &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;IIFE 3&amp;#39;&lt;/span>); }();
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c7bf54">-&lt;/span>&lt;span style="color:#c678dd">function&lt;/span> () { &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;IIFE 3&amp;#39;&lt;/span>); }();
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>总结：如果function外没有括号或者前操作符，function会被识别为函数声明，而不作为匿名函数来执行。&lt;/p>- https://www.panwenbin.cn/posts/js-anonymous-function/ - 2026 潘文斌</description></item><item><title>Git命令方便的Alias</title><link>https://www.panwenbin.cn/posts/git-alias/</link><pubDate>Wed, 02 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/git-alias/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/git-alias/ -&lt;h2 id="起因">起因&lt;/h2>
-&lt;blockquote>
-&lt;p>Git命令很多，不说不常用的完全记不住。就算常用的，也略显太长了，用起来不方便。&lt;/p>&lt;/blockquote>
-&lt;h2 id="git别名">Git别名&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 树形 log（简洁视图）&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.lg &lt;span style="color:#63c381">&amp;#34;log --oneline --graph --decorate --all&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># Git 仓库根目录&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.root &lt;span style="color:#98c379">&amp;#39;rev-parse --show-toplevel&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 状态 + 简洁信息&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.st &lt;span style="color:#63c381">&amp;#34;status -sb&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 简洁的 diff（侧边-by-side + 颜色增强）&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.df &lt;span style="color:#63c381">&amp;#34;diff --color-words&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 快速 amend（修改上次提交）&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.amend &lt;span style="color:#63c381">&amp;#34;commit --amend --no-edit&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 当前分支推送并设置上游&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.pushup &lt;span style="color:#63c381">&amp;#34;push --set-upstream origin HEAD&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后就可以使用&lt;code>git lg&lt;/code>查看树形日志等操作，简短好记。&lt;/p>- https://www.panwenbin.cn/posts/git-alias/ - 2026 潘文斌</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>总结：如果function外没有括号或者前操作符，function会被识别为函数声明，而不作为匿名函数来执行。&lt;/p>- https://www.panwenbin.cn/posts/js-anonymous-function/ - 2026 潘文斌</description></item></channel></rss>
