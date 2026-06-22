@@ -1,4 +1,78 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Wed, 17 Jun 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Stable Diffusion 使用记录</title><link>https://www.panwenbin.cn/posts/stable-diffusion/</link><pubDate>Wed, 17 Jun 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/stable-diffusion/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/stable-diffusion/ -&lt;blockquote>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Mon, 22 Jun 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>NanoPi M4 上 LibreELEC 11/12 无法启动的解决方案</title><link>https://www.panwenbin.cn/posts/nanopim4-libreelec-not-boot/</link><pubDate>Mon, 22 Jun 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/nanopim4-libreelec-not-boot/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/nanopim4-libreelec-not-boot/ -&lt;blockquote>
+&lt;p>LibreELEC 是一个轻量级 Linux 发行版，专为 Kodi 媒体中心优化。在 NanoPi M4 上安装 LibreELEC 11 和 12 时，会遇到无法启动的问题。本文记录了问题分析和解决方案。&lt;/p>&lt;/blockquote>
+&lt;h2 id="问题现象">问题现象&lt;/h2>
+&lt;h3 id="启动日志">启动日志&lt;/h3>
+&lt;p>系统无法正常启动，串口输出以下错误：&lt;/p>
+&lt;pre tabindex="0">&lt;code>sdram_init: LPDDR3 - 933MHz failed!
+rk3399_dmc_init DRAM init failed -22
+Missing DTB
+&lt;/code>&lt;/pre>&lt;h3 id="根本原因">根本原因&lt;/h3>
+&lt;p>LPDDR3 初始化失败。新版本镜像中的设备树二进制文件（DTB）配置不当，导致内存频率被设置为 933MHz，但 NanoPi M4 的 LPDDR3 实际规格是 800MHz。这种频率不匹配导致内存初始化失败。&lt;/p>
+&lt;h2 id="解决思路">解决思路&lt;/h2>
+&lt;h3 id="分区结构分析">分区结构分析&lt;/h3>
+&lt;p>LibreELEC 的 SD 卡分区结构如下：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>SD 卡头部&lt;/strong>：U-Boot 引导程序&lt;/li>
+&lt;li>&lt;strong>FAT32 分区&lt;/strong>：包含 KERNEL、SYSTEM 和 DTB 文件&lt;/li>
+&lt;li>&lt;strong>extlinux.conf&lt;/strong>：引导配置文件，指定内核位置和启动参数&lt;/li>
+&lt;/ul>
+&lt;p>旧版 LibreELEC 10 能正常启动，说明分区结构是兼容的。新版本问题主要在于 DTB 和 KERNEL 文件配置问题。&lt;/p>
+&lt;h3 id="解决方案思路">解决方案思路&lt;/h3>
+&lt;p>在稳定的旧版本基础上（如 10.0.4），用新版本的 KERNEL、SYSTEM 和 DTB 文件进行替换，这样既保留了 U-Boot 的稳定性，又获得新版本的功能和修复。&lt;/p>
+&lt;h2 id="实施方案">实施方案&lt;/h2>
+&lt;h3 id="操作步骤">操作步骤&lt;/h3>
+&lt;ol>
+&lt;li>&lt;strong>使用旧版镜像初始化 SD 卡&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>首先用已知稳定的旧版本初始化 SD 卡：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dd &lt;span style="color:#c678dd">if&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>LibreELEC-RK3399.arm-10.0.4-nanopi-m4.img &lt;span style="color:#dcaeea">of&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>/dev/sdc &lt;span style="color:#dcaeea">bs&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>1M
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>&lt;strong>挂载新版镜像文件&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>将新版本镜像文件挂载到 loop 设备：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 找到一个未使用的 loop 设备并挂载&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo losetup -f --show -P /path/to/LibreELEC-RK3399.aarch64-12.2.1-nanopi-m4.img
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 假设返回 /dev/loop0，挂载其第一个分区&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo mount /dev/loop0p1 /mnt/p1
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>&lt;strong>挂载 SD 卡分区&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mount /dev/sdc1 /mnt/p2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="4">
+&lt;li>&lt;strong>复制新版本文件到 SD 卡&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>用新版本中的文件替换 SD 卡中的对应文件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">cd&lt;/span> /mnt/p2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo cp /mnt/p1/KERNEL* .
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo cp /mnt/p1/SYSTEM* .
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo cp /mnt/p1/rk3399-nanopi-m4.dtb .
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="5">
+&lt;li>&lt;strong>卸载和清理&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 卸载分区&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo umount /mnt/p1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo umount /mnt/p2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 卸载 loop 设备&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo losetup -d /dev/loop0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="6">
+&lt;li>&lt;strong>启动系统&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>将 SD 卡插入 NanoPi M4，系统应该能正常启动。&lt;/p>
+&lt;h2 id="原理说明">原理说明&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>KERNEL&lt;/strong>：Linux 内核文件，包含系统启动的核心代码和硬件驱动&lt;/li>
+&lt;li>&lt;strong>SYSTEM&lt;/strong>：根文件系统，包含 LibreELEC 的应用程序、库和配置文件&lt;/li>
+&lt;li>&lt;strong>DTB（Device Tree Blob）&lt;/strong>：设备树文件，定义硬件配置，包括内存频率、GPIO 映射、设备初始化参数等&lt;/li>
+&lt;/ul>
+&lt;p>新版本的 KERNEL 和 SYSTEM 提供了更新的功能和安全补丁。通过用新版本的这些文件替换旧版本，同时保留了已验证可用的 U-Boot，可以获得最佳的兼容性和稳定性。&lt;/p>
+&lt;h2 id="补充说明">补充说明&lt;/h2>
+&lt;ul>
+&lt;li>此方案同样适用于其他遇到类似兼容性问题的 RK3399 设备&lt;/li>
+&lt;li>确保新旧版本使用相同的架构（都是 aarch64 或都是 arm）&lt;/li>
+&lt;li>操作前可用 &lt;code>md5sum&lt;/code> 验证镜像文件完整性&lt;/li>
+&lt;li>如果问题仍未解决，可尝试查看 &lt;code>extlinux/extlinux.conf&lt;/code> 中的启动参数是否需要调整&lt;/li>
+&lt;/ul>- https://www.panwenbin.cn/posts/nanopim4-libreelec-not-boot/ - 2026 潘文斌</description></item><item><title>Stable Diffusion 使用记录</title><link>https://www.panwenbin.cn/posts/stable-diffusion/</link><pubDate>Wed, 17 Jun 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/stable-diffusion/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/stable-diffusion/ -&lt;blockquote>
 &lt;p>一段时间没有使用生图，本地的 Stable Diffusion 环境（Forge 和 ComfyUI）都出现问题。借此机会重新整理一遍使用要点，以便后续快速恢复。&lt;/p>&lt;/blockquote>
 &lt;h2 id="主流-ui-对比">主流 UI 对比&lt;/h2>
 &lt;p>Stable Diffusion 的官方 WebUI 已停止维护，主要替代方案有两种：&lt;/p>
@@ -383,21 +457,4 @@ Windows UWP - %LOCALAPPDATA%\Packages\XBMCFoundation.Kodi_4n2hpmxwrvr6p\LocalCac
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此时可以发现已经有新添加的/dev/sdX设备了。像本地磁盘一样使用就行。&lt;/p>
 &lt;p>不用了，登出&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo iscsiadm -m node -T &amp;lt;target&amp;gt; -p &amp;lt;host&amp;gt;:&amp;lt;port&amp;gt; --logout
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-use-iscsi/ - 2026 潘文斌</description></item><item><title>JS匿名函数直接执行怎么写</title><link>https://www.panwenbin.cn/posts/js-anonymous-function/</link><pubDate>Fri, 04 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/js-anonymous-function/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/js-anonymous-function/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>Javascript中匿名函数直接执行怎么写？&lt;br>
-&lt;code>function(){}()&lt;/code>这种写法为什么会报错？&lt;/p>&lt;/blockquote>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;p>常规写法，最通用，ES5支持，最外层的括号使得function识别为表达式，如果没有括号会被识别为函数声明。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="display:flex;">&lt;span>(&lt;span style="color:#c678dd">function&lt;/span> () {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;IIFE 1&amp;#39;&lt;/span>);
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})();
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>箭头函数写法，最简短，ES6支持。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="display:flex;">&lt;span>(() =&amp;gt; {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;IIFE 2&amp;#39;&lt;/span>);
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})();
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>前操作符写法，不太常用，ES5支持。同样可以防止识别为函数声明。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c7bf54">!&lt;/span>&lt;span style="color:#c678dd">function&lt;/span> () { &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;IIFE 3&amp;#39;&lt;/span>); }();
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c7bf54">+&lt;/span>&lt;span style="color:#c678dd">function&lt;/span> () { &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;IIFE 3&amp;#39;&lt;/span>); }();
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c7bf54">-&lt;/span>&lt;span style="color:#c678dd">function&lt;/span> () { &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;IIFE 3&amp;#39;&lt;/span>); }();
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>总结：如果function外没有括号或者前操作符，function会被识别为函数声明，而不作为匿名函数来执行。&lt;/p>- https://www.panwenbin.cn/posts/js-anonymous-function/ - 2026 潘文斌</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-use-iscsi/ - 2026 潘文斌</description></item></channel></rss>
