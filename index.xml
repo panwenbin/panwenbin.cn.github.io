@@ -137,7 +137,199 @@ Missing DTB
 &lt;li>&lt;strong>清理缓存&lt;/strong>：删除生成的临时文件&lt;/li>
 &lt;li>&lt;strong>更新到最新版本&lt;/strong>：UI 和依赖库可能有修复&lt;/li>
 &lt;li>&lt;strong>参考官方文档&lt;/strong>：Forge 和 ComfyUI 的 GitHub 仓库都有详细的故障排查指南&lt;/li>
-&lt;/ol>- https://www.panwenbin.cn/posts/stable-diffusion/ - 2026 潘文斌</description></item><item><title>Linux NVIDIA 驱动安装时的密钥签名</title><link>https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/</link><pubDate>Tue, 16 Jun 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;/ol>
+&lt;h2 id="模型知识">模型知识&lt;/h2>
+&lt;h3 id="模型文件格式">模型文件格式&lt;/h3>
+&lt;p>现在从 Civitai（C站）下载的模型主要有两种格式：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>格式&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;th>推荐度&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>safetensors&lt;/code>&lt;/td>
+&lt;td>PyTorch 的安全序列化格式，执行时不运行任意代码，更安全&lt;/td>
+&lt;td>⭐⭐⭐ 推荐&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>ckpt&lt;/code>&lt;/td>
+&lt;td>早期 Stable Diffusion 使用的 Pickle 格式，不安全，可能执行恶意代码&lt;/td>
+&lt;td>⚠️ 不推荐&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>建议&lt;/strong>：优先选择 &lt;code>safetensors&lt;/code> 格式的模型。&lt;/p>
+&lt;h3 id="模型类型和位置">模型类型和位置&lt;/h3>
+&lt;p>Safetensors 格式下还要细分为不同的用途，需要放在对应的目录中。根据配置文件，主要类型如下：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>类型&lt;/th>
+&lt;th>目录&lt;/th>
+&lt;th>用途&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>Checkpoint&lt;/strong>&lt;/td>
+&lt;td>&lt;code>models/Stable-diffusion/&lt;/code>&lt;/td>
+&lt;td>基础模型&lt;/td>
+&lt;td>主模型，定义了整个模型结构和权重&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>VAE&lt;/strong>&lt;/td>
+&lt;td>&lt;code>models/VAE/&lt;/code>&lt;/td>
+&lt;td>编解码器&lt;/td>
+&lt;td>将图像在像素空间和隐空间之间转换，影响图像质量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>LoRA&lt;/strong>&lt;/td>
+&lt;td>&lt;code>models/Lora/&lt;/code>&lt;/td>
+&lt;td>轻量级微调&lt;/td>
+&lt;td>小文件，快速调整模型风格或细节，可叠加使用&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>LyCORIS&lt;/strong>&lt;/td>
+&lt;td>&lt;code>models/LyCORIS/&lt;/code>&lt;/td>
+&lt;td>高级微调&lt;/td>
+&lt;td>LoRA 的改进版本，性能更优&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Embedding&lt;/strong>&lt;/td>
+&lt;td>&lt;code>embeddings/&lt;/code>&lt;/td>
+&lt;td>提示词增强&lt;/td>
+&lt;td>自定义概念或风格，通过提示词调用&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>ControlNet&lt;/strong>&lt;/td>
+&lt;td>&lt;code>models/ControlNet/&lt;/code>&lt;/td>
+&lt;td>控制模块&lt;/td>
+&lt;td>通过输入图像（如线稿、姿态）精确控制生成&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Upscale&lt;/strong>&lt;/td>
+&lt;td>&lt;code>models/ESRGAN/&lt;/code> 等&lt;/td>
+&lt;td>超分放大&lt;/td>
+&lt;td>提升图像分辨率，包括 ESRGAN、RealESRGAN、SwinIR 等&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Hypernetwork&lt;/strong>&lt;/td>
+&lt;td>&lt;code>models/hypernetworks/&lt;/code>&lt;/td>
+&lt;td>风格转换&lt;/td>
+&lt;td>较旧的微调方式，功能类似 LoRA&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="模型精度">模型精度&lt;/h3>
+&lt;p>模型文件通常有两种精度版本：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>精度&lt;/th>
+&lt;th>文件大小&lt;/th>
+&lt;th>显存占用&lt;/th>
+&lt;th>质量&lt;/th>
+&lt;th>适用场景&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>fp32&lt;/strong>&lt;/td>
+&lt;td>大（~7GB）&lt;/td>
+&lt;td>高&lt;/td>
+&lt;td>最高，精度最好&lt;/td>
+&lt;td>高端显卡、追求最高质量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>fp16&lt;/strong>&lt;/td>
+&lt;td>中等（~4GB）&lt;/td>
+&lt;td>中等&lt;/td>
+&lt;td>基本无差异&lt;/td>
+&lt;td>大多数情况下的标准选择&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>建议&lt;/strong>：一般选择 fp16 版本，既能保证质量，又能节省显存。&lt;/p>
+&lt;h3 id="模型优化">模型优化&lt;/h3>
+&lt;p>&lt;strong>Pruned（剪枝）模型&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>移除了模型中不必要的权重和参数&lt;/li>
+&lt;li>文件大小更小（通常小 10-20%）&lt;/li>
+&lt;li>质量影响微乎其微，肉眼难以察觉&lt;/li>
+&lt;li>推荐使用，特别是在显存有限的情况下&lt;/li>
+&lt;/ul>
+&lt;h3 id="常见模型对比">常见模型对比&lt;/h3>
+&lt;h4 id="stable-diffusion-15sd-15">Stable Diffusion 1.5（SD 1.5）&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>特点&lt;/strong>：早期主流模型，生态完善&lt;/li>
+&lt;li>&lt;strong>优势&lt;/strong>：资源消耗少、插件和 LoRA 最丰富、社区资源多&lt;/li>
+&lt;li>&lt;strong>劣势&lt;/strong>：生成能力相对较弱，需要精细的提示词调优&lt;/li>
+&lt;li>&lt;strong>适用&lt;/strong>：轻量级应用、老旧硬件&lt;/li>
+&lt;/ul>
+&lt;h4 id="stable-diffusion-xlsdxl">Stable Diffusion XL（SDXL）&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>特点&lt;/strong>：改进的大模型，生成质量大幅提升&lt;/li>
+&lt;li>&lt;strong>优势&lt;/strong>：无需精细提示词、效果好、官方推荐&lt;/li>
+&lt;li>&lt;strong>劣势&lt;/strong>：显存占用较高（12GB+）、相比 1.5 体积更大&lt;/li>
+&lt;li>&lt;strong>适用&lt;/strong>：中高端硬件、追求高质量输出&lt;/li>
+&lt;/ul>
+&lt;h4 id="anima">Anima&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>特点&lt;/strong>：专门为二次元、动漫风格优化的模型&lt;/li>
+&lt;li>&lt;strong>创建方&lt;/strong>：CircleStorm Labs 与 ComfyOrg 联合推出&lt;/li>
+&lt;li>&lt;strong>优势&lt;/strong>：动漫风格效果专业、支持识别日文提示词、优化了二次元生成能力&lt;/li>
+&lt;li>&lt;strong>必需组件&lt;/strong>：
+&lt;ul>
+&lt;li>&lt;code>anima_baseV10_txt&lt;/code>：基础模型文本编码器&lt;/li>
+&lt;li>&lt;code>qwen_image_vae&lt;/code>：专用 VAE，用于图像编解码&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>加速优化&lt;/strong>：&lt;code>anima-turbo-lora&lt;/code> 可减少步数至 8-12 步，大幅降低显存占用和生成时间&lt;/li>
+&lt;li>&lt;strong>适用&lt;/strong>：动漫和二次元创作&lt;/li>
+&lt;/ul>
+&lt;h3 id="模型元数据">模型元数据&lt;/h3>
+&lt;p>为模型添加预览图片和描述信息，便于在 UI 中快速识别和选择。&lt;/p>
+&lt;p>&lt;strong>添加预览图：&lt;/strong>&lt;/p>
+&lt;p>在模型文件的同目录下，创建同名的预览图文件：&lt;/p>
+&lt;pre tabindex="0">&lt;code>models/Stable-diffusion/my-model.safetensors
+models/Stable-diffusion/my-model.webp # 或 .jpg
+&lt;/code>&lt;/pre>&lt;p>UI 会自动识别并显示这个预览图。&lt;/p>
+&lt;p>&lt;strong>编辑模型信息：&lt;/strong>&lt;/p>
+&lt;p>点击 UI 中模型缩略图右上角的配置图标，可以编辑模型的描述、标签等信息。&lt;/p>
+&lt;h3 id="模型查询和存档">模型查询和存档&lt;/h3>
+&lt;p>&lt;strong>查询已下载模型的来源：&lt;/strong>&lt;/p>
+&lt;p>如果需要了解已下载模型文件的信息，可以计算其哈希值：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sha256sum model_name.safetensors
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后在 Civitai（C站）中搜索该哈希值。&lt;/p>
+&lt;p>&lt;strong>模型已被删除的情况：&lt;/strong>&lt;/p>
+&lt;p>如果在 C 站找不到，可以到 &lt;a href="https://civitaiarchive.com/">Civitai Archive&lt;/a> 查询归档版本。&lt;/p>
+&lt;h2 id="使用技巧">使用技巧&lt;/h2>
+&lt;h3 id="forgewebui">Forge（WebUI）&lt;/h3>
+&lt;p>&lt;strong>预设和快速加载：&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>在 Generate 按钮页面，有预设选项可设置基础风格的提示词，方便快速切换&lt;/li>
+&lt;li>点击 Checkpoint 模型会自动加载到 UI，然后即可直接使用&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>LoRA 集成提示词：&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>LoRA 模型支持预设正向和反向提示词&lt;/li>
+&lt;li>在 UI 中点击 LoRA 可将其提示词添加到输入框&lt;/li>
+&lt;li>再次点击可移除&lt;/li>
+&lt;li>&lt;strong>注意&lt;/strong>：如果中途手动修改了提示词，UI 将无法正确识别和移除自动插入的部分&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>反推提示词：&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Forge Neo 已删除了内置的反推功能&lt;/li>
+&lt;li>可用 &lt;strong>WD14 Tagger&lt;/strong> 插件替代（集成在 Forge 中）&lt;/li>
+&lt;li>或使用独立工具 &lt;strong>TagGui&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;h3 id="comfyui-1">ComfyUI&lt;/h3>
+&lt;p>待补充工作流最佳实践。&lt;/p>- https://www.panwenbin.cn/posts/stable-diffusion/ - 2026 潘文斌</description></item><item><title>Linux NVIDIA 驱动安装时的密钥签名</title><link>https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/</link><pubDate>Tue, 16 Jun 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/ -&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>在启用 Secure Boot 的 Linux 系统上安装 NVIDIA 显卡驱动时，需要对内核模块进行数字签名。每次更新驱动时都要处理密钥相关的选项，容易遗忘或配置不当，导致驱动加载失败。&lt;/p>&lt;/blockquote>
 &lt;h2 id="安装流程">安装流程&lt;/h2>
