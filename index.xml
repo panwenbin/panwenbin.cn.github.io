@@ -345,6 +345,9 @@ models/Stable-diffusion/my-model.webp # 或 .jpg
 &lt;pre tabindex="0">&lt;code>/usr/share/nvidia/modsign-key-&amp;lt;ID&amp;gt;.key # 私钥
 /usr/share/nvidia/modsign-crt-&amp;lt;ID&amp;gt;.der # 证书
 &lt;/code>&lt;/pre>&lt;p>其中 &lt;code>&amp;lt;ID&amp;gt;&lt;/code> 是安装程序生成的标识符。&lt;/p>
+&lt;p>导入公钥到 MOK&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mokutil --import /usr/share/nvidia/nvidia-modsign-crt-&amp;lt;ID&amp;gt;.der
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>会提示输入密码，重启进入 MOK 管理界面后，选择 &amp;ldquo;Enroll MOK&amp;rdquo;，输入之前设置的密码，完成公钥导入。&lt;/p>
 &lt;h2 id="关键注意事项">关键注意事项&lt;/h2>
 &lt;h3 id="密钥对会被清理">密钥对会被清理&lt;/h3>
 &lt;p>&lt;strong>重要&lt;/strong>：安装完成后，这些密钥文件会被&lt;strong>自动清理掉&lt;/strong>，不会被保留。这是正常现象，不需要手动删除。&lt;/p>
