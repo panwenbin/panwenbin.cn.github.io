@@ -1,4 +1,78 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Mon, 22 Jun 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>NanoPi M4 上 LibreELEC 11/12 无法启动的解决方案</title><link>https://www.panwenbin.cn/posts/nanopim4-libreelec-not-boot/</link><pubDate>Mon, 22 Jun 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/nanopim4-libreelec-not-boot/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/nanopim4-libreelec-not-boot/ -&lt;blockquote>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 14 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>迅雷赚钱宝Pro (二代) WS1508 折腾记录</title><link>https://www.panwenbin.cn/posts/xunlei-minecrafter-ws1508/</link><pubDate>Tue, 14 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/xunlei-minecrafter-ws1508/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/xunlei-minecrafter-ws1508/ -&lt;h2 id="前言">前言&lt;/h2>
+&lt;blockquote>
+&lt;p>之前玩客云涨价就借机都出掉了，看到赚钱宝Pro没太涨价，就收了几个回来，赚钱宝Pro就是缩水版的玩客云。爬了一遍恩山论坛，重新折腾一下，顺便记录一下。&lt;/p>&lt;/blockquote>
+&lt;h2 id="硬件信息">硬件信息&lt;/h2>
+&lt;p>对比1代2代3代的配置，3代即玩客云。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>设备&lt;/th>
+&lt;th>型号&lt;/th>
+&lt;th>SOC&lt;/th>
+&lt;th>ROM&lt;/th>
+&lt;th>RAM&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>1代&lt;/td>
+&lt;td>WS1408&lt;/td>
+&lt;td>S805&lt;/td>
+&lt;td>1G NAND&lt;/td>
+&lt;td>256M&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>2代&lt;/td>
+&lt;td>WS1508&lt;/td>
+&lt;td>S805&lt;/td>
+&lt;td>4G NAND/EMMC&lt;/td>
+&lt;td>512M&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>3代&lt;/td>
+&lt;td>WS1608&lt;/td>
+&lt;td>S805&lt;/td>
+&lt;td>8G EMMC&lt;/td>
+&lt;td>1G&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>其中2代比较凭运气，有NAND和EMMC的，EMMC的可以用玩客云的新固件，NAND的基本只能刷原厂的修改固件，除非把系统放U盘里则可以上新固件。
+1代配置和可玩性都很差，二代EMMC的目前性价比还行，3代玩客云当前价格已经不便宜了，性价比不高。
+拆机V1.1比较难拆，胶水太多了。拆好几个都是直接螺丝孔坏了应拆的。&lt;/p>
+&lt;h3 id="ttl">TTL&lt;/h3>
+&lt;p>靠近USB那边从离USB最近到远，分别是RX,TX,GND,VCC，正常不接VCC就接靠近USB的3个就可以。V1.2有标记，V1.1没有标记，位置是一样的。&lt;/p>
+&lt;h2 id="可用固件">可用固件&lt;/h2>
+&lt;h3 id="ws1508原厂固件">WS1508原厂固件&lt;/h3>
+&lt;p>全网能找到基本就这一个，官方是基于openwrt修改的，内核3.10.33，兼容NAND和EMMC的，刷机后可以恢复出厂设置。&lt;/p>
+&lt;pre tabindex="0">&lt;code>9dcc5f7140c0f59cc06356354ff9b219 mine-pro_V1.3.233.img
+&lt;/code>&lt;/pre>&lt;p>原厂固件&lt;/p>
+&lt;h3 id="onecloud-armbian固件">&lt;a href="https://github.com/hzyitc/armbian-onecloud">OneCloud Armbian固件&lt;/a>&lt;/h3>
+&lt;p>由hzyitc维护的玩客云Armbian镜像，已提交Armbian。因为是高版本内核，只能刷入EMMC或U盘。
+此固件需要配合lanlan的修改dtb使用&lt;/p>
+&lt;pre tabindex="0">&lt;code>2ff58c87561f00d4703691a0196143b2 meson8b-ws1508-fix-by-lanlan.dtb
+&lt;/code>&lt;/pre>&lt;p>并且修改boot.scr中fatload的地址，索性复制一份boot.cmd为boot_ws1508.cmd，做如下修改，避免apt upgrade时被覆盖&lt;/p>
+&lt;pre tabindex="0">&lt;code>fatload ${bootdev} 0x20800000 /uImage || exit 1
+fatload ${bootdev} 0x22000000 /uInitrd || exit 1
+fatload ${bootdev} 0x21800000 /dtb/meson8b-onecloud.dtb || exit 1
+&lt;/code>&lt;/pre>&lt;p>改为&lt;/p>
+&lt;pre tabindex="0">&lt;code>fatload ${bootdev} 0x10800000 /uImage || exit 1
+fatload ${bootdev} 0x12000000 /uInitrd || exit 1
+fatload ${bootdev} 0x11800000 /meson8b-ws1508-fix-by-lanlan.dtb || exit 1
+&lt;/code>&lt;/pre>&lt;p>然后用mkimage生成boot_ws1508.scr&lt;/p>
+&lt;pre tabindex="0">&lt;code>mkimage -C none -A arm -T script -d boot_ws1508.cmd boot_ws1508.scr
+&lt;/code>&lt;/pre>&lt;p>再修改uboot的env，将boot_usb_armbian中的boot.scr改为boot_ws1508.scr即可。&lt;/p>
+&lt;h3 id="icebee250移植armbian">icebee250移植armbian&lt;/h3>
+&lt;p>帖子：【赚钱宝2代 Armbian 直刷包】软件随便装，可以apt-get，可以挂甜糖～，&lt;/p>
+&lt;pre tabindex="0">&lt;code>a10bcc83dcd825c7c9aeaa13c3019f11 赚钱宝2代 Armbian_Debian_buster_default_3.10.36_minimal.7z
+&lt;/code>&lt;/pre>&lt;p>这个是3.10.36内核，因为是armbian，所以不能复用原厂的3.10.33吧，但奇怪的是/lib/modules/下是3.10.108的。&lt;/p>
+&lt;h3 id="dybjxx移植openwrt">dybjxx移植openwrt&lt;/h3>
+&lt;p>帖子：赚钱宝1代2代3代openwrt官网固件线刷包，是基于原厂3.10.33的固件替换的rootfs分区。内核依然是3.10.33的，但是用的openwrt18和19的rootfs，所以docker是不用想的，在需要内核强依赖的程序都会不行。
+对我来说意义不大，毕竟这么老的openwrt还要牺牲一些稳定性。&lt;/p>
+&lt;h2 id="移植固件">移植固件&lt;/h2>
+&lt;h3 id="achaoge折腾随手记">achaoge折腾随手记&lt;/h3>
+&lt;p>帖子：赚钱宝Pro折腾随手记，提供了挺多探索的内容，特别是自行编译固件方面的。&lt;/p>
+&lt;p>未完待续&lt;/p>- https://www.panwenbin.cn/posts/xunlei-minecrafter-ws1508/ - 2026 潘文斌</description></item><item><title>NanoPi M4 上 LibreELEC 11/12 无法启动的解决方案</title><link>https://www.panwenbin.cn/posts/nanopim4-libreelec-not-boot/</link><pubDate>Mon, 22 Jun 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/nanopim4-libreelec-not-boot/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/nanopim4-libreelec-not-boot/ -&lt;blockquote>
 &lt;p>LibreELEC 是一个轻量级 Linux 发行版，专为 Kodi 媒体中心优化。在 NanoPi M4 上安装 LibreELEC 11 和 12 时，会遇到无法启动的问题。本文记录了问题分析和解决方案。&lt;/p>&lt;/blockquote>
 &lt;h2 id="问题现象">问题现象&lt;/h2>
 &lt;h3 id="启动日志">启动日志&lt;/h3>
@@ -639,17 +713,4 @@ OSMC - /home/osmc/.kodi
 Mac - /Users/&amp;lt;your_user_name&amp;gt;/Library/Application Support/Kodi
 Windows - %APPDATA%\Kodi
 Windows UWP - %LOCALAPPDATA%\Packages\XBMCFoundation.Kodi_4n2hpmxwrvr6p\LocalCache\Roaming\Kodi\
-&lt;/code>&lt;/pre>- https://www.panwenbin.cn/posts/kodi-reset/ - 2026 潘文斌</description></item><item><title>Linux如何使用iSCSI挂载NAS远程磁盘</title><link>https://www.panwenbin.cn/posts/linux-use-iscsi/</link><pubDate>Sun, 06 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-use-iscsi/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-use-iscsi/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>使用NAS磁盘时体验最接近本地盘的是iSCSI，那么如何在Linux上使用iSCSI挂载NAS远程磁盘呢？&lt;/p>&lt;/blockquote>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;p>安装iSCSI相关软件包：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo apt-get install open-iscsi
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>发现服务&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo iscsiadm -m discovery -t sendtargets -p &amp;lt;host&amp;gt;:&amp;lt;port&amp;gt;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>登录&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo iscsiadm -m node -T &amp;lt;target&amp;gt; -p &amp;lt;host&amp;gt;:&amp;lt;port&amp;gt; --login
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此时可以发现已经有新添加的/dev/sdX设备了。像本地磁盘一样使用就行。&lt;/p>
-&lt;p>不用了，登出&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo iscsiadm -m node -T &amp;lt;target&amp;gt; -p &amp;lt;host&amp;gt;:&amp;lt;port&amp;gt; --logout
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-use-iscsi/ - 2026 潘文斌</description></item></channel></rss>
+&lt;/code>&lt;/pre>- https://www.panwenbin.cn/posts/kodi-reset/ - 2026 潘文斌</description></item></channel></rss>
