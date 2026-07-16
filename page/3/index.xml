@@ -1,4 +1,217 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 14 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo模板之Doks使用记录</title><link>https://www.panwenbin.cn/posts/hugo-doks/</link><pubDate>Thu, 05 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/hugo-doks/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/hugo-doks/ -&lt;h2 id="喜新厌旧">喜新厌旧&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Thu, 16 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Svelte 学习笔记</title><link>https://www.panwenbin.cn/posts/svelte/</link><pubDate>Sun, 15 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/svelte/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/svelte/ -&lt;h2 id="为什么选择-svelte">为什么选择 Svelte&lt;/h2>
+&lt;blockquote>
+&lt;p>写了几年前后端分离的项目，常用的前端框架是 Vue 和 React。它们都是作为 SPA 设计的框架，没有 SEO 优化，初次加载比较慢。虽然有 Nuxt 和 Next 等框架来解决这个问题，但仍有些笨重。如果是小型项目，还是希望能有更轻量的框架。&lt;/p>
+&lt;p>Svelte 就是满足这方面需求的框架，设计上就考虑了 SEO 优化，并且很适合小型项目。&lt;/p>&lt;/blockquote>
+&lt;h2 id="svelte-的特点">Svelte 的特点&lt;/h2>
+&lt;ol>
+&lt;li>&lt;strong>写法更传统&lt;/strong>：上手难度小，更接近原生 HTML/CSS/JS&lt;/li>
+&lt;li>&lt;strong>没有虚拟 DOM&lt;/strong>：没有运行时开销，性能更好&lt;/li>
+&lt;li>&lt;strong>生成代码更小&lt;/strong>：编译时优化，生成的包体积更小，更适合小型项目&lt;/li>
+&lt;/ol>
+&lt;h2 id="sveltekit">SvelteKit&lt;/h2>
+&lt;p>SvelteKit 是 Svelte 团队推出的现代 Web 框架，包含了路由、服务端渲染、静态站点生成等功能。&lt;/p>
+&lt;h2 id="创建项目">创建项目&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ npx sv create
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Need to install the following packages:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sv@0.8.10
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Ok to proceed? &lt;span style="color:#c7bf54">(&lt;/span>y&lt;span style="color:#c7bf54">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>┌ Welcome to the Svelte CLI! &lt;span style="color:#c7bf54">(&lt;/span>v0.8.10&lt;span style="color:#c7bf54">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>◇ Where would you like your project to be created?
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ ./
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>◇ Which template would you like?
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ SvelteKit minimal
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>◇ Add &lt;span style="color:#ef8383">type&lt;/span> checking with TypeScript?
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ Yes, using TypeScript syntax
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>◆ Project created
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>◇ What would you like to add to your project? &lt;span style="color:#c7bf54">(&lt;/span>use arrow keys / space bar&lt;span style="color:#c7bf54">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ tailwindcss
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>◇ Which plugins would you like to add?
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ typography
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>◆ Successfully setup add-ons
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>◇ Which package manager &lt;span style="color:#c678dd">do&lt;/span> you want to install dependencies with?
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ npm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>◆ Successfully installed dependencies
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>◇ Project next steps ─────────────────────────────────────────────────────╮
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 1: git init &lt;span style="color:#c7bf54">&amp;amp;&amp;amp;&lt;/span> git add -A &lt;span style="color:#c7bf54">&amp;amp;&amp;amp;&lt;/span> git commit -m &lt;span style="color:#63c381">&amp;#34;Initial commit&amp;#34;&lt;/span> &lt;span style="color:#c7bf54">(&lt;/span>optional&lt;span style="color:#c7bf54">)&lt;/span> │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 2: npm run dev -- --open │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ To close the dev server, hit Ctrl-C │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ Stuck? Visit us at https://svelte.dev/chat │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├──────────────────────────────────────────────────────────────────────────╯
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└ You&amp;#39;re all set!
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>启动开发环境：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>npm run dev -- --host
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>加了 &lt;code>--host&lt;/code> 允许从别的机器访问。需要加 &lt;code>--&lt;/code> 用来将后面的参数传入 Vite。&lt;/p>
+&lt;h2 id="编写内容">编写内容&lt;/h2>
+&lt;p>首页内容在 &lt;code>src/routes/+page.svelte&lt;/code> 文件中。&lt;/p>
+&lt;h2 id="组件">组件&lt;/h2>
+&lt;h3 id="属性">属性&lt;/h3>
+&lt;p>在页面添加 &lt;code>script&lt;/code> 代码块，并设定变量，即可在 HTML 中使用：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span> &lt;span style="color:#b3d23c">lang&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;ts&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">let&lt;/span> &lt;span style="color:#c1abea">name&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#63c381">&amp;#34;Svelte&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">h1&lt;/span>&amp;gt;&lt;span style="color:#c1abea">Hello&lt;/span> {&lt;span style="color:#c1abea">name&lt;/span>}&lt;span style="color:#c7bf54">!&lt;/span>&amp;lt;/&lt;span style="color:#e06c75">h1&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="动态属性">动态属性&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">let&lt;/span> &lt;span style="color:#c1abea">src&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#98c379">&amp;#39;/tutorial/image.gif&amp;#39;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">img&lt;/span> &lt;span style="color:#b3d23c">src&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>{&lt;span style="color:#c1abea">src&lt;/span>} /&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">img&lt;/span> {&lt;span style="color:#b3d23c">src&lt;/span>} /&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>作为属性时，不需要加引号。如果属性的名称和值同名，可以简化为 &lt;code>{src}&lt;/code>。&lt;/p>
+&lt;h3 id="样式">样式&lt;/h3>
+&lt;p>在页面添加 &lt;code>style&lt;/code> 代码块，设定样式。样式自动作用于当前组件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-html" data-lang="html">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">style&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">p&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">font-size&lt;/span>: &lt;span style="color:#d19a66">20&lt;/span>&lt;span style="color:#ef8383">px&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">style&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="组件嵌套">组件嵌套&lt;/h3>
+&lt;p>在组件中 &lt;code>import&lt;/code> 另一个组件，并在 HTML 中使用：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span> &lt;span style="color:#b3d23c">lang&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;ts&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">import&lt;/span> &lt;span style="color:#c1abea">Nested&lt;/span> &lt;span style="color:#c678dd">from&lt;/span> &lt;span style="color:#98c379">&amp;#39;./Nested.svelte&amp;#39;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">p&lt;/span>&amp;gt;&lt;span style="color:#c1abea">This&lt;/span> &lt;span style="color:#c678dd">is&lt;/span> &lt;span style="color:#c1abea">a&lt;/span> &lt;span style="color:#c1abea">component&lt;/span>&amp;lt;/&lt;span style="color:#e06c75">p&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">Nested&lt;/span> /&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="html-渲染">HTML 渲染&lt;/h3>
+&lt;p>默认情况下，Svelte 会将 HTML 转义，以防止 XSS 攻击。如果需要渲染 HTML，可以使用 &lt;code>{@html}&lt;/code> 指令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-html" data-lang="html">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">p&lt;/span>&amp;gt;{@html string}&amp;lt;/&lt;span style="color:#e06c75">p&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="响应式状态">响应式状态&lt;/h3>
+&lt;p>Svelte 使用 &lt;code>$state&lt;/code> 创建响应式变量。当这些变量改变时，Svelte 自动更新 DOM。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span> &lt;span style="color:#b3d23c">lang&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;ts&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">let&lt;/span> &lt;span style="color:#c1abea">count&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">$state&lt;/span>(&lt;span style="color:#d19a66">0&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">function&lt;/span> &lt;span style="color:#c1abea">increment() {&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">count&lt;/span> &lt;span style="color:#c7bf54">+=&lt;/span> &lt;span style="color:#d19a66">1&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">button&lt;/span> &lt;span style="color:#b3d23c">onclick&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>{&lt;span style="color:#c1abea">increment&lt;/span>}&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">Clicked&lt;/span> {&lt;span style="color:#c1abea">count&lt;/span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {&lt;span style="color:#c1abea">count&lt;/span> &lt;span style="color:#c7bf54">===&lt;/span> &lt;span style="color:#d19a66">1&lt;/span> &lt;span style="color:#c7bf54">?&lt;/span> &lt;span style="color:#98c379">&amp;#39;time&amp;#39;&lt;/span> &lt;span style="color:#c7bf54">:&lt;/span> &lt;span style="color:#98c379">&amp;#39;times&amp;#39;&lt;/span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">button&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>也可以用于数组：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span> &lt;span style="color:#b3d23c">lang&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;ts&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">let&lt;/span> &lt;span style="color:#c1abea">numbers&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">$state&lt;/span>([&lt;span style="color:#d19a66">0&lt;/span>, &lt;span style="color:#d19a66">1&lt;/span>, &lt;span style="color:#d19a66">2&lt;/span>, &lt;span style="color:#d19a66">3&lt;/span>, &lt;span style="color:#d19a66">4&lt;/span>]);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="派生状态">派生状态&lt;/h3>
+&lt;p>&lt;code>$derived&lt;/code> 用于计算派生状态，当原始状态改变时会自动重新计算：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span> &lt;span style="color:#b3d23c">lang&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;ts&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">let&lt;/span> &lt;span style="color:#c1abea">numbers&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">$state&lt;/span>([&lt;span style="color:#d19a66">1&lt;/span>, &lt;span style="color:#d19a66">2&lt;/span>, &lt;span style="color:#d19a66">3&lt;/span>, &lt;span style="color:#d19a66">4&lt;/span>]);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">let&lt;/span> &lt;span style="color:#c1abea">total&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">$derived&lt;/span>(&lt;span style="color:#c1abea">numbers&lt;/span>.&lt;span style="color:#c1abea">reduce&lt;/span>((&lt;span style="color:#c1abea">t&lt;/span>, &lt;span style="color:#c1abea">n&lt;/span>) &lt;span style="color:#c7bf54">=&amp;gt;&lt;/span> &lt;span style="color:#c1abea">t&lt;/span> &lt;span style="color:#c7bf54">+&lt;/span> &lt;span style="color:#c1abea">n&lt;/span>, &lt;span style="color:#d19a66">0&lt;/span>));
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="状态追踪">状态追踪&lt;/h3>
+&lt;p>使用 &lt;code>$inspect()&lt;/code> 输出状态变化，&lt;code>$state.snapshot()&lt;/code> 获取当前快照：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span> &lt;span style="color:#b3d23c">lang&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;ts&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">let&lt;/span> &lt;span style="color:#c1abea">numbers&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">$state&lt;/span>([&lt;span style="color:#d19a66">1&lt;/span>, &lt;span style="color:#d19a66">2&lt;/span>, &lt;span style="color:#d19a66">3&lt;/span>, &lt;span style="color:#d19a66">4&lt;/span>]);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">let&lt;/span> &lt;span style="color:#c1abea">total&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">$derived&lt;/span>(&lt;span style="color:#c1abea">numbers&lt;/span>.&lt;span style="color:#c1abea">reduce&lt;/span>((&lt;span style="color:#c1abea">t&lt;/span>, &lt;span style="color:#c1abea">n&lt;/span>) &lt;span style="color:#c7bf54">=&amp;gt;&lt;/span> &lt;span style="color:#c1abea">t&lt;/span> &lt;span style="color:#c7bf54">+&lt;/span> &lt;span style="color:#c1abea">n&lt;/span>, &lt;span style="color:#d19a66">0&lt;/span>));
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">function&lt;/span> &lt;span style="color:#c1abea">addNumber() {&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">numbers&lt;/span>.&lt;span style="color:#c1abea">push&lt;/span>(&lt;span style="color:#c1abea">numbers&lt;/span>.&lt;span style="color:#c1abea">length&lt;/span> &lt;span style="color:#c7bf54">+&lt;/span> &lt;span style="color:#d19a66">1&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#c1abea">$state&lt;/span>.&lt;span style="color:#c1abea">snapshot&lt;/span>(&lt;span style="color:#c1abea">numbers&lt;/span>));
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">$inspect&lt;/span>(&lt;span style="color:#c1abea">numbers&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="props">Props&lt;/h3>
+&lt;p>Props 用于从父组件向子组件传递数据，使用 &lt;code>$props&lt;/code> 接收：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">&amp;lt;!-- Child.svelte --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span> &lt;span style="color:#b3d23c">lang&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;ts&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">let&lt;/span> { &lt;span style="color:#c1abea">message&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#98c379">&amp;#39;default&amp;#39;&lt;/span> } &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">$props&lt;/span>();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">p&lt;/span>&amp;gt;{&lt;span style="color:#c1abea">message&lt;/span>}&amp;lt;/&lt;span style="color:#e06c75">p&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>父组件中使用子组件并传递 props：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">&amp;lt;!-- Parent.svelte --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span> &lt;span style="color:#b3d23c">lang&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;ts&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">import&lt;/span> &lt;span style="color:#c1abea">Child&lt;/span> &lt;span style="color:#c678dd">from&lt;/span> &lt;span style="color:#98c379">&amp;#39;./Child.svelte&amp;#39;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">Child&lt;/span> &lt;span style="color:#b3d23c">message&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;Hello from parent&amp;#34;&lt;/span> /&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="事件">事件&lt;/h3>
+&lt;p>子组件通过事件将数据传递给父组件，使用 &lt;code>createEventDispatcher&lt;/code> 或直接用 &lt;code>onclick&lt;/code> 等事件处理：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">&amp;lt;!-- Child.svelte --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span> &lt;span style="color:#b3d23c">lang&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;ts&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">let&lt;/span> { &lt;span style="color:#c1abea">onchange&lt;/span> } &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">$props&lt;/span>();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">button&lt;/span> &lt;span style="color:#b3d23c">onclick&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>{() &lt;span style="color:#c7bf54">=&amp;gt;&lt;/span> &lt;span style="color:#c1abea">onchange&lt;/span>&lt;span style="color:#c7bf54">?&lt;/span>.(&lt;span style="color:#d19a66">123&lt;/span>)}&amp;gt;&lt;span style="color:#c1abea">Send&lt;/span> &lt;span style="color:#c1abea">message&lt;/span>&amp;lt;/&lt;span style="color:#e06c75">button&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>父组件监听事件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">&amp;lt;!-- Parent.svelte --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span> &lt;span style="color:#b3d23c">lang&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;ts&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">import&lt;/span> &lt;span style="color:#c1abea">Child&lt;/span> &lt;span style="color:#c678dd">from&lt;/span> &lt;span style="color:#98c379">&amp;#39;./Child.svelte&amp;#39;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">function&lt;/span> &lt;span style="color:#c1abea">handleChange&lt;/span>(&lt;span style="color:#c1abea">value&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#c1abea">value&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">Child&lt;/span> &lt;span style="color:#b3d23c">onchange&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>{&lt;span style="color:#c1abea">handleChange&lt;/span>} /&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="双向绑定">双向绑定&lt;/h3>
+&lt;p>使用 &lt;code>bind:&lt;/code> 指令实现双向绑定：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span> &lt;span style="color:#b3d23c">lang&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;ts&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">let&lt;/span> &lt;span style="color:#c1abea">name&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">$state&lt;/span>(&lt;span style="color:#98c379">&amp;#39;&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">input&lt;/span> &lt;span style="color:#b3d23c">bind&lt;/span>:&lt;span style="color:#b3d23c">value&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>{&lt;span style="color:#c1abea">name&lt;/span>} /&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">p&lt;/span>&amp;gt;&lt;span style="color:#c1abea">Hello&lt;/span> {&lt;span style="color:#c1abea">name&lt;/span>}&amp;lt;/&lt;span style="color:#e06c75">p&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="路由">路由&lt;/h2>
+&lt;p>SvelteKit 使用文件系统路由。在 &lt;code>src/routes/&lt;/code> 目录下创建文件或文件夹：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>+page.svelte&lt;/code>：页面组件&lt;/li>
+&lt;li>&lt;code>+layout.svelte&lt;/code>：布局组件，适用于该目录及子目录&lt;/li>
+&lt;li>&lt;code>[id]&lt;/code>：动态路由参数，如 &lt;code>/posts/[id]&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="获取路由参数">获取路由参数&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span> &lt;span style="color:#b3d23c">lang&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;ts&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">import&lt;/span> { &lt;span style="color:#c1abea">page&lt;/span> } &lt;span style="color:#c678dd">from&lt;/span> &lt;span style="color:#98c379">&amp;#39;$app/stores&amp;#39;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">$&lt;/span>: &lt;span style="color:#ef8383">id&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">$page&lt;/span>.&lt;span style="color:#c1abea">params&lt;/span>.&lt;span style="color:#c1abea">id&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">p&lt;/span>&amp;gt;&lt;span style="color:#c1abea">Post&lt;/span> &lt;span style="color:#c1abea">ID&lt;/span>&lt;span style="color:#c7bf54">:&lt;/span> {&lt;span style="color:#c1abea">id&lt;/span>}&amp;lt;/&lt;span style="color:#e06c75">p&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="常用工具">常用工具&lt;/h2>
+&lt;h3 id="响应式声明">响应式声明&lt;/h3>
+&lt;p>使用 &lt;code>$:&lt;/code> 声明响应式代码，当依赖变化时自动执行：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span> &lt;span style="color:#b3d23c">lang&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;ts&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">let&lt;/span> &lt;span style="color:#c1abea">count&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">$state&lt;/span>(&lt;span style="color:#d19a66">0&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">$&lt;/span>: &lt;span style="color:#ef8383">doubled&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">count&lt;/span> &lt;span style="color:#c7bf54">*&lt;/span> &lt;span style="color:#d19a66">2&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">$&lt;/span>: &lt;span style="color:#ef8383">if&lt;/span> (&lt;span style="color:#c1abea">count&lt;/span> &lt;span style="color:#c7bf54">&amp;gt;&lt;/span> &lt;span style="color:#d19a66">10&lt;/span>) &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;count is over 10&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="生命周期">生命周期&lt;/h3>
+&lt;p>常用的生命周期：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">import&lt;/span> { &lt;span style="color:#c1abea">onMount&lt;/span>, &lt;span style="color:#c1abea">onDestroy&lt;/span> } &lt;span style="color:#c678dd">from&lt;/span> &lt;span style="color:#98c379">&amp;#39;svelte&amp;#39;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c1abea">onMount&lt;/span>(() &lt;span style="color:#c7bf54">=&amp;gt;&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;组件挂载&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">return&lt;/span> () &lt;span style="color:#c7bf54">=&amp;gt;&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;清理&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> };
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>});
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c1abea">onDestroy&lt;/span>(() &lt;span style="color:#c7bf54">=&amp;gt;&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;组件卸载&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>});
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>Svelte 以其简洁的语法、出色的性能和小的包体积，成为小型项目和追求性能的团队的好选择。如果你来自 Vue 或 React 背景，转向 Svelte 会有新的体验和启发。&lt;/p>- https://www.panwenbin.cn/posts/svelte/ - 2026 潘文斌</description></item><item><title>Hugo模板之Doks使用记录</title><link>https://www.panwenbin.cn/posts/hugo-doks/</link><pubDate>Thu, 05 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/hugo-doks/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/hugo-doks/ -&lt;h2 id="喜新厌旧">喜新厌旧&lt;/h2>
 &lt;blockquote>
 &lt;p>之前在Hugo上找文档的模板，相中了Doks，但是最近再去看，更喜欢Hextra了。&lt;br>
 再换掉它之前，先做个记录吧。&lt;/p>&lt;/blockquote>
@@ -299,14 +512,4 @@ Microsoft® LifeCam HD-6000 for (usb-0000:00:14.0-8):
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到摄像头画面，是YUYV格式的&lt;/p>
 &lt;p>使用&lt;code>ffmpeg&lt;/code>可以方便的录制视频。&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ffmpeg -f v4l2 -i /dev/video1 -c:v libx264 -preset ultrafast -tune zerolatency -f flv camera.flv
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-v4l-camera/ - 2026 潘文斌</description></item><item><title>什么是UEFI安全启动</title><link>https://www.panwenbin.cn/posts/uefi-secure-boot/</link><pubDate>Thu, 08 May 2025 20:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/uefi-secure-boot/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/uefi-secure-boot/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>什么是UEFI安全启动？&lt;/p>&lt;/blockquote>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;p>UEFI 安全启动 (SB) 是一种验证机制，用于确保计算机 UEFI 固件启动的代码是可信的。它旨在保护系统免受恶意代码在启动过程早期（操作系统加载之前）加载和执行的侵害。&lt;/p>
-&lt;p>安全启动依靠加密校验和与签名来工作。固件加载的每个程序都包含一个签名和校验和，在允许执行之前，固件会通过验证校验和与签名来验证程序是否可信。在系统上启用安全启动后，任何执行不受信任程序的尝试都将不被允许。这可以阻止意外/未经授权的代码在 UEFI 环境中运行。&lt;/p>
-&lt;h2 id="通俗点说">通俗点说&lt;/h2>
-&lt;p>安全启动，是只允许受信任机构签署的文件才能在启动阶段运行。&lt;/p>
-&lt;p>系统中预制了一些知名厂家（如Microsoft）的密钥，用户也可以导入自己的密钥，并信任。这些信任密钥签署的模块是被允许加载的。&lt;/p>
-&lt;p>shim是Linux下作为&lt;code>UEFI&lt;/code>系统上第一阶段&lt;code>bootloader&lt;/code>的程序。Microsoft等CA只要对shim程序签名。shim就可以用于验证和控制MOK（Machine Owner Key）。&lt;/p>
-&lt;p>DKMS（动态内核模块系统）是一个用于自动构建和安装内核模块的框架。但需要和MOK配合，也就是需要把DKMS生成的密钥加入MOK中信任。&lt;/p>- https://www.panwenbin.cn/posts/uefi-secure-boot/ - 2026 潘文斌</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-v4l-camera/ - 2026 潘文斌</description></item></channel></rss>

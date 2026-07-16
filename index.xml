@@ -1,4 +1,41 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 14 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>迅雷赚钱宝Pro (二代) WS1508 折腾记录</title><link>https://www.panwenbin.cn/posts/xunlei-minecrafter-ws1508/</link><pubDate>Tue, 14 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/xunlei-minecrafter-ws1508/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/xunlei-minecrafter-ws1508/ -&lt;h2 id="前言">前言&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Thu, 16 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>为Arm设备交叉编译Dropbear</title><link>https://www.panwenbin.cn/posts/dropbear-compile-for-arm/</link><pubDate>Thu, 16 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/dropbear-compile-for-arm/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/dropbear-compile-for-arm/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>有些设备上精简得连SSH都没有，telnet还是没有ssh方便，而有些老系统的dropbear又太旧了，急需一个新版本。
+目标平台是armv7l，为了方便使用，采用静态链接。&lt;/p>&lt;/blockquote>
+&lt;h2 id="在amd64上交叉编译">在amd64上交叉编译&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dpkg --add-architecture armhf
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get update
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt install curl bzip2 gcc-arm-linux-gnueabihf make
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">export&lt;/span> &lt;span style="color:#dcaeea">CC&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>arm-linux-gnueabihf-gcc
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">export&lt;/span> &lt;span style="color:#dcaeea">AR&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>arm-linux-gnueabihf-ar
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">export&lt;/span> &lt;span style="color:#dcaeea">STRIP&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>arm-linux-gnueabihf-strip
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>curl -O https://matt.ucc.asn.au/dropbear/releases/dropbear-2026.92.tar.bz2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tar jxvf dropbear-2026.92.tar.bz2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>./configure &lt;span style="color:#d26464;font-weight:bold">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#d26464;font-weight:bold">&lt;/span> --host&lt;span style="color:#c7bf54">=&lt;/span>arm-linux-gnueabihf &lt;span style="color:#d26464;font-weight:bold">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#d26464;font-weight:bold">&lt;/span> --enable-static
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>make
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="直接在arm设备上编译">直接在Arm设备上编译&lt;/h2>
+&lt;p>其实有设备直接在上面编译也还可以，时间并不长。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo apt-get update
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get install curl bzip2 gcc libc6-dev zlib1g-dev make
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>curl -O https://matt.ucc.asn.au/dropbear/releases/dropbear-2026.92.tar.bz2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tar jxvf dropbear-2026.92.tar.bz2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">cd&lt;/span> dropbear-2026.92/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>./configure --enable-static
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>make
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="生成hostkey">生成hostkey&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dropbearkey -t rsa -f /etc/dropbear/dropbear_rsa_host_key
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo dropbearkey -t ecdsa -f /etc/dropbear/dropbear_ecdsa_host_key
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo dropbearkey -t ed25519 -f /etc/dropbear/dropbear_ed25519_host_key
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="前台启动">前台启动&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dropbear -F -E -p &lt;span style="color:#d19a66">2022&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/dropbear-compile-for-arm/ - 2026 潘文斌</description></item><item><title>迅雷赚钱宝Pro (二代) WS1508 折腾记录</title><link>https://www.panwenbin.cn/posts/xunlei-minecrafter-ws1508/</link><pubDate>Tue, 14 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/xunlei-minecrafter-ws1508/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/xunlei-minecrafter-ws1508/ -&lt;h2 id="前言">前言&lt;/h2>
 &lt;blockquote>
 &lt;p>之前玩客云涨价就借机都出掉了，看到赚钱宝Pro没太涨价，就收了几个回来，赚钱宝Pro就是缩水版的玩客云。爬了一遍恩山论坛，重新折腾一下，顺便记录一下。&lt;/p>&lt;/blockquote>
 &lt;h2 id="硬件信息">硬件信息&lt;/h2>
@@ -700,17 +737,4 @@ chunks.\r\n
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;p>更多颜色代码可以参考&lt;a href="https://en.wikipedia.org/wiki/ANSI_escape_code#Colors">ANSI escape code&lt;/a>。&lt;/p>- https://www.panwenbin.cn/posts/linux-console-color-text/ - 2026 潘文斌</description></item><item><title>Kodi如何重置所有配置</title><link>https://www.panwenbin.cn/posts/kodi-reset/</link><pubDate>Sun, 06 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/kodi-reset/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/kodi-reset/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>Kodi配置和插件搞乱了，如何重置所有配置？&lt;/p>&lt;/blockquote>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;p>只要删除配置目录即可。以下是Kodi在不同操作系统上的配置目录：&lt;/p>
-&lt;pre tabindex="0">&lt;code>Android - Android/data/org.xbmc.kodi/files/.kodi
-iOS - /private/var/mobile/Library/Preferences/Kodi
-LibreELEC - /storage/.kodi
-Linux - ~/.kodi
-OSMC - /home/osmc/.kodi
-Mac - /Users/&amp;lt;your_user_name&amp;gt;/Library/Application Support/Kodi
-Windows - %APPDATA%\Kodi
-Windows UWP - %LOCALAPPDATA%\Packages\XBMCFoundation.Kodi_4n2hpmxwrvr6p\LocalCache\Roaming\Kodi\
-&lt;/code>&lt;/pre>- https://www.panwenbin.cn/posts/kodi-reset/ - 2026 潘文斌</description></item></channel></rss>
+&lt;p>更多颜色代码可以参考&lt;a href="https://en.wikipedia.org/wiki/ANSI_escape_code#Colors">ANSI escape code&lt;/a>。&lt;/p>- https://www.panwenbin.cn/posts/linux-console-color-text/ - 2026 潘文斌</description></item></channel></rss>
