@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Uboot on 潘文斌的技术文章</title><link>https://www.panwenbin.cn/tags/uboot/</link><description>Recent content in Uboot on 潘文斌的技术文章</description><generator>Hugo</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Fri, 17 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/tags/uboot/index.xml" rel="self" type="application/rss+xml"/><item><title>为Arm设备交叉编译fw_printenv</title><link>https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/</link><pubDate>Fri, 17 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/</guid><description>&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>有时候设备上没有fw_printenv，又不方便安装，比如安卓系统，想要查看和修改uboot的env。
+为了方便使用，采用静态链接。&lt;/p>&lt;/blockquote></description></item></channel></rss>

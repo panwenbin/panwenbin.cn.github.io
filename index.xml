@@ -1,4 +1,16 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Thu, 16 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>为Arm设备交叉编译Dropbear</title><link>https://www.panwenbin.cn/posts/dropbear-compile-for-arm/</link><pubDate>Thu, 16 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/dropbear-compile-for-arm/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/dropbear-compile-for-arm/ -&lt;h2 id="起因">起因&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Fri, 17 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>为Arm设备交叉编译fw_printenv</title><link>https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/</link><pubDate>Fri, 17 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>有时候设备上没有fw_printenv，又不方便安装，比如安卓系统，想要查看和修改uboot的env。
+为了方便使用，采用静态链接。&lt;/p>&lt;/blockquote>
+&lt;h2 id="静态编译">静态编译&lt;/h2>
+&lt;p>使用的是uboot的源代码，其&lt;code>tools/env/&lt;/code>下有fw_printenv的源代码。同样需要安装交叉编译工具链，可参考上一篇。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>make envtools &lt;span style="color:#dcaeea">ARCH&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>arm &lt;span style="color:#dcaeea">CROSS_COMPILE&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>arm-linux-gnueabihf- &lt;span style="color:#dcaeea">LDFLAGS&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#63c381">&amp;#34;-static&amp;#34;&lt;/span> &lt;span style="color:#dcaeea">HOSTLDFLAGS&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#63c381">&amp;#34;-static&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编译出来只有fw_printenv，fw_setenv只要做一个软链接即可：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ln -s fw_printenv fw_setenv
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="修改interpreter">修改interpreter&lt;/h2>
+&lt;p>对于有&lt;code>ld-linux-armhf.so.3&lt;/code>的情况下，也可以不静态编译，只要修改interpreter即可：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>patchelf --set-interpreter /lib/ld-linux-armhf.so.3 fw_printenv
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/ - 2026 潘文斌</description></item><item><title>为Arm设备交叉编译Dropbear</title><link>https://www.panwenbin.cn/posts/dropbear-compile-for-arm/</link><pubDate>Thu, 16 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/dropbear-compile-for-arm/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/dropbear-compile-for-arm/ -&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>有些设备上精简得连SSH都没有，telnet还是没有ssh方便，而有些老系统的dropbear又太旧了，急需一个新版本。
 目标平台是armv7l，为了方便使用，采用静态链接。&lt;/p>&lt;/blockquote>
@@ -680,61 +692,4 @@ chunks.\r\n
 0\r\n
 \r\n
 &lt;/code>&lt;/pre>&lt;h2 id="废弃">废弃&lt;/h2>
-&lt;p>在 HTTP/2 中，Transfer-Encoding: chunked 被废弃，因为 HTTP/2 引入了更先进的 帧（frame）机制 和 流（stream）控制，已经内建了流式传输能力，无需使用传统的 chunked 编码，并且还支持多路复用。&lt;/p>- https://www.panwenbin.cn/posts/http-chunked/ - 2026 潘文斌</description></item><item><title>Linux终端如何显示彩色文字</title><link>https://www.panwenbin.cn/posts/linux-console-color-text/</link><pubDate>Mon, 07 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-console-color-text/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-console-color-text/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>Linux终端如何显示彩色文字？&lt;/p>&lt;/blockquote>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;p>打印彩色文字需要使用ANSI转义序列。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">echo&lt;/span> -e &lt;span style="color:#63c381">&amp;#34;\033[31m红色文字\033[0m&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中&amp;quot;\033&amp;quot;也可以用&amp;quot;\x1b&amp;quot;，是ASCII码的ESC字符，&amp;ldquo;31&amp;quot;表示红色，&amp;ldquo;0&amp;quot;表示重置颜色。&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>代码&lt;/th>
-&lt;th>颜色&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>30&lt;/td>
-&lt;td>黑色&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>31&lt;/td>
-&lt;td>红色&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>32&lt;/td>
-&lt;td>绿色&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>33&lt;/td>
-&lt;td>黄色&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>34&lt;/td>
-&lt;td>蓝色&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>35&lt;/td>
-&lt;td>紫色&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>36&lt;/td>
-&lt;td>青色&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>37&lt;/td>
-&lt;td>白色&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>1&lt;/td>
-&lt;td>加粗&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>4&lt;/td>
-&lt;td>下划线&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;p>更多颜色代码可以参考&lt;a href="https://en.wikipedia.org/wiki/ANSI_escape_code#Colors">ANSI escape code&lt;/a>。&lt;/p>- https://www.panwenbin.cn/posts/linux-console-color-text/ - 2026 潘文斌</description></item></channel></rss>
+&lt;p>在 HTTP/2 中，Transfer-Encoding: chunked 被废弃，因为 HTTP/2 引入了更先进的 帧（frame）机制 和 流（stream）控制，已经内建了流式传输能力，无需使用传统的 chunked 编码，并且还支持多路复用。&lt;/p>- https://www.panwenbin.cn/posts/http-chunked/ - 2026 潘文斌</description></item></channel></rss>
