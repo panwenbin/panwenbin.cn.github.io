@@ -1,4 +1,35 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 21 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>HTTP中的chunked是什么</title><link>https://www.panwenbin.cn/posts/http-chunked/</link><pubDate>Thu, 10 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/http-chunked/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/http-chunked/ -&lt;h2 id="问题">问题&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Wed, 22 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Chrome138扩展被禁用怎么启用</title><link>https://www.panwenbin.cn/posts/chrome-extension-disabled/</link><pubDate>Sat, 12 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/chrome-extension-disabled/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/chrome-extension-disabled/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;blockquote>
+&lt;p>Chrome升级到138版本了，之前安装的某些扩展被禁用了，&amp;ldquo;此扩展程序不再受支持，因此已停用&amp;rdquo;，并且这次无法手动启用。&lt;/p>&lt;/blockquote>
+&lt;h2 id="回答">回答&lt;/h2>
+&lt;h3 id="修改策略">修改策略&lt;/h3>
+&lt;p>根据&lt;a href="https://developer.chrome.com/docs/extensions/develop/migrate/mv2-deprecation-timeline?hl=zh-cn">Manifest V2 支持时间表&lt;/a>，在Chrome 139之前，可以通过修改&lt;code> ExtensionManifestV2Availability&lt;/code>策略来启用被禁用的扩展。&lt;/p>
+&lt;p>Windows系统下，按&lt;code>Win + R&lt;/code>打开运行窗口，输入&lt;code>regedit&lt;/code>打开注册表编辑器，找到以下路径：&lt;/p>
+&lt;pre tabindex="0">&lt;code>Software\Policies\Google\Chrome
+&lt;/code>&lt;/pre>&lt;p>添加一个名为&lt;code>ExtensionManifestV2Availability&lt;/code>的DWORD值，设置为&lt;code>2&lt;/code>。如果没有此路径，可以手动创建。&lt;/p>
+&lt;p>Linux系统下，打开终端，输入以下命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mkdir -p /etc/opt/chrome/policies/managed
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">echo&lt;/span> &lt;span style="color:#98c379">&amp;#39;{ &amp;#34;ExtensionManifestV2Availability&amp;#34;: 2 }&amp;#39;&lt;/span> | sudo tee /etc/opt/chrome/policies/managed/manifest_v2.json
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>macOS系统下，打开终端，输入以下命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mkdir -p /Library/Managed&lt;span style="color:#d26464;font-weight:bold">\ &lt;/span>Preferences/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo tee /Library/Managed&lt;span style="color:#d26464;font-weight:bold">\ &lt;/span>Preferences/com.google.Chrome.plist &amp;gt;/dev/null &lt;span style="color:#98c379">&amp;lt;&amp;lt;EOF
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">&amp;lt;!DOCTYPE plist PUBLIC &amp;#34;-//Apple//DTD PLIST 1.0//EN&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379"> &amp;#34;http://www.apple.com/DTDs/PropertyList-1.0.dtd&amp;#34;&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">&amp;lt;plist version=&amp;#34;1.0&amp;#34;&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">&amp;lt;dict&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379"> &amp;lt;key&amp;gt;ExtensionManifestV2Availability&amp;lt;/key&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379"> &amp;lt;integer&amp;gt;2&amp;lt;/integer&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">&amp;lt;/dict&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">&amp;lt;/plist&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启Chrome浏览器。打开&lt;code>chrome://policy/&lt;/code>，可以看到&lt;code>ExtensionManifestV2Availability&lt;/code>的值已经设置为&lt;code>2&lt;/code>。这样就可以正常使用扩展了。&lt;/p>
+&lt;h3 id="未打包扩展">未打包扩展&lt;/h3>
+&lt;p>打开&lt;code>chrome://flags/&lt;/code>，搜索manifest，找到&lt;code>Allow legacy extension manifest versions&lt;/code>，默认是Default，改为Enabled。
+然后会提示重启浏览器，重启后并不能直接使用，此选项只是开启了加载未打包的开发版本的选项。&lt;/p>
+&lt;p>然后打开&lt;code>chrome://extensions/&lt;/code>，开启右上角的开发者模式，点击左上角的&lt;code>加载未打包的扩展程序&lt;/code>，选择扩展所在目录即可正常添加扩展。&lt;/p>
+&lt;p>至于扩展的未打包版本，需要找到扩展的开源代码，通常是Github上，下载源代码自己编译。
+或者直接下载打包好的crx文件，后缀改为zip，解压后放到某个目录，然后加载未打包的扩展程序选择此目录即可。&lt;/p>- https://www.panwenbin.cn/posts/chrome-extension-disabled/ - 2026 潘文斌</description></item><item><title>HTTP中的chunked是什么</title><link>https://www.panwenbin.cn/posts/http-chunked/</link><pubDate>Thu, 10 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/http-chunked/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/http-chunked/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>HTTP/1.1中，响应头中的&lt;code>Transfer-Encoding: chunked&lt;/code>是什么意思？&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
@@ -218,11 +249,4 @@ EndSection
 &lt;p>在&lt;code>~/.config/ranger/rc.conf&lt;/code>中添加绑定&lt;code>fm&lt;/code>键为自定义操作。&lt;/p>
 &lt;pre tabindex="0">&lt;code>map fm flv_to_mp4
 &lt;/code>&lt;/pre>&lt;h2 id="使用">使用&lt;/h2>
-&lt;p>在ranger中选中文件，然后按&lt;code>fm&lt;/code>键执行转换操作。&lt;/p>- https://www.panwenbin.cn/posts/ranger-custom-operation/ - 2026 潘文斌</description></item><item><title>Linux下RSS阅读器</title><link>https://www.panwenbin.cn/posts/linux-rss-reader/</link><pubDate>Thu, 19 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-rss-reader/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-rss-reader/ -&lt;blockquote>
-&lt;p>Linux下RSS阅读器使用记录。&lt;/p>&lt;/blockquote>
-&lt;h2 id="newsflash">NewsFlash&lt;/h2>
-&lt;p>现代化界面，支持Miniflux的API，用户名密码或token都支持。&lt;/p>
-&lt;p>使用Flathub安装&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>flatpak install flathub io.gitlab.news_flash.NewsFlash
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="miniflux">Miniflux&lt;/h2>
-&lt;p>自建RSS订阅程序，Go编写，响应快，资源占用低。提供Web界面和API。&lt;/p>- https://www.panwenbin.cn/posts/linux-rss-reader/ - 2026 潘文斌</description></item></channel></rss>
+&lt;p>在ranger中选中文件，然后按&lt;code>fm&lt;/code>键执行转换操作。&lt;/p>- https://www.panwenbin.cn/posts/ranger-custom-operation/ - 2026 潘文斌</description></item></channel></rss>

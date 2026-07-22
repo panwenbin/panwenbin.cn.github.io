@@ -1,4 +1,34 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 21 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>MOSS-TTS 折腾记录</title><link>https://www.panwenbin.cn/posts/moss-tts/</link><pubDate>Tue, 21 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/moss-tts/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/moss-tts/ -&lt;h2 id="前言">前言&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Wed, 22 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>INDEX-TTS2 折腾记录</title><link>https://www.panwenbin.cn/posts/index-tts2/</link><pubDate>Wed, 22 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/index-tts2/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/index-tts2/ -&lt;h2 id="前言">前言&lt;/h2>
+&lt;blockquote>
+&lt;p>之前折腾了MOSS-TTS，看到对比INDEX-TTS效果更好，再折腾一下，记录一下。&lt;/p>&lt;/blockquote>
+&lt;h2 id="直接运行">直接运行&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>uv venv
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">source&lt;/span> .venv/bin/activate
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>uv sync --all-extras
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>结果报错了&lt;/p>
+&lt;pre tabindex="0">&lt;code>Resolved 185 packages in 10.23s
+error: Distribution `triton-windows==3.1.0.post17 @ registry+https://mirrors.sustech.edu.cn/pypi/web/simple` can&amp;#39;t be installed because it doesn&amp;#39;t have a
+source distribution or wheel for the current platform
+hint: You&amp;#39;re on Linux (`manylinux_2_41_x86_64`), but `triton-windows` (v3.1.0.post17) only has wheels for the following platform: `win_amd64`; consider adding &amp;#34;sys_platform == &amp;#39;linux&amp;#39; and platform_machine == &amp;#39;x86_64&amp;#39;&amp;#34; to `tool.uv.required-environments` to ensure uv resolves to a version with compatible wheels
+&lt;/code>&lt;/pre>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>uv sync
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这次可以了。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>uv tool install &lt;span style="color:#63c381">&amp;#34;huggingface-hub[cli,hf_xet]&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#dcaeea">HF_ENDPOINT&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#63c381">&amp;#34;https://hf-mirror.com&amp;#34;&lt;/span> hf download IndexTeam/IndexTTS-2 --local-dir&lt;span style="color:#c7bf54">=&lt;/span>checkpoints
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>uv run webui.py
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>结果报错了&lt;/p>
+&lt;pre tabindex="0">&lt;code>ModuleNotFoundError: No module named &amp;#39;gradio&amp;#39;
+&lt;/code>&lt;/pre>&lt;p>还没有安装 &lt;code>webui&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>uv sync --extra webui
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>装上再次运行&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>uv run webui.py
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以了，又自动下载了一些模型文件，最终还是炸显存了。&lt;/p>
+&lt;p>改用&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>uv run webui.py --fp16
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>起来了，打开 http://127.0.0.1:7860
+上传reference音频，输入文字，第一次生成成功了，第二次又炸显存了。&lt;/p>
+&lt;p>通过降低gui_seg_tokens可能有点用，但是Text长度还是最长90个中文字左右。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>uv run webui.py --fp16 --gui_seg_tokens &lt;span style="color:#d19a66">80&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/index-tts2/ - 2026 潘文斌</description></item><item><title>MOSS-TTS 折腾记录</title><link>https://www.panwenbin.cn/posts/moss-tts/</link><pubDate>Tue, 21 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/moss-tts/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/moss-tts/ -&lt;h2 id="前言">前言&lt;/h2>
 &lt;blockquote>
 &lt;p>RTX4060 8G，除了生图，视频就不奢望了。想搞一点配置要求低的事情，TTS觉得可以。
 选了MOSS-TTS，结果这玩意儿比预想要求高太多了，折腾了一下，记录一下。&lt;/p>&lt;/blockquote>
@@ -686,35 +716,4 @@ theme也可以直接用&lt;code>hugo serve&lt;/code>运行起来，非常方便t
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[&lt;span style="color:#c1abea">security&lt;/span>]
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[&lt;span style="color:#c1abea">security&lt;/span>.&lt;span style="color:#c1abea">exec&lt;/span>]
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c1abea">allow&lt;/span> = [&lt;span style="color:#98c379">&amp;#39;^tailwindcss$&amp;#39;&lt;/span>] &lt;span style="color:#8a93a5;font-style:italic"># 允许 Hugo 执行 Tailwind CLI&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/hugo-new-theme-tailwind/ - 2026 潘文斌</description></item><item><title>Chrome138扩展被禁用怎么启用</title><link>https://www.panwenbin.cn/posts/chrome-extension-disabled/</link><pubDate>Sat, 12 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/chrome-extension-disabled/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/chrome-extension-disabled/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>Chrome升级到138版本了，之前安装的某些扩展被禁用了，&amp;ldquo;此扩展程序不再受支持，因此已停用&amp;rdquo;，并且这次无法手动启用。&lt;/p>&lt;/blockquote>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;h3 id="修改策略">修改策略&lt;/h3>
-&lt;p>根据&lt;a href="https://developer.chrome.com/docs/extensions/develop/migrate/mv2-deprecation-timeline?hl=zh-cn">Manifest V2 支持时间表&lt;/a>，在Chrome 139之前，可以通过修改&lt;code> ExtensionManifestV2Availability&lt;/code>策略来启用被禁用的扩展。&lt;/p>
-&lt;p>Windows系统下，按&lt;code>Win + R&lt;/code>打开运行窗口，输入&lt;code>regedit&lt;/code>打开注册表编辑器，找到以下路径：&lt;/p>
-&lt;pre tabindex="0">&lt;code>Software\Policies\Google\Chrome
-&lt;/code>&lt;/pre>&lt;p>添加一个名为&lt;code>ExtensionManifestV2Availability&lt;/code>的DWORD值，设置为&lt;code>2&lt;/code>。如果没有此路径，可以手动创建。&lt;/p>
-&lt;p>Linux系统下，打开终端，输入以下命令：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mkdir -p /etc/opt/chrome/policies/managed
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">echo&lt;/span> &lt;span style="color:#98c379">&amp;#39;{ &amp;#34;ExtensionManifestV2Availability&amp;#34;: 2 }&amp;#39;&lt;/span> | sudo tee /etc/opt/chrome/policies/managed/manifest_v2.json
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>macOS系统下，打开终端，输入以下命令：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mkdir -p /Library/Managed&lt;span style="color:#d26464;font-weight:bold">\ &lt;/span>Preferences/
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo tee /Library/Managed&lt;span style="color:#d26464;font-weight:bold">\ &lt;/span>Preferences/com.google.Chrome.plist &amp;gt;/dev/null &lt;span style="color:#98c379">&amp;lt;&amp;lt;EOF
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">&amp;lt;!DOCTYPE plist PUBLIC &amp;#34;-//Apple//DTD PLIST 1.0//EN&amp;#34;
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379"> &amp;#34;http://www.apple.com/DTDs/PropertyList-1.0.dtd&amp;#34;&amp;gt;
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">&amp;lt;plist version=&amp;#34;1.0&amp;#34;&amp;gt;
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">&amp;lt;dict&amp;gt;
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379"> &amp;lt;key&amp;gt;ExtensionManifestV2Availability&amp;lt;/key&amp;gt;
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379"> &amp;lt;integer&amp;gt;2&amp;lt;/integer&amp;gt;
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">&amp;lt;/dict&amp;gt;
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">&amp;lt;/plist&amp;gt;
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#98c379">EOF&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启Chrome浏览器。打开&lt;code>chrome://policy/&lt;/code>，可以看到&lt;code>ExtensionManifestV2Availability&lt;/code>的值已经设置为&lt;code>2&lt;/code>。这样就可以正常使用扩展了。&lt;/p>
-&lt;h3 id="未打包扩展">未打包扩展&lt;/h3>
-&lt;p>打开&lt;code>chrome://flags/&lt;/code>，搜索manifest，找到&lt;code>Allow legacy extension manifest versions&lt;/code>，默认是Default，改为Enabled。
-然后会提示重启浏览器，重启后并不能直接使用，此选项只是开启了加载未打包的开发版本的选项。&lt;/p>
-&lt;p>然后打开&lt;code>chrome://extensions/&lt;/code>，开启右上角的开发者模式，点击左上角的&lt;code>加载未打包的扩展程序&lt;/code>，选择扩展所在目录即可正常添加扩展。&lt;/p>
-&lt;p>至于扩展的未打包版本，需要找到扩展的开源代码，通常是Github上，下载源代码自己编译。
-或者直接下载打包好的crx文件，后缀改为zip，解压后放到某个目录，然后加载未打包的扩展程序选择此目录即可。&lt;/p>- https://www.panwenbin.cn/posts/chrome-extension-disabled/ - 2026 潘文斌</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/hugo-new-theme-tailwind/ - 2026 潘文斌</description></item></channel></rss>
