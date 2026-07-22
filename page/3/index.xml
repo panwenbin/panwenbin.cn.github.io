@@ -1,4 +1,40 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Fri, 17 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo模板之Hextra使用记录</title><link>https://www.panwenbin.cn/posts/hugo-hextra/</link><pubDate>Mon, 16 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/hugo-hextra/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/hugo-hextra/ -&lt;h2 id="原因">原因&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 21 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>TLS指纹检测识别客户端</title><link>https://www.panwenbin.cn/posts/tls-fingerprint/</link><pubDate>Tue, 17 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/tls-fingerprint/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/tls-fingerprint/ -&lt;h2 id="什么是tls指纹">什么是TLS指纹&lt;/h2>
+&lt;blockquote>
+&lt;p>TLS指纹（TLS Fingerprinting）是一种用于识别和分类网络流量中使用的TLS（Transport Layer Security）协议版本、加密套件及其他相关参数的技术。通过分析TLS握手阶段的特征（如Client Hello报文中的字段排列、扩展列表等），可以生成一个独特的“指纹”，用于识别客户端（如浏览器、应用程序或设备）的类型、版本甚至是否为自动化工具（如爬虫）。&lt;/p>&lt;/blockquote>
+&lt;h2 id="实现原理">实现原理&lt;/h2>
+&lt;p>Client Hello 报文分析&lt;br>
+TLS握手开始时，客户端会发送Client Hello报文，包含以下关键信息：&lt;/p>
+&lt;ul>
+&lt;li>TLS版本（如TLS 1.2、TLS 1.3）。&lt;/li>
+&lt;li>支持的加密套件（Cipher Suites）列表及其顺序。&lt;/li>
+&lt;li>扩展（Extensions）类型及顺序（如SNI、ALPN、签名算法等）。&lt;/li>
+&lt;li>其他字段（如椭圆曲线类型、签名算法等）。&lt;/li>
+&lt;/ul>
+&lt;p>指纹生成方式&lt;br>
+将这些字段的组合（尤其是顺序和特定选项）通过哈希（如JA3算法）或规则匹配转换为唯一标识符。例如：&lt;/p>
+&lt;ul>
+&lt;li>JA3/JA3S：将TLS版本、加密套件、扩展等字段按顺序拼接后计算MD5哈希，生成指纹（如771,4865-4866-4867-&amp;hellip;,23-65281-10-11-16-5-13-&amp;hellip; → MD5哈希）。&lt;/li>
+&lt;li>其他方法：如TLSH、Akamai的指纹方案等。&lt;/li>
+&lt;/ul>
+&lt;h2 id="检测">检测&lt;/h2>
+&lt;p>有一些网站提供了tls指纹检测&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://tls.browserleaks.com/json">https://tls.browserleaks.com/json&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://tls.peet.ws">https://tls.peet.ws&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="模拟">模拟&lt;/h2>
+&lt;p>通过定制化TLS栈模拟浏览器的握手过程。维护比较活跃的有 &lt;code>curl_cffi&lt;/code>（python库）&lt;/p>
+&lt;p>&lt;a href="https://github.com/lexiforest/curl_cffi">curl_cffi&lt;/a>是一个对&lt;a href="https://github.com/lexiforest/curl-impersonate">curl-impersonate&lt;/a>的binding。维护活跃，截止目前支持到chrome136。&lt;/p>
+&lt;p>安装&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>pip install curl_cffi --upgrade
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">import&lt;/span> &lt;span style="color:#76a9f9">curl_cffi&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># Notice the impersonate parameter&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c1abea">r&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">curl_cffi&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">get&lt;/span>(&lt;span style="color:#63c381">&amp;#34;https://tls.browserleaks.com/json&amp;#34;&lt;/span>, &lt;span style="color:#c1abea">impersonate&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#63c381">&amp;#34;chrome&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">print&lt;/span>(&lt;span style="color:#c1abea">r&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">json&lt;/span>())
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/tls-fingerprint/ - 2026 潘文斌</description></item><item><title>Hugo模板之Hextra使用记录</title><link>https://www.panwenbin.cn/posts/hugo-hextra/</link><pubDate>Mon, 16 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/hugo-hextra/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/hugo-hextra/ -&lt;h2 id="原因">原因&lt;/h2>
 &lt;blockquote>
 &lt;p>Hextra是一个较新的Hugo主题，使用Tailwind CSS提供了现代化的设计。作者是国人，主题也比较符合国人审美。
 左侧导航更美观，还提供了一些组件，使得整体美观度更高。&lt;/p>&lt;/blockquote>
@@ -575,70 +611,4 @@ $$
 &lt;p>或者另一个思路，不使用256配色呢。&lt;/p>
 &lt;h2 id="回答">回答&lt;/h2>
 &lt;p>安装&lt;code>ncurses-term&lt;/code>包，问题解决。&lt;br>
-如果实在不想安装，&lt;code>export TERM=xterm&lt;/code>临时不再使用256配色。&lt;/p>- https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/ - 2026 潘文斌</description></item><item><title>Go Read 接口的错误处理</title><link>https://www.panwenbin.cn/posts/golang-read-err-handle/</link><pubDate>Tue, 20 May 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/golang-read-err-handle/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/golang-read-err-handle/ -&lt;h2 id="背景">背景&lt;/h2>
-&lt;p>&lt;code>io.Reader&lt;/code> 和 &lt;code>binary.Read&lt;/code> 的错误返回方式不直观，需要理解其特定约定才能正确处理。&lt;/p>
-&lt;h2 id="reader-接口约定">Reader 接口约定&lt;/h2>
-&lt;p>看 Reader 的接口定义和注释：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-golang" data-lang="golang">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Reader is the interface that wraps the basic Read method.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Read reads up to len(p) bytes into p. It returns the number of bytes&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// read (0 &amp;lt;= n &amp;lt;= len(p)) and any error encountered. Even if Read&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// returns n &amp;lt; len(p), it may use all of p as scratch space during the call.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// If some data is available but not len(p) bytes, Read conventionally&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// returns what is available instead of waiting for more.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// When Read encounters an error or end-of-file condition after&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// successfully reading n &amp;gt; 0 bytes, it returns the number of&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// bytes read. It may return the (non-nil) error from the same call&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// or return the error (and n == 0) from a subsequent call.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// An instance of this general case is that a Reader returning&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// a non-zero number of bytes at the end of the input stream may&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// return either err == EOF or err == nil. The next Read should&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// return 0, EOF.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Callers should always process the n &amp;gt; 0 bytes returned before&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// considering the error err. Doing so correctly handles I/O errors&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// that happen after reading some bytes and also both of the&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// allowed EOF behaviors.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// If len(p) == 0, Read should always return n == 0. It may return a&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// non-nil error if some error condition is known, such as EOF.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Implementations of Read are discouraged from returning a&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// zero byte count with a nil error, except when len(p) == 0.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Callers should treat a return of 0 and nil as indicating that&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// nothing happened; in particular it does not indicate EOF.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Implementations must not retain p.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">type&lt;/span> &lt;span style="color:#c1abea">Reader&lt;/span> &lt;span style="color:#c678dd">interface&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#00b1f7">Read&lt;/span>(&lt;span style="color:#c1abea">p&lt;/span> []&lt;span style="color:#ef8383">byte&lt;/span>) (&lt;span style="color:#c1abea">n&lt;/span> &lt;span style="color:#ef8383">int&lt;/span>, &lt;span style="color:#c1abea">err&lt;/span> &lt;span style="color:#ef8383">error&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>关键点：&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>返回 &lt;code>(n, err)&lt;/code>，其中 &lt;code>n &amp;gt; 0&lt;/code> 时必须处理返回的数据，即使同时返回了错误&lt;/li>
-&lt;li>错误可能在当前调用返回，或延迟到下一次调用时返回（此时 &lt;code>n = 0&lt;/code>）&lt;/li>
-&lt;li>不应该返回 &lt;code>n = 0&lt;/code> 和 &lt;code>err = nil&lt;/code> 的组合（除非 &lt;code>len(p) == 0&lt;/code>），这表示&amp;quot;什么都没发生&amp;quot;&lt;/li>
-&lt;/ul>
-&lt;h2 id="binaryread-的特殊约定">binary.Read 的特殊约定&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-golang" data-lang="golang">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Read reads structured binary data from r into data.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Data must be a pointer to a fixed-size value or a slice&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// of fixed-size values.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Bytes read from r are decoded using the specified byte order&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// and written to successive fields of the data.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// When decoding boolean values, a zero byte is decoded as false, and&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// any other non-zero byte is decoded as true.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// When reading into structs, the field data for fields with&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// blank (_) field names is skipped; i.e., blank field names&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// may be used for padding.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// When reading into a struct, all non-blank fields must be exported&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// or Read may panic.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// The error is [io.EOF] only if no bytes were read.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// If an [io.EOF] happens after reading some but not all the bytes,&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Read returns [io.ErrUnexpectedEOF].&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">func&lt;/span> &lt;span style="color:#00b1f7">Read&lt;/span>(&lt;span style="color:#c1abea">r&lt;/span> &lt;span style="color:#c1abea">io&lt;/span>.&lt;span style="color:#c1abea">Reader&lt;/span>, &lt;span style="color:#c1abea">order&lt;/span> &lt;span style="color:#c1abea">ByteOrder&lt;/span>, &lt;span style="color:#c1abea">data&lt;/span> &lt;span style="color:#ef8383">any&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>关键点：&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>&lt;code>io.EOF&lt;/code> 只在完全没有读到数据时返回&lt;/li>
-&lt;li>如果读到了部分数据后遇到 EOF，返回 &lt;code>io.ErrUnexpectedEOF&lt;/code>&lt;/li>
-&lt;/ul>- https://www.panwenbin.cn/posts/golang-read-err-handle/ - 2026 潘文斌</description></item></channel></rss>
+如果实在不想安装，&lt;code>export TERM=xterm&lt;/code>临时不再使用256配色。&lt;/p>- https://www.panwenbin.cn/posts/tmux-missing-xterm-256color/ - 2026 潘文斌</description></item></channel></rss>

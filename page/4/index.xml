@@ -1,4 +1,70 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Fri, 17 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux上使用V4L2摄像头</title><link>https://www.panwenbin.cn/posts/linux-v4l-camera/</link><pubDate>Thu, 08 May 2025 21:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-v4l-camera/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-v4l-camera/ -&lt;h2 id="目标">目标&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 21 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Go Read 接口的错误处理</title><link>https://www.panwenbin.cn/posts/golang-read-err-handle/</link><pubDate>Tue, 20 May 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/golang-read-err-handle/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/golang-read-err-handle/ -&lt;h2 id="背景">背景&lt;/h2>
+&lt;p>&lt;code>io.Reader&lt;/code> 和 &lt;code>binary.Read&lt;/code> 的错误返回方式不直观，需要理解其特定约定才能正确处理。&lt;/p>
+&lt;h2 id="reader-接口约定">Reader 接口约定&lt;/h2>
+&lt;p>看 Reader 的接口定义和注释：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-golang" data-lang="golang">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Reader is the interface that wraps the basic Read method.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Read reads up to len(p) bytes into p. It returns the number of bytes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// read (0 &amp;lt;= n &amp;lt;= len(p)) and any error encountered. Even if Read&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// returns n &amp;lt; len(p), it may use all of p as scratch space during the call.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// If some data is available but not len(p) bytes, Read conventionally&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// returns what is available instead of waiting for more.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// When Read encounters an error or end-of-file condition after&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// successfully reading n &amp;gt; 0 bytes, it returns the number of&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// bytes read. It may return the (non-nil) error from the same call&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// or return the error (and n == 0) from a subsequent call.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// An instance of this general case is that a Reader returning&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// a non-zero number of bytes at the end of the input stream may&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// return either err == EOF or err == nil. The next Read should&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// return 0, EOF.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Callers should always process the n &amp;gt; 0 bytes returned before&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// considering the error err. Doing so correctly handles I/O errors&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// that happen after reading some bytes and also both of the&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// allowed EOF behaviors.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// If len(p) == 0, Read should always return n == 0. It may return a&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// non-nil error if some error condition is known, such as EOF.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Implementations of Read are discouraged from returning a&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// zero byte count with a nil error, except when len(p) == 0.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Callers should treat a return of 0 and nil as indicating that&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// nothing happened; in particular it does not indicate EOF.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Implementations must not retain p.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">type&lt;/span> &lt;span style="color:#c1abea">Reader&lt;/span> &lt;span style="color:#c678dd">interface&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#00b1f7">Read&lt;/span>(&lt;span style="color:#c1abea">p&lt;/span> []&lt;span style="color:#ef8383">byte&lt;/span>) (&lt;span style="color:#c1abea">n&lt;/span> &lt;span style="color:#ef8383">int&lt;/span>, &lt;span style="color:#c1abea">err&lt;/span> &lt;span style="color:#ef8383">error&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>关键点：&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>返回 &lt;code>(n, err)&lt;/code>，其中 &lt;code>n &amp;gt; 0&lt;/code> 时必须处理返回的数据，即使同时返回了错误&lt;/li>
+&lt;li>错误可能在当前调用返回，或延迟到下一次调用时返回（此时 &lt;code>n = 0&lt;/code>）&lt;/li>
+&lt;li>不应该返回 &lt;code>n = 0&lt;/code> 和 &lt;code>err = nil&lt;/code> 的组合（除非 &lt;code>len(p) == 0&lt;/code>），这表示&amp;quot;什么都没发生&amp;quot;&lt;/li>
+&lt;/ul>
+&lt;h2 id="binaryread-的特殊约定">binary.Read 的特殊约定&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-golang" data-lang="golang">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Read reads structured binary data from r into data.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Data must be a pointer to a fixed-size value or a slice&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// of fixed-size values.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Bytes read from r are decoded using the specified byte order&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// and written to successive fields of the data.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// When decoding boolean values, a zero byte is decoded as false, and&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// any other non-zero byte is decoded as true.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// When reading into structs, the field data for fields with&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// blank (_) field names is skipped; i.e., blank field names&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// may be used for padding.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// When reading into a struct, all non-blank fields must be exported&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// or Read may panic.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">//&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// The error is [io.EOF] only if no bytes were read.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// If an [io.EOF] happens after reading some but not all the bytes,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">// Read returns [io.ErrUnexpectedEOF].&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">func&lt;/span> &lt;span style="color:#00b1f7">Read&lt;/span>(&lt;span style="color:#c1abea">r&lt;/span> &lt;span style="color:#c1abea">io&lt;/span>.&lt;span style="color:#c1abea">Reader&lt;/span>, &lt;span style="color:#c1abea">order&lt;/span> &lt;span style="color:#c1abea">ByteOrder&lt;/span>, &lt;span style="color:#c1abea">data&lt;/span> &lt;span style="color:#ef8383">any&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>关键点：&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>io.EOF&lt;/code> 只在完全没有读到数据时返回&lt;/li>
+&lt;li>如果读到了部分数据后遇到 EOF，返回 &lt;code>io.ErrUnexpectedEOF&lt;/code>&lt;/li>
+&lt;/ul>- https://www.panwenbin.cn/posts/golang-read-err-handle/ - 2026 潘文斌</description></item><item><title>Linux上使用V4L2摄像头</title><link>https://www.panwenbin.cn/posts/linux-v4l-camera/</link><pubDate>Thu, 08 May 2025 21:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-v4l-camera/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-v4l-camera/ -&lt;h2 id="目标">目标&lt;/h2>
 &lt;blockquote>
 &lt;p>Linux下查看摄像头画面，录制摄像头画面。&lt;/p>&lt;/blockquote>
 &lt;h2 id="v4l内核模块">V4L内核模块&lt;/h2>
@@ -261,17 +327,4 @@ mpegts封装aac容易不识别，改为ac3可以，但是和hevc一起有会播�
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>winget settings --enable ProxyCommandLineOptions
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行时指定参数&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>winget install &amp;lt;package&amp;gt; --proxy http://&amp;lt;host&amp;gt;:&amp;lt;port&amp;gt;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/winget-use-proxy/ - 2026 潘文斌</description></item><item><title>macOS VNC连接提示No matching security types</title><link>https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/</link><pubDate>Wed, 23 Apr 2025 00:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>macOS开启了屏幕共享，通过其他电脑用VNC连接时，提示&lt;br>
-No matching security types when connect to MacOS VNC&lt;/p>&lt;/blockquote>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;p>因为macOS的屏幕共享使用的是系统帐号验证，默认没有开启VNC密码验证。&lt;br>
-解决方法是开启VNC密码验证，步骤如下：&lt;/p>
-&lt;ul>
-&lt;li>点开&lt;code>系统偏好设置&lt;/code>，&lt;/li>
-&lt;li>选择&lt;code>共享&lt;/code>，&lt;/li>
-&lt;li>然后在左侧选择&lt;code>屏幕共享&lt;/code>，&lt;/li>
-&lt;li>点击右侧的&lt;code>计算机设置...&lt;/code>按钮，&lt;/li>
-&lt;li>勾选&lt;code>VNC查看器可以使用密码进行访问&lt;/code>，并设置一个密码。&lt;/li>
-&lt;/ul>- https://www.panwenbin.cn/posts/mac-vnc-no-matching-security-types/ - 2026 潘文斌</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/winget-use-proxy/ - 2026 潘文斌</description></item></channel></rss>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>语音合成 on 潘文斌的技术文章</title><link>https://www.panwenbin.cn/tags/%E8%AF%AD%E9%9F%B3%E5%90%88%E6%88%90/</link><description>Recent content in 语音合成 on 潘文斌的技术文章</description><generator>Hugo</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 21 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/tags/%E8%AF%AD%E9%9F%B3%E5%90%88%E6%88%90/index.xml" rel="self" type="application/rss+xml"/><item><title>MOSS-TTS 折腾记录</title><link>https://www.panwenbin.cn/posts/moss-tts/</link><pubDate>Tue, 21 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/moss-tts/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;blockquote>
+&lt;p>RTX4060 8G，除了生图，视频就不奢望了。想搞一点配置要求低的事情，TTS觉得可以。
+选了MOSS-TTS，结果这玩意儿比预想要求高太多了，折腾了一下，记录一下。&lt;/p>&lt;/blockquote></description></item></channel></rss>

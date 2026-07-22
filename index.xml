@@ -1,4 +1,55 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Fri, 17 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>为Arm设备交叉编译fw_printenv</title><link>https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/</link><pubDate>Fri, 17 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/ -&lt;h2 id="起因">起因&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 21 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>MOSS-TTS 折腾记录</title><link>https://www.panwenbin.cn/posts/moss-tts/</link><pubDate>Tue, 21 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/moss-tts/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/moss-tts/ -&lt;h2 id="前言">前言&lt;/h2>
+&lt;blockquote>
+&lt;p>RTX4060 8G，除了生图，视频就不奢望了。想搞一点配置要求低的事情，TTS觉得可以。
+选了MOSS-TTS，结果这玩意儿比预想要求高太多了，折腾了一下，记录一下。&lt;/p>&lt;/blockquote>
+&lt;h2 id="直接尝试">直接尝试&lt;/h2>
+&lt;p>直接就爆显存了。一查网上12G，22G都有爆显存的。&lt;/p>
+&lt;h2 id="gguf量化">GGUF量化&lt;/h2>
+&lt;p>看项目中支持GUFF量化，改用MOSS-TTS-Delay: llama.cpp再次尝试。&lt;/p>
+&lt;h3 id="guff下载">guff下载&lt;/h3>
+&lt;p>根据README下载预量化的 GGUF + embeddings + lm_heads，好家伙，37GB，而且我只用MOSS_TTS_Q4_K_M.gguf，其他下载也是浪费啊。
+手动下载了 MOSS_TTS_Q4_K_M.gguf，然后用&lt;code>hf download OpenMOSS-Team/MOSS-TTS-GGUF --local-dir weights/MOSS-TTS-GGUF --exclude &amp;quot;*.gguf&amp;quot;&lt;/code>下载了其他文件。&lt;/p>
+&lt;h3 id="尝试运行">尝试运行&lt;/h3>
+&lt;p>一开始用default配置，各种问题。
+退到cpu-only配置。根据&lt;code>configs/llama_cpp/cpu-only.yaml&lt;/code>，完美可以生成语音。&lt;/p>
+&lt;p>继续default配置，但是不安装&lt;code>onnxruntime-gpu&lt;/code>，也是完美可以生成语音。&lt;/p>
+&lt;h3 id="尝试启用gpu">尝试启用GPU&lt;/h3>
+&lt;p>接着装上&lt;code>onnxruntime-gpu&lt;/code>，再运行default配置，又开始报错了&lt;/p>
+&lt;pre tabindex="0">&lt;code>ImportError: libcudart.so.13: cannot open shared object file: No such file or directory
+&lt;/code>&lt;/pre>&lt;p>安装&lt;code>uv pip install nvidia-cuda-runtime nvidia-cublas&lt;/code> ，并设置LD_LIBRARY_PATH
+&lt;code>LD_LIBRARY_PATH=./.venv/lib/python3.13/site-packages/nvidia/cu13/lib/:./.venv/lib/python3.13/site-packages/tensorrt_libs/:$LD_LIBRARY_PATH&lt;/code>&lt;/p>
+&lt;p>接着报错&lt;/p>
+&lt;pre tabindex="0">&lt;code>Failed to load library .venv/lib/python3.13/site-packages/onnxruntime/capi/libonnxruntime_providers_cuda.so with error: libcurand.so.10: cannot open shared object file : No such file or directory
+Failed to load library .venv/lib/python3.13/site-packages/onnxruntime/capi/libonnxruntime_providers_tensorrt.so with error: libnvinfer.so.10: cannot open shared ob ject file: No such file or directory
+&lt;/code>&lt;/pre>&lt;p>安装&lt;code>uv pip install tensorrt cuda-python&lt;/code>，结果&lt;code>libnvinfer.so.10&lt;/code>还是找不到，查看&lt;code>tensorrt_libs&lt;/code>
+&lt;code>./.venv/lib/python3.13/site-packages/tensorrt_libs/libnvinfer.so.11&lt;/code>&lt;/p>
+&lt;p>尝试安装旧版 &lt;code>uv pip install 'tensorrt&amp;lt;11'&lt;/code>，有&lt;code>libnvinfer.so.10&lt;/code>了。但是报别的错误&lt;/p>
+&lt;pre tabindex="0">&lt;code>error: libcudnn.so.9: cannot open shared object file: No such file or directory
+error: libcurand.so.10: cannot open shared object file: No such file or directory
+&lt;/code>&lt;/pre>&lt;p>修改配置&lt;code>use_gpu_audio: false&lt;/code> 后暂时可以跑。&lt;/p>
+&lt;p>接着补全
+&lt;code>uv pip install nvidia-cudnn-cu12&lt;/code>
+&lt;code>uv pip install nvidia-cuda-nvrtc-cu12 nvidia-curand-cu12&lt;/code>&lt;/p>
+&lt;p>并设置LD_LIBRARY_PATH
+&lt;code>LD_LIBRARY_PATH=./.venv/lib/python3.13/site-packages/nvidia/cu13/lib/:./.venv/lib/python3.13/site-packages/tensorrt_libs/:./.venv/lib/python3.13/site-packages/nvidia/curand/lib/:./.venv/lib/python3.13/site-packages/nvidia/cudnn/lib/:$LD_LIBRARY_PATH&lt;/code>&lt;/p>
+&lt;p>又有新错误&lt;/p>
+&lt;pre tabindex="0">&lt;code>error: libcufft.so.12: cannot open shared object file: No such file or directory
+&lt;/code>&lt;/pre>&lt;p>&lt;code>uv pip install nvidia-cufft&lt;/code> 补上&lt;/p>
+&lt;p>不报错了，但是怎么调都是CPU在跑，根据AI提示重新编译llama.cpp&lt;/p>
+&lt;pre tabindex="0">&lt;code>cmake -B build -DGGML_CUDA=ON &amp;amp;&amp;amp; cmake --build build --config Release -j
+&lt;/code>&lt;/pre>&lt;p>提示&lt;code>Could not find nvcc, please set CUDAToolkit_ROOT.&lt;/code>
+去 &lt;code>https://developer.nvidia.com/cuda-downloads&lt;/code> 下载安装CUDA Toolkit。&lt;/p>
+&lt;pre tabindex="0">&lt;code>CUDACXX=/usr/local/cuda/bin/nvcc cmake -B build -DGGML_CUDA=ON &amp;amp;&amp;amp; cmake --build build --config Release -j
+&lt;/code>&lt;/pre>&lt;p>编译成功。&lt;/p>
+&lt;h3 id="配置修改">配置修改&lt;/h3>
+&lt;p>最终修改了default配置&lt;/p>
+&lt;pre tabindex="0">&lt;code>n_threads: 6
+n_grpu_layers: 16
+use_gpu_audio: false
+kv_cache_type_k: q8_0
+kv_cache_type_v: q8_0
+&lt;/code>&lt;/pre>&lt;h3 id="指定reference">指定reference&lt;/h3>
+&lt;p>使用&lt;code>--reference file.wav&lt;/code> 指定参考音频，生成的音频更接近参考音频。&lt;/p>- https://www.panwenbin.cn/posts/moss-tts/ - 2026 潘文斌</description></item><item><title>为Arm设备交叉编译fw_printenv</title><link>https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/</link><pubDate>Fri, 17 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/ -&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>有时候设备上没有fw_printenv，又不方便安装，比如安卓系统，想要查看和修改uboot的env。
 为了方便使用，采用静态链接。&lt;/p>&lt;/blockquote>
@@ -666,30 +717,4 @@ theme也可以直接用&lt;code>hugo serve&lt;/code>运行起来，非常方便t
 然后会提示重启浏览器，重启后并不能直接使用，此选项只是开启了加载未打包的开发版本的选项。&lt;/p>
 &lt;p>然后打开&lt;code>chrome://extensions/&lt;/code>，开启右上角的开发者模式，点击左上角的&lt;code>加载未打包的扩展程序&lt;/code>，选择扩展所在目录即可正常添加扩展。&lt;/p>
 &lt;p>至于扩展的未打包版本，需要找到扩展的开源代码，通常是Github上，下载源代码自己编译。
-或者直接下载打包好的crx文件，后缀改为zip，解压后放到某个目录，然后加载未打包的扩展程序选择此目录即可。&lt;/p>- https://www.panwenbin.cn/posts/chrome-extension-disabled/ - 2026 潘文斌</description></item><item><title>HTTP中的chunked是什么</title><link>https://www.panwenbin.cn/posts/http-chunked/</link><pubDate>Thu, 10 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/http-chunked/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/http-chunked/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>HTTP/1.1中，响应头中的&lt;code>Transfer-Encoding: chunked&lt;/code>是什么意思？&lt;/p>&lt;/blockquote>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;p>在HTTP/1.1中，&lt;code>Transfer-Encoding: chunked&lt;/code>是一种传输编码方式，用于在响应中分块传输数据。这种方式允许服务器在不知道内容长度的情况下发送响应，适用于动态生成的内容或流式数据。&lt;/p>
-&lt;p>对于HTML内容，使用&lt;code>chunked&lt;/code>编码时，可以提高响应速度，浏览器可以在接收到第一个数据块后立即开始渲染页面，而不必等待整个响应完成。这对于需要实时更新或逐步加载的内容非常有用。&lt;/p>
-&lt;p>对于动态生成的内容，可能不知道最后的数据大小，更适合使用&lt;code>chunked&lt;/code>编码。尽早把生成的内容发送出去，还能节省服务器内存占用。&lt;/p>
-&lt;h2 id="格式">格式&lt;/h2>
-&lt;pre tabindex="0">&lt;code>长度\r\n
-内容\r\n
-长度\r\n
-内容\r\n
-长度(0)\r\n
-内容(空)\r\n
-&lt;/code>&lt;/pre>&lt;p>例如:&lt;/p>
-&lt;pre tabindex="0">&lt;code>4\r\n
-Wiki\r\n
-5\r\n
-pedia\r\n
-E\r\n
-in\r\n
-\r\n
-chunks.\r\n
-0\r\n
-\r\n
-&lt;/code>&lt;/pre>&lt;h2 id="废弃">废弃&lt;/h2>
-&lt;p>在 HTTP/2 中，Transfer-Encoding: chunked 被废弃，因为 HTTP/2 引入了更先进的 帧（frame）机制 和 流（stream）控制，已经内建了流式传输能力，无需使用传统的 chunked 编码，并且还支持多路复用。&lt;/p>- https://www.panwenbin.cn/posts/http-chunked/ - 2026 潘文斌</description></item></channel></rss>
+或者直接下载打包好的crx文件，后缀改为zip，解压后放到某个目录，然后加载未打包的扩展程序选择此目录即可。&lt;/p>- https://www.panwenbin.cn/posts/chrome-extension-disabled/ - 2026 潘文斌</description></item></channel></rss>

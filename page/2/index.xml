@@ -1,4 +1,30 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Fri, 17 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux终端如何显示彩色文字</title><link>https://www.panwenbin.cn/posts/linux-console-color-text/</link><pubDate>Mon, 07 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-console-color-text/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-console-color-text/ -&lt;h2 id="问题">问题&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 21 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>HTTP中的chunked是什么</title><link>https://www.panwenbin.cn/posts/http-chunked/</link><pubDate>Thu, 10 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/http-chunked/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/http-chunked/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;blockquote>
+&lt;p>HTTP/1.1中，响应头中的&lt;code>Transfer-Encoding: chunked&lt;/code>是什么意思？&lt;/p>&lt;/blockquote>
+&lt;h2 id="回答">回答&lt;/h2>
+&lt;p>在HTTP/1.1中，&lt;code>Transfer-Encoding: chunked&lt;/code>是一种传输编码方式，用于在响应中分块传输数据。这种方式允许服务器在不知道内容长度的情况下发送响应，适用于动态生成的内容或流式数据。&lt;/p>
+&lt;p>对于HTML内容，使用&lt;code>chunked&lt;/code>编码时，可以提高响应速度，浏览器可以在接收到第一个数据块后立即开始渲染页面，而不必等待整个响应完成。这对于需要实时更新或逐步加载的内容非常有用。&lt;/p>
+&lt;p>对于动态生成的内容，可能不知道最后的数据大小，更适合使用&lt;code>chunked&lt;/code>编码。尽早把生成的内容发送出去，还能节省服务器内存占用。&lt;/p>
+&lt;h2 id="格式">格式&lt;/h2>
+&lt;pre tabindex="0">&lt;code>长度\r\n
+内容\r\n
+长度\r\n
+内容\r\n
+长度(0)\r\n
+内容(空)\r\n
+&lt;/code>&lt;/pre>&lt;p>例如:&lt;/p>
+&lt;pre tabindex="0">&lt;code>4\r\n
+Wiki\r\n
+5\r\n
+pedia\r\n
+E\r\n
+in\r\n
+\r\n
+chunks.\r\n
+0\r\n
+\r\n
+&lt;/code>&lt;/pre>&lt;h2 id="废弃">废弃&lt;/h2>
+&lt;p>在 HTTP/2 中，Transfer-Encoding: chunked 被废弃，因为 HTTP/2 引入了更先进的 帧（frame）机制 和 流（stream）控制，已经内建了流式传输能力，无需使用传统的 chunked 编码，并且还支持多路复用。&lt;/p>- https://www.panwenbin.cn/posts/http-chunked/ - 2026 潘文斌</description></item><item><title>Linux终端如何显示彩色文字</title><link>https://www.panwenbin.cn/posts/linux-console-color-text/</link><pubDate>Mon, 07 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-console-color-text/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-console-color-text/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>Linux终端如何显示彩色文字？&lt;/p>&lt;/blockquote>
 &lt;h2 id="回答">回答&lt;/h2>
@@ -199,40 +225,4 @@ EndSection
 &lt;p>使用Flathub安装&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>flatpak install flathub io.gitlab.news_flash.NewsFlash
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="miniflux">Miniflux&lt;/h2>
-&lt;p>自建RSS订阅程序，Go编写，响应快，资源占用低。提供Web界面和API。&lt;/p>- https://www.panwenbin.cn/posts/linux-rss-reader/ - 2026 潘文斌</description></item><item><title>TLS指纹检测识别客户端</title><link>https://www.panwenbin.cn/posts/tls-fingerprint/</link><pubDate>Tue, 17 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/tls-fingerprint/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/tls-fingerprint/ -&lt;h2 id="什么是tls指纹">什么是TLS指纹&lt;/h2>
-&lt;blockquote>
-&lt;p>TLS指纹（TLS Fingerprinting）是一种用于识别和分类网络流量中使用的TLS（Transport Layer Security）协议版本、加密套件及其他相关参数的技术。通过分析TLS握手阶段的特征（如Client Hello报文中的字段排列、扩展列表等），可以生成一个独特的“指纹”，用于识别客户端（如浏览器、应用程序或设备）的类型、版本甚至是否为自动化工具（如爬虫）。&lt;/p>&lt;/blockquote>
-&lt;h2 id="实现原理">实现原理&lt;/h2>
-&lt;p>Client Hello 报文分析&lt;br>
-TLS握手开始时，客户端会发送Client Hello报文，包含以下关键信息：&lt;/p>
-&lt;ul>
-&lt;li>TLS版本（如TLS 1.2、TLS 1.3）。&lt;/li>
-&lt;li>支持的加密套件（Cipher Suites）列表及其顺序。&lt;/li>
-&lt;li>扩展（Extensions）类型及顺序（如SNI、ALPN、签名算法等）。&lt;/li>
-&lt;li>其他字段（如椭圆曲线类型、签名算法等）。&lt;/li>
-&lt;/ul>
-&lt;p>指纹生成方式&lt;br>
-将这些字段的组合（尤其是顺序和特定选项）通过哈希（如JA3算法）或规则匹配转换为唯一标识符。例如：&lt;/p>
-&lt;ul>
-&lt;li>JA3/JA3S：将TLS版本、加密套件、扩展等字段按顺序拼接后计算MD5哈希，生成指纹（如771,4865-4866-4867-&amp;hellip;,23-65281-10-11-16-5-13-&amp;hellip; → MD5哈希）。&lt;/li>
-&lt;li>其他方法：如TLSH、Akamai的指纹方案等。&lt;/li>
-&lt;/ul>
-&lt;h2 id="检测">检测&lt;/h2>
-&lt;p>有一些网站提供了tls指纹检测&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="https://tls.browserleaks.com/json">https://tls.browserleaks.com/json&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://tls.peet.ws">https://tls.peet.ws&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;h2 id="模拟">模拟&lt;/h2>
-&lt;p>通过定制化TLS栈模拟浏览器的握手过程。维护比较活跃的有 &lt;code>curl_cffi&lt;/code>（python库）&lt;/p>
-&lt;p>&lt;a href="https://github.com/lexiforest/curl_cffi">curl_cffi&lt;/a>是一个对&lt;a href="https://github.com/lexiforest/curl-impersonate">curl-impersonate&lt;/a>的binding。维护活跃，截止目前支持到chrome136。&lt;/p>
-&lt;p>安装&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>pip install curl_cffi --upgrade
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">import&lt;/span> &lt;span style="color:#76a9f9">curl_cffi&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># Notice the impersonate parameter&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c1abea">r&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">curl_cffi&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">get&lt;/span>(&lt;span style="color:#63c381">&amp;#34;https://tls.browserleaks.com/json&amp;#34;&lt;/span>, &lt;span style="color:#c1abea">impersonate&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#63c381">&amp;#34;chrome&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">print&lt;/span>(&lt;span style="color:#c1abea">r&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">json&lt;/span>())
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/tls-fingerprint/ - 2026 潘文斌</description></item></channel></rss>
+&lt;p>自建RSS订阅程序，Go编写，响应快，资源占用低。提供Web界面和API。&lt;/p>- https://www.panwenbin.cn/posts/linux-rss-reader/ - 2026 潘文斌</description></item></channel></rss>
