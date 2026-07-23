@@ -1,4 +1,42 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Wed, 22 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux下RSS阅读器</title><link>https://www.panwenbin.cn/posts/linux-rss-reader/</link><pubDate>Thu, 19 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-rss-reader/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-rss-reader/ -&lt;blockquote>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Thu, 23 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Ranger添加自定义操作</title><link>https://www.panwenbin.cn/posts/ranger-custom-operation/</link><pubDate>Sun, 22 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/ranger-custom-operation/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/ranger-custom-operation/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>平时使用ranger就是遍历一下目录，选择打开一下文件。对于其他操作不太顺手。
+这次想选择文件并执行一个自定义操作，比如用ffmpeg把flv无损转为mp4。&lt;/p>&lt;/blockquote>
+&lt;h2 id="步骤">步骤&lt;/h2>
+&lt;h3 id="定义操作">定义操作&lt;/h3>
+&lt;p>修改&lt;code>~/.config/ranger/commands.py&lt;/code>，添加&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">from&lt;/span> &lt;span style="color:#76a9f9">ranger.api.commands&lt;/span> &lt;span style="color:#c678dd">import&lt;/span> &lt;span style="color:#c1abea">Command&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">import&lt;/span> &lt;span style="color:#76a9f9">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">class&lt;/span> &lt;span style="color:#76a9f9">flv_to_mp4&lt;/span>(&lt;span style="color:#c1abea">Command&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#63c381">&amp;#34;&amp;#34;&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#63c381"> :flv_to_mp4
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#63c381">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#63c381"> 使用 ffmpeg 将选中的 .flv 文件转为 .mp4（使用 -c copy ）
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#63c381"> &amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">def&lt;/span> &lt;span style="color:#00b1f7">execute&lt;/span>(&lt;span style="color:#ef8383">self&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">files&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> [&lt;span style="color:#c1abea">f&lt;/span> &lt;span style="color:#c678dd">for&lt;/span> &lt;span style="color:#c1abea">f&lt;/span> &lt;span style="color:#b756ff;font-weight:bold">in&lt;/span> &lt;span style="color:#ef8383">self&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">fm&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">thistab&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">get_selection&lt;/span>() &lt;span style="color:#c678dd">if&lt;/span> &lt;span style="color:#c1abea">f&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">path&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">endswith&lt;/span>(&lt;span style="color:#63c381">&amp;#34;.flv&amp;#34;&lt;/span>)]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">if&lt;/span> &lt;span style="color:#b756ff;font-weight:bold">not&lt;/span> &lt;span style="color:#c1abea">files&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ef8383">self&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">fm&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">notify&lt;/span>(&lt;span style="color:#63c381">&amp;#34;未选中 .flv 文件&amp;#34;&lt;/span>, &lt;span style="color:#c1abea">bad&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#b756ff;font-weight:bold">True&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">return&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">for&lt;/span> &lt;span style="color:#c1abea">f&lt;/span> &lt;span style="color:#b756ff;font-weight:bold">in&lt;/span> &lt;span style="color:#c1abea">files&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">input_path&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">f&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">path&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">output_path&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#c1abea">os&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">path&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">splitext&lt;/span>(&lt;span style="color:#c1abea">input_path&lt;/span>)[&lt;span style="color:#d19a66">0&lt;/span>] &lt;span style="color:#c7bf54">+&lt;/span> &lt;span style="color:#63c381">&amp;#34;.mp4&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8a93a5;font-style:italic"># 如果输出文件已存在，则跳过&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">if&lt;/span> &lt;span style="color:#c1abea">os&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">path&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">exists&lt;/span>(&lt;span style="color:#c1abea">output_path&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ef8383">self&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">fm&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">notify&lt;/span>(&lt;span style="color:#98c379">f&lt;/span>&lt;span style="color:#63c381">&amp;#34;已存在，跳过: &lt;/span>&lt;span style="color:#98c379">{&lt;/span>&lt;span style="color:#c1abea">output_path&lt;/span>&lt;span style="color:#98c379">}&lt;/span>&lt;span style="color:#63c381">&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">continue&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">cmd&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> &lt;span style="color:#98c379">f&lt;/span>&lt;span style="color:#63c381">&amp;#34;ffmpeg -y -i &amp;#39;&lt;/span>&lt;span style="color:#98c379">{&lt;/span>&lt;span style="color:#c1abea">input_path&lt;/span>&lt;span style="color:#98c379">}&lt;/span>&lt;span style="color:#63c381">&amp;#39; -c copy &amp;#39;&lt;/span>&lt;span style="color:#98c379">{&lt;/span>&lt;span style="color:#c1abea">output_path&lt;/span>&lt;span style="color:#98c379">}&lt;/span>&lt;span style="color:#63c381">&amp;#39;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ef8383">self&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">fm&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">run&lt;/span>(&lt;span style="color:#c1abea">cmd&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ef8383">self&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">fm&lt;/span>&lt;span style="color:#c7bf54">.&lt;/span>&lt;span style="color:#c1abea">notify&lt;/span>(&lt;span style="color:#98c379">f&lt;/span>&lt;span style="color:#63c381">&amp;#34;转换完成: &lt;/span>&lt;span style="color:#98c379">{&lt;/span>&lt;span style="color:#c1abea">output_path&lt;/span>&lt;span style="color:#98c379">}&lt;/span>&lt;span style="color:#63c381">&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="绑定按键">绑定按键&lt;/h3>
+&lt;p>在&lt;code>~/.config/ranger/rc.conf&lt;/code>中添加绑定&lt;code>fm&lt;/code>键为自定义操作。&lt;/p>
+&lt;pre tabindex="0">&lt;code>map fm flv_to_mp4
+&lt;/code>&lt;/pre>&lt;h2 id="使用">使用&lt;/h2>
+&lt;p>在ranger中选中文件，然后按&lt;code>fm&lt;/code>键执行转换操作。&lt;/p>- https://www.panwenbin.cn/posts/ranger-custom-operation/ - 2026 潘文斌</description></item><item><title>Linux下RSS阅读器</title><link>https://www.panwenbin.cn/posts/linux-rss-reader/</link><pubDate>Thu, 19 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-rss-reader/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-rss-reader/ -&lt;blockquote>
 &lt;p>Linux下RSS阅读器使用记录。&lt;/p>&lt;/blockquote>
 &lt;h2 id="newsflash">NewsFlash&lt;/h2>
 &lt;p>现代化界面，支持Miniflux的API，用户名密码或token都支持。&lt;/p>
@@ -579,33 +617,4 @@ $$
 &lt;li>Linux端NewsFlash客户端，支持miniflux的API。&lt;/li>
 &lt;li>其他端直接使用miniflux的Web界面，体验也还行。&lt;/li>
 &lt;/ol>
-&lt;p>手机端想要一个客户端提供推送的能力，但是实在是没什么好的选择，另外RSS本身实时性不高，推送的意义也不怎么大，就这样吧。&lt;/p>- https://www.panwenbin.cn/posts/repick-rss/ - 2026 潘文斌</description></item><item><title>Web 自动化测试工具演变</title><link>https://www.panwenbin.cn/posts/web-autotest-history/</link><pubDate>Wed, 28 May 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/web-autotest-history/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/web-autotest-history/ -&lt;h2 id="概述">概述&lt;/h2>
-&lt;p>Web 自动化测试工具经历了从单一垄断到多方竞争的演变，从 Selenium 的长期统治到 Google、Microsoft 推出的新一代工具，再到 Selenium 4 的回归。&lt;/p>
-&lt;h2 id="selenium经典时代">Selenium（经典时代）&lt;/h2>
-&lt;p>Selenium 长期主导 Web 自动化测试领域。&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>发展阶段&lt;/strong>：从 Selenium IDE → Selenium RC → Selenium WebDriver&lt;/li>
-&lt;li>&lt;strong>优势&lt;/strong>：成熟度高、生态完整、支持多语言、多浏览器&lt;/li>
-&lt;li>&lt;strong>现状&lt;/strong>：虽然有新工具挑战，但仍是事实标准&lt;/li>
-&lt;/ul>
-&lt;h2 id="puppeteerchrome-时代">Puppeteer（Chrome 时代）&lt;/h2>
-&lt;p>Google 推出的 Node.js 库，针对 Chrome/Chromium 高度优化。&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>驱动方式&lt;/strong>：通过 Chrome DevTools Protocol（CDP）控制浏览器&lt;/li>
-&lt;li>&lt;strong>优势&lt;/strong>：性能高、API 简洁、支持 headless 模式&lt;/li>
-&lt;li>&lt;strong>局限&lt;/strong>：仅支持 Chrome/Chromium，不支持 Firefox/Safari&lt;/li>
-&lt;/ul>
-&lt;h2 id="playwright跨浏览器时代">Playwright（跨浏览器时代）&lt;/h2>
-&lt;p>Microsoft 推出，继承了 Puppeteer 的优点并扩展功能。&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>浏览器支持&lt;/strong>：Chromium、Firefox、WebKit（Safari 兼容）&lt;/li>
-&lt;li>&lt;strong>优势&lt;/strong>：跨平台、多浏览器、DevTools 集成、自动等待机制&lt;/li>
-&lt;li>&lt;strong>应用&lt;/strong>：更适合需要多浏览器覆盖的测试场景&lt;/li>
-&lt;/ul>
-&lt;h2 id="selenium-4回归与演进">Selenium 4（回归与演进）&lt;/h2>
-&lt;p>新版本重新焕发活力，吸收新工具的经验。&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>改进&lt;/strong>：更好的 API、BiDi 协议（双向通信）、提升性能&lt;/li>
-&lt;li>&lt;strong>定位&lt;/strong>：继续保持生态优势和广泛支持&lt;/li>
-&lt;li>&lt;strong>现状&lt;/strong>：Selenium 4 + 现代工具生态形成竞争格局&lt;/li>
-&lt;/ul>- https://www.panwenbin.cn/posts/web-autotest-history/ - 2026 潘文斌</description></item></channel></rss>
+&lt;p>手机端想要一个客户端提供推送的能力，但是实在是没什么好的选择，另外RSS本身实时性不高，推送的意义也不怎么大，就这样吧。&lt;/p>- https://www.panwenbin.cn/posts/repick-rss/ - 2026 潘文斌</description></item></channel></rss>

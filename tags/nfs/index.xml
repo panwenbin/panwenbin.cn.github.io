@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>NFS on 潘文斌的技术文章</title><link>https://www.panwenbin.cn/tags/nfs/</link><description>Recent content in NFS on 潘文斌的技术文章</description><generator>Hugo</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Thu, 23 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/tags/nfs/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux安装使用NFS</title><link>https://www.panwenbin.cn/posts/linux-nfs/</link><pubDate>Thu, 23 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-nfs/</guid><description>&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>台式机存了很多模型，500G硬盘不够用了，为了读取速度，还不能把模型放到其他机器上，那就把一些读取速度要求不高的放出去吧。
+Samba搞一堆缓存，文件权限还有点乱，不太舒服，还是换NFS吧，NFS是专为Linux设计的，速度快，配置简单。&lt;/p>&lt;/blockquote></description></item></channel></rss>
