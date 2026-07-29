@@ -243,7 +243,10 @@ kv_cache_type_v: q8_0
 &lt;p>全网能找到基本就这一个，官方是基于openwrt修改的，内核3.10.33，兼容NAND和EMMC的，刷机后可以恢复出厂设置。&lt;/p>
 &lt;pre tabindex="0">&lt;code>9dcc5f7140c0f59cc06356354ff9b219 mine-pro_V1.3.233.img
 &lt;/code>&lt;/pre>&lt;p>原厂固件&lt;/p>
-&lt;h3 id="onecloud-armbian固件">&lt;a href="https://github.com/hzyitc/armbian-onecloud">OneCloud Armbian固件&lt;/a>&lt;/h3>
+&lt;p>原厂openwrt固定MAC地址&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>uci &lt;span style="color:#ef8383">set&lt;/span> network.lan.macaddr&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#39;00:11:22:33:44:55&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>uci commit network
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="onecloud-armbian固件">&lt;a href="https://github.com/hzyitc/armbian-onecloud">OneCloud Armbian固件&lt;/a>&lt;/h3>
 &lt;p>由hzyitc维护的玩客云Armbian镜像，已提交Armbian。因为是高版本内核，只能刷入EMMC或U盘。
 此固件需要配合lanlan的修改dtb使用&lt;/p>
 &lt;pre tabindex="0">&lt;code>2ff58c87561f00d4703691a0196143b2 meson8b-ws1508-fix-by-lanlan.dtb
