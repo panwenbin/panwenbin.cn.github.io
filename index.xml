@@ -263,7 +263,19 @@ kv_cache_type_v: q8_0
 &lt;p>由hzyitc维护的玩客云Armbian镜像，已提交Armbian。因为是高版本内核，只能刷入EMMC或U盘。
 此固件需要配合lanlan的修改dtb使用&lt;/p>
 &lt;pre tabindex="0">&lt;code>2ff58c87561f00d4703691a0196143b2 meson8b-ws1508-fix-by-lanlan.dtb
-&lt;/code>&lt;/pre>&lt;p>并且修改boot.scr中fatload的地址，索性复制一份boot.cmd为boot_ws1508.cmd，做如下修改，避免apt upgrade时被覆盖&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>并且修改boot.scr中fatload的地址&lt;/p>
+&lt;p>使用Armbian固件制作WS1508的直刷包&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo losetup -f -P --show Armbian-unofficial_25.11.0-trunk_Onecloud_bookworm_current_6.12.43_minimal.img
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo mkdir -p /mnt/p1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo mount /dev/loop0p1 /mnt/p1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">cd&lt;/span> /mnt/p1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo sed -i &lt;span style="color:#98c379">&amp;#39;s/0x2/0x1/g&amp;#39;&lt;/span> /mnt/p1/boot.cmd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo sed -i &lt;span style="color:#98c379">&amp;#39;s/0x2/0x1/g&amp;#39;&lt;/span> /mnt/p1/boot.scr
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo sed -i &lt;span style="color:#98c379">&amp;#39;s/meson8b-onecloud.dtb/meson8b-ws1508-fix-by-lanlan.dtb/g&amp;#39;&lt;/span> /mnt/p1/boot.cmd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo sed -i &lt;span style="color:#98c379">&amp;#39;s/meson8b-onecloud.dtb/meson8b-ws1508-fix-by-lanlan.dtb/g&amp;#39;&lt;/span> /mnt/p1/boot.scr
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo cp meson8b-ws1508-fix-by-lanlan.dtb /mnt/p1/meson8b-ws1508-fix-by-lanlan.dtb
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>进入系统后如果&lt;code>apt upgrade&lt;/code>，某些内容会被覆盖，导致无法启动。
+索性复制一份boot.cmd为boot_ws1508.cmd，确认已经做了如下修改，避免&lt;code>apt upgrade&lt;/code>时被覆盖&lt;/p>
 &lt;pre tabindex="0">&lt;code>fatload ${bootdev} 0x20800000 /uImage || exit 1
 fatload ${bootdev} 0x22000000 /uInitrd || exit 1
 fatload ${bootdev} 0x21800000 /dtb/meson8b-onecloud.dtb || exit 1

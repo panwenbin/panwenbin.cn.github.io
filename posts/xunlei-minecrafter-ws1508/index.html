@@ -19,7 +19,17 @@
 </span></span><span style=display:flex><span>uci commit network
 </span></span></code></pre></div><h3 id=onecloud-armbian固件><a href=https://github.com/hzyitc/armbian-onecloud>OneCloud Armbian固件</a></h3><p>由hzyitc维护的玩客云Armbian镜像，已提交Armbian。因为是高版本内核，只能刷入EMMC或U盘。
 此固件需要配合lanlan的修改dtb使用</p><pre tabindex=0><code>2ff58c87561f00d4703691a0196143b2  meson8b-ws1508-fix-by-lanlan.dtb
-</code></pre><p>并且修改boot.scr中fatload的地址，索性复制一份boot.cmd为boot_ws1508.cmd，做如下修改，避免apt upgrade时被覆盖</p><pre tabindex=0><code>fatload ${bootdev} 0x20800000 /uImage || exit 1
+</code></pre><p>并且修改boot.scr中fatload的地址</p><p>使用Armbian固件制作WS1508的直刷包</p><div class=highlight><pre tabindex=0 style=color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo losetup -f -P --show Armbian-unofficial_25.11.0-trunk_Onecloud_bookworm_current_6.12.43_minimal.img
+</span></span><span style=display:flex><span>sudo mkdir -p /mnt/p1
+</span></span><span style=display:flex><span>sudo mount /dev/loop0p1 /mnt/p1
+</span></span><span style=display:flex><span><span style=color:#ef8383>cd</span> /mnt/p1
+</span></span><span style=display:flex><span>sudo sed -i <span style=color:#98c379>&#39;s/0x2/0x1/g&#39;</span> /mnt/p1/boot.cmd
+</span></span><span style=display:flex><span>sudo sed -i <span style=color:#98c379>&#39;s/0x2/0x1/g&#39;</span> /mnt/p1/boot.scr
+</span></span><span style=display:flex><span>sudo sed -i <span style=color:#98c379>&#39;s/meson8b-onecloud.dtb/meson8b-ws1508-fix-by-lanlan.dtb/g&#39;</span> /mnt/p1/boot.cmd
+</span></span><span style=display:flex><span>sudo sed -i <span style=color:#98c379>&#39;s/meson8b-onecloud.dtb/meson8b-ws1508-fix-by-lanlan.dtb/g&#39;</span> /mnt/p1/boot.scr
+</span></span><span style=display:flex><span>sudo cp meson8b-ws1508-fix-by-lanlan.dtb /mnt/p1/meson8b-ws1508-fix-by-lanlan.dtb
+</span></span></code></pre></div><p>进入系统后如果<code>apt upgrade</code>，某些内容会被覆盖，导致无法启动。
+索性复制一份boot.cmd为boot_ws1508.cmd，确认已经做了如下修改，避免<code>apt upgrade</code>时被覆盖</p><pre tabindex=0><code>fatload ${bootdev} 0x20800000 /uImage || exit 1
 fatload ${bootdev} 0x22000000 /uInitrd || exit 1
 fatload ${bootdev} 0x21800000 /dtb/meson8b-onecloud.dtb || exit 1
 </code></pre><p>改为</p><pre tabindex=0><code>fatload ${bootdev} 0x10800000 /uImage || exit 1
