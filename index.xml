@@ -274,6 +274,9 @@ kv_cache_type_v: q8_0
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo sed -i &lt;span style="color:#98c379">&amp;#39;s/meson8b-onecloud.dtb/meson8b-ws1508-fix-by-lanlan.dtb/g&amp;#39;&lt;/span> /mnt/p1/boot.cmd
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo sed -i &lt;span style="color:#98c379">&amp;#39;s/meson8b-onecloud.dtb/meson8b-ws1508-fix-by-lanlan.dtb/g&amp;#39;&lt;/span> /mnt/p1/boot.scr
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo cp meson8b-ws1508-fix-by-lanlan.dtb /mnt/p1/meson8b-ws1508-fix-by-lanlan.dtb
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">cd&lt;/span> ~
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo umount /mnt/p1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo losetup -d /dev/loop0
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>进入系统后如果&lt;code>apt upgrade&lt;/code>，某些内容会被覆盖，导致无法启动。
 索性复制一份boot.cmd为boot_ws1508.cmd，确认已经做了如下修改，避免&lt;code>apt upgrade&lt;/code>时被覆盖&lt;/p>
 &lt;pre tabindex="0">&lt;code>fatload ${bootdev} 0x20800000 /uImage || exit 1

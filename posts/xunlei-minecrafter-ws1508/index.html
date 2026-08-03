@@ -28,6 +28,9 @@
 </span></span><span style=display:flex><span>sudo sed -i <span style=color:#98c379>&#39;s/meson8b-onecloud.dtb/meson8b-ws1508-fix-by-lanlan.dtb/g&#39;</span> /mnt/p1/boot.cmd
 </span></span><span style=display:flex><span>sudo sed -i <span style=color:#98c379>&#39;s/meson8b-onecloud.dtb/meson8b-ws1508-fix-by-lanlan.dtb/g&#39;</span> /mnt/p1/boot.scr
 </span></span><span style=display:flex><span>sudo cp meson8b-ws1508-fix-by-lanlan.dtb /mnt/p1/meson8b-ws1508-fix-by-lanlan.dtb
+</span></span><span style=display:flex><span><span style=color:#ef8383>cd</span> ~
+</span></span><span style=display:flex><span>sudo umount /mnt/p1
+</span></span><span style=display:flex><span>sudo losetup -d /dev/loop0
 </span></span></code></pre></div><p>进入系统后如果<code>apt upgrade</code>，某些内容会被覆盖，导致无法启动。
 索性复制一份boot.cmd为boot_ws1508.cmd，确认已经做了如下修改，避免<code>apt upgrade</code>时被覆盖</p><pre tabindex=0><code>fatload ${bootdev} 0x20800000 /uImage || exit 1
 fatload ${bootdev} 0x22000000 /uInitrd || exit 1
