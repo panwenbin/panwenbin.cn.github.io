@@ -270,9 +270,8 @@ kv_cache_type_v: q8_0
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo mount /dev/loop0p1 /mnt/p1
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">cd&lt;/span> /mnt/p1
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo sed -i &lt;span style="color:#98c379">&amp;#39;s/0x2/0x1/g&amp;#39;&lt;/span> /mnt/p1/boot.cmd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo sed -i &lt;span style="color:#98c379">&amp;#39;s/0x2/0x1/g&amp;#39;&lt;/span> /mnt/p1/boot.scr
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo sed -i &lt;span style="color:#98c379">&amp;#39;s/meson8b-onecloud.dtb/meson8b-ws1508-fix-by-lanlan.dtb/g&amp;#39;&lt;/span> /mnt/p1/boot.cmd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo sed -i &lt;span style="color:#98c379">&amp;#39;s/meson8b-onecloud.dtb/meson8b-ws1508-fix-by-lanlan.dtb/g&amp;#39;&lt;/span> /mnt/p1/boot.scr
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo sed -i &lt;span style="color:#98c379">&amp;#39;s/dtb\/meson8b-onecloud.dtb/meson8b-ws1508-fix-by-lanlan.dtb/g&amp;#39;&lt;/span> /mnt/p1/boot.cmd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo mkimage -C none -A arm -T script -d /mnt/p1/boot.cmd /mnt/p1/boot.scr &lt;span style="color:#8a93a5;font-style:italic"># 需要mkimage生成，直接改scr会报Bad CRC&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo cp meson8b-ws1508-fix-by-lanlan.dtb /mnt/p1/meson8b-ws1508-fix-by-lanlan.dtb
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">cd&lt;/span> ~
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo umount /mnt/p1

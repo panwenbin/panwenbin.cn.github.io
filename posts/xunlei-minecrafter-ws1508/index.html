@@ -24,9 +24,8 @@
 </span></span><span style=display:flex><span>sudo mount /dev/loop0p1 /mnt/p1
 </span></span><span style=display:flex><span><span style=color:#ef8383>cd</span> /mnt/p1
 </span></span><span style=display:flex><span>sudo sed -i <span style=color:#98c379>&#39;s/0x2/0x1/g&#39;</span> /mnt/p1/boot.cmd
-</span></span><span style=display:flex><span>sudo sed -i <span style=color:#98c379>&#39;s/0x2/0x1/g&#39;</span> /mnt/p1/boot.scr
-</span></span><span style=display:flex><span>sudo sed -i <span style=color:#98c379>&#39;s/meson8b-onecloud.dtb/meson8b-ws1508-fix-by-lanlan.dtb/g&#39;</span> /mnt/p1/boot.cmd
-</span></span><span style=display:flex><span>sudo sed -i <span style=color:#98c379>&#39;s/meson8b-onecloud.dtb/meson8b-ws1508-fix-by-lanlan.dtb/g&#39;</span> /mnt/p1/boot.scr
+</span></span><span style=display:flex><span>sudo sed -i <span style=color:#98c379>&#39;s/dtb\/meson8b-onecloud.dtb/meson8b-ws1508-fix-by-lanlan.dtb/g&#39;</span> /mnt/p1/boot.cmd
+</span></span><span style=display:flex><span>sudo mkimage -C none -A arm -T script -d /mnt/p1/boot.cmd /mnt/p1/boot.scr <span style=color:#8a93a5;font-style:italic># 需要mkimage生成，直接改scr会报Bad CRC</span>
 </span></span><span style=display:flex><span>sudo cp meson8b-ws1508-fix-by-lanlan.dtb /mnt/p1/meson8b-ws1508-fix-by-lanlan.dtb
 </span></span><span style=display:flex><span><span style=color:#ef8383>cd</span> ~
 </span></span><span style=display:flex><span>sudo umount /mnt/p1
