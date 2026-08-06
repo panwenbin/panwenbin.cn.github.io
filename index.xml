@@ -1,4 +1,36 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Wed, 29 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>给乐视x620默认开启无线adb</title><link>https://www.panwenbin.cn/posts/letv-x620-tcpip-adb/</link><pubDate>Wed, 29 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/letv-x620-tcpip-adb/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/letv-x620-tcpip-adb/ -&lt;h2 id="起因">起因&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Thu, 06 Aug 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>使用iPad Air作为HomeAssistant的查看器的尝试</title><link>https://www.panwenbin.cn/posts/ipad-air-as-homeassistant-viewer/</link><pubDate>Thu, 06 Aug 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/ipad-air-as-homeassistant-viewer/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/ipad-air-as-homeassistant-viewer/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>家里还留着一台iPad Air, 系统是iOS 12.5.8。本想着作为HomeAssistant的查看器使用，结果发现iOS 12.5.8的Safari浏览器不太支持HomeAssistant的前端界面，能显示，但是异常卡顿，并且基本不能触发点击。&lt;/p>&lt;/blockquote>
+&lt;h2 id="先说结论">先说结论&lt;/h2>
+&lt;p>一开始还是抱着希望能使用的，先在AppStore找App，结果最低要求是iOS 15.0，貌似现在大部分App都是要求iOS 15.0以上了。
+浏览器Safari打开有点卡，想着还能接受，结果点上去基本没反应。
+然后思路转向越狱后能不能安装独立引擎的浏览器，最后还是没有找到合适的。回头看到HA Dash这个App，要求iOS8以上，居然可以。&lt;/p>
+&lt;h2 id="尝试方案">尝试方案&lt;/h2>
+&lt;h3 id="调试safari">调试Safari&lt;/h3>
+&lt;p>连接iPad Air到Mac上，使用Safari的开发者工具调试，发现有JS报错。&lt;/p>
+&lt;h3 id="越狱">越狱&lt;/h3>
+&lt;p>这边其实被google的AI误导了，说越狱后可以安装独立引擎的浏览器。&lt;/p>
+&lt;p>使用&lt;code>checkra1n&lt;/code>，失败了，提示 &lt;code>Expliot failed error code -31&lt;/code>。按AI提示勾选以下三项：&lt;/p>
+&lt;ul>
+&lt;li>Allow untested iOS/iPadOS/tvOS versions（允许未测试版本）&lt;/li>
+&lt;li>Safe Mode（安全模式 - 这一步极其重要，能极大提高 A7 芯片的注入成功率）&lt;/li>
+&lt;li>Verbose Boot（详细引导 - 可以看到跑代码过程）
+之后成功了。&lt;/li>
+&lt;/ul>
+&lt;p>接着安装 &lt;code>Cydia&lt;/code>，对网络有点要求。&lt;/p>
+&lt;p>接着安装 &lt;code>AppSync Unified&lt;/code>，但是源失效了，作者说服务器失联了，貌似一直没恢复。在github上有release deb文件。&lt;/p>
+&lt;p>为了安装deb，先安装 &lt;code>Filza File Manager&lt;/code>，然后下载 &lt;code>arm&lt;/code>版本的 &lt;code>AppSync Unified&lt;/code>，用Filza安装，提示缺少依赖 &lt;code>mobilesubstrate&lt;/code>。&lt;/p>
+&lt;p>去Cydia安装 &lt;code>Cydia Substrate&lt;/code>，然后再安装 &lt;code>AppSync Unified&lt;/code>，成功了。&lt;/p>
+&lt;h3 id="尝试浏览器">尝试浏览器&lt;/h3>
+&lt;p>然后根据AI提示，试了几个浏览器，都不太好找，就不列出来了。&lt;/p>
+&lt;p>添加源&lt;code>https://repo.invoxiplaygames.uk/&lt;/code>，安装了 &lt;code>Checkmate, Store!&lt;/code>，想尝试AppStore下载旧版App，似乎还是下载不了。&lt;/p>
+&lt;p>&lt;code>Reynard Browser&lt;/code> 看起来是个可行的方案，但是要求iOS13+。
+&lt;code>Blinker Fluid / CyberKit&lt;/code> 作者说是在iOS 15.4测试过。
+其实这些变数来源于欧盟地区《数字市场法案》，苹果允许在欧盟地区的 iPhone/iPad 上使用真正的第三方浏览器内核，iOS12还是太老了。&lt;/p>
+&lt;p>最后又尝试了&lt;code>Polyfills&lt;/code>，打开&lt;code>https://poomsmart.github.io/&lt;/code> 添加源到Cydia，安装了 &lt;code>Polyfills&lt;/code>，然后在Safari里打开HomeAssistant，直接在欢迎页面跳不过了。
+从console日志看，polyfills注入成功了，但是似乎还报JS的语法错误。&lt;/p>
+&lt;h3 id="最后">最后&lt;/h3>
+&lt;p>回过头来发现 HA Dash 这个App，要求iOS8以上，试了一下居然可以。也算是有收获。&lt;/p>- https://www.panwenbin.cn/posts/ipad-air-as-homeassistant-viewer/ - 2026 潘文斌</description></item><item><title>给乐视x620默认开启无线adb</title><link>https://www.panwenbin.cn/posts/letv-x620-tcpip-adb/</link><pubDate>Wed, 29 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/letv-x620-tcpip-adb/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/letv-x620-tcpip-adb/ -&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>翻出来老旧的乐视x620手机，Android 6.0的系统，开启无线adb需要用usb发送&lt;code>adb tcpip 5555&lt;/code>命令，有点啰嗦，反正就放在家里，直接开启无线adb更方便。&lt;/p>&lt;/blockquote>
 &lt;h2 id="修改buildprop">修改build.prop&lt;/h2>
@@ -638,45 +670,4 @@ models/Stable-diffusion/my-model.webp # 或 .jpg
 &lt;li>或使用独立工具 &lt;strong>TagGui&lt;/strong>&lt;/li>
 &lt;/ul>
 &lt;h3 id="comfyui-1">ComfyUI&lt;/h3>
-&lt;p>待补充工作流最佳实践。&lt;/p>- https://www.panwenbin.cn/posts/stable-diffusion/ - 2026 潘文斌</description></item><item><title>Linux NVIDIA 驱动安装时的密钥签名</title><link>https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/</link><pubDate>Tue, 16 Jun 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/ -&lt;h2 id="起因">起因&lt;/h2>
-&lt;blockquote>
-&lt;p>在启用 Secure Boot 的 Linux 系统上安装 NVIDIA 显卡驱动时，需要对内核模块进行数字签名。每次更新驱动时都要处理密钥相关的选项，容易遗忘或配置不当，导致驱动加载失败。&lt;/p>&lt;/blockquote>
-&lt;h2 id="安装流程">安装流程&lt;/h2>
-&lt;p>NVIDIA 提供的 &lt;code>.run&lt;/code> 安装程序（如 &lt;code>NVIDIA-Linux-x86_[version].run&lt;/code>）在安装过程中会自动处理密钥签名：&lt;/p>
-&lt;ol>
-&lt;li>运行安装程序&lt;/li>
-&lt;li>安装程序检测 Secure Boot 状态&lt;/li>
-&lt;li>如果启用了 Secure Boot，会提示&lt;strong>生成或使用现有的密钥对&lt;/strong>&lt;/li>
-&lt;li>密钥对包括：私钥（&lt;code>.key&lt;/code>）和证书（&lt;code>.der&lt;/code>）&lt;/li>
-&lt;/ol>
-&lt;h2 id="密钥对的位置">密钥对的位置&lt;/h2>
-&lt;p>安装程序默认在以下路径生成密钥对（以 Debian 为例）：&lt;/p>
-&lt;pre tabindex="0">&lt;code>/usr/share/nvidia/modsign-key-&amp;lt;ID&amp;gt;.key # 私钥
-/usr/share/nvidia/modsign-crt-&amp;lt;ID&amp;gt;.der # 证书
-&lt;/code>&lt;/pre>&lt;p>其中 &lt;code>&amp;lt;ID&amp;gt;&lt;/code> 是安装程序生成的标识符。&lt;/p>
-&lt;p>导入公钥到 MOK&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mokutil --import /usr/share/nvidia/nvidia-modsign-crt-&amp;lt;ID&amp;gt;.der
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>会提示输入密码，重启进入 MOK 管理界面后，选择 &amp;ldquo;Enroll MOK&amp;rdquo;，输入之前设置的密码，完成公钥导入。&lt;/p>
-&lt;h2 id="关键注意事项">关键注意事项&lt;/h2>
-&lt;h3 id="密钥对会被清理">密钥对会被清理&lt;/h3>
-&lt;p>&lt;strong>重要&lt;/strong>：安装完成后，这些密钥文件会被&lt;strong>自动清理掉&lt;/strong>，不会被保留。这是正常现象，不需要手动删除。&lt;/p>
-&lt;h3 id="重新安装时的做法">重新安装时的做法&lt;/h3>
-&lt;p>如果需要重新安装驱动（例如内核更新后），安装程序会提示是否使用现有密钥或生成新密钥。此时有两种选择：&lt;/p>
-&lt;ol>
-&lt;li>&lt;strong>使用现有密钥&lt;/strong>：如果之前生成过密钥且被保留，可以选择复用&lt;/li>
-&lt;li>&lt;strong>生成新密钥&lt;/strong>（推荐）：由于旧密钥通常已被清理，最直接的方式是生成新密钥对&lt;/li>
-&lt;/ol>
-&lt;h2 id="为什么需要签名">为什么需要签名&lt;/h2>
-&lt;p>内核模块签名的目的是在启用 Secure Boot 的系统上：&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>验证模块来源&lt;/strong>：确保内核模块未被篡改&lt;/li>
-&lt;li>&lt;strong>通过安全检查&lt;/strong>：Secure Boot 只加载经过签名和验证的模块&lt;/li>
-&lt;li>&lt;strong>保持系统安全性&lt;/strong>：防止恶意代码以驱动形式加载&lt;/li>
-&lt;/ul>
-&lt;h2 id="建议做法">建议做法&lt;/h2>
-&lt;ol>
-&lt;li>&lt;strong>首次安装&lt;/strong>：让安装程序自动生成新的密钥对，无需手动干预&lt;/li>
-&lt;li>&lt;strong>后续更新&lt;/strong>：选择&amp;quot;生成新密钥&amp;quot;，因为旧密钥不会被保留&lt;/li>
-&lt;li>&lt;strong>无需备份&lt;/strong>：不必刻意保存密钥文件，每次安装时重新生成即可&lt;/li>
-&lt;/ol>
-&lt;p>这样可以避免密钥过期或不匹配导致的问题。&lt;/p>- https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/ - 2026 潘文斌</description></item></channel></rss>
+&lt;p>待补充工作流最佳实践。&lt;/p>- https://www.panwenbin.cn/posts/stable-diffusion/ - 2026 潘文斌</description></item></channel></rss>

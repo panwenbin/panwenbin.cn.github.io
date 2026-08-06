@@ -1,4 +1,45 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Wed, 29 Jul 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>用 AI 直接编程</title><link>https://www.panwenbin.cn/posts/code-directly-with-ai/</link><pubDate>Tue, 30 Dec 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/code-directly-with-ai/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/code-directly-with-ai/ -&lt;blockquote>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Thu, 06 Aug 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux NVIDIA 驱动安装时的密钥签名</title><link>https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/</link><pubDate>Tue, 16 Jun 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>在启用 Secure Boot 的 Linux 系统上安装 NVIDIA 显卡驱动时，需要对内核模块进行数字签名。每次更新驱动时都要处理密钥相关的选项，容易遗忘或配置不当，导致驱动加载失败。&lt;/p>&lt;/blockquote>
+&lt;h2 id="安装流程">安装流程&lt;/h2>
+&lt;p>NVIDIA 提供的 &lt;code>.run&lt;/code> 安装程序（如 &lt;code>NVIDIA-Linux-x86_[version].run&lt;/code>）在安装过程中会自动处理密钥签名：&lt;/p>
+&lt;ol>
+&lt;li>运行安装程序&lt;/li>
+&lt;li>安装程序检测 Secure Boot 状态&lt;/li>
+&lt;li>如果启用了 Secure Boot，会提示&lt;strong>生成或使用现有的密钥对&lt;/strong>&lt;/li>
+&lt;li>密钥对包括：私钥（&lt;code>.key&lt;/code>）和证书（&lt;code>.der&lt;/code>）&lt;/li>
+&lt;/ol>
+&lt;h2 id="密钥对的位置">密钥对的位置&lt;/h2>
+&lt;p>安装程序默认在以下路径生成密钥对（以 Debian 为例）：&lt;/p>
+&lt;pre tabindex="0">&lt;code>/usr/share/nvidia/modsign-key-&amp;lt;ID&amp;gt;.key # 私钥
+/usr/share/nvidia/modsign-crt-&amp;lt;ID&amp;gt;.der # 证书
+&lt;/code>&lt;/pre>&lt;p>其中 &lt;code>&amp;lt;ID&amp;gt;&lt;/code> 是安装程序生成的标识符。&lt;/p>
+&lt;p>导入公钥到 MOK&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo mokutil --import /usr/share/nvidia/nvidia-modsign-crt-&amp;lt;ID&amp;gt;.der
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>会提示输入密码，重启进入 MOK 管理界面后，选择 &amp;ldquo;Enroll MOK&amp;rdquo;，输入之前设置的密码，完成公钥导入。&lt;/p>
+&lt;h2 id="关键注意事项">关键注意事项&lt;/h2>
+&lt;h3 id="密钥对会被清理">密钥对会被清理&lt;/h3>
+&lt;p>&lt;strong>重要&lt;/strong>：安装完成后，这些密钥文件会被&lt;strong>自动清理掉&lt;/strong>，不会被保留。这是正常现象，不需要手动删除。&lt;/p>
+&lt;h3 id="重新安装时的做法">重新安装时的做法&lt;/h3>
+&lt;p>如果需要重新安装驱动（例如内核更新后），安装程序会提示是否使用现有密钥或生成新密钥。此时有两种选择：&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>使用现有密钥&lt;/strong>：如果之前生成过密钥且被保留，可以选择复用&lt;/li>
+&lt;li>&lt;strong>生成新密钥&lt;/strong>（推荐）：由于旧密钥通常已被清理，最直接的方式是生成新密钥对&lt;/li>
+&lt;/ol>
+&lt;h2 id="为什么需要签名">为什么需要签名&lt;/h2>
+&lt;p>内核模块签名的目的是在启用 Secure Boot 的系统上：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>验证模块来源&lt;/strong>：确保内核模块未被篡改&lt;/li>
+&lt;li>&lt;strong>通过安全检查&lt;/strong>：Secure Boot 只加载经过签名和验证的模块&lt;/li>
+&lt;li>&lt;strong>保持系统安全性&lt;/strong>：防止恶意代码以驱动形式加载&lt;/li>
+&lt;/ul>
+&lt;h2 id="建议做法">建议做法&lt;/h2>
+&lt;ol>
+&lt;li>&lt;strong>首次安装&lt;/strong>：让安装程序自动生成新的密钥对，无需手动干预&lt;/li>
+&lt;li>&lt;strong>后续更新&lt;/strong>：选择&amp;quot;生成新密钥&amp;quot;，因为旧密钥不会被保留&lt;/li>
+&lt;li>&lt;strong>无需备份&lt;/strong>：不必刻意保存密钥文件，每次安装时重新生成即可&lt;/li>
+&lt;/ol>
+&lt;p>这样可以避免密钥过期或不匹配导致的问题。&lt;/p>- https://www.panwenbin.cn/posts/linux-nvidia-driver-sign/ - 2026 潘文斌</description></item><item><title>用 AI 直接编程</title><link>https://www.panwenbin.cn/posts/code-directly-with-ai/</link><pubDate>Tue, 30 Dec 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/code-directly-with-ai/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/code-directly-with-ai/ -&lt;blockquote>
 &lt;p>最近 AI 写代码变得相当好用了，过程中 AI 还能自己测试和调试，根据错误自己修复 BUG，最终代码可以直接运行。&lt;/p>&lt;/blockquote>
 &lt;h2 id="新的工作模式">新的工作模式&lt;/h2>
 &lt;h3 id="chat-到-agent-的转变">Chat 到 Agent 的转变&lt;/h3>
@@ -318,34 +359,4 @@ Windows UWP - %LOCALAPPDATA%\Packages\XBMCFoundation.Kodi_4n2hpmxwrvr6p\LocalCac
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 当前分支推送并设置上游&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global alias.pushup &lt;span style="color:#63c381">&amp;#34;push --set-upstream origin HEAD&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后就可以使用&lt;code>git lg&lt;/code>查看树形日志等操作，简短好记。&lt;/p>- https://www.panwenbin.cn/posts/git-alias/ - 2026 潘文斌</description></item><item><title>Linux安装VNC服务器</title><link>https://www.panwenbin.cn/posts/linux-vnc-server/</link><pubDate>Thu, 26 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-vnc-server/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-vnc-server/ -&lt;blockquote>
-&lt;p>Linux服务器通常是不安装桌面的，如果自用的，安装桌面环境后，使用VNC连接当云电脑使用。&lt;/p>&lt;/blockquote>
-&lt;h2 id="安装软件包">安装软件包&lt;/h2>
-&lt;p>这边使用xfce作为桌面，使用lightdm作为桌面管理器，使用TigerVNC作为VNC服务器。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo apt-get update
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get install xfce4 lightdm tigervnc-standalone-server
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="使用">使用&lt;/h2>
-&lt;p>输入&lt;code>vncserver&lt;/code>就可以启动VNC服务器，第一次运行会提示设置密码，但是默认设置启动的是监听到&lt;code>127.0.0.1&lt;/code>的，远程无法连接&lt;/p>
-&lt;h3 id="配置vnc">配置VNC&lt;/h3>
-&lt;p>修改&lt;code>.vnc/config&lt;/code>，写入如下配置&lt;/p>
-&lt;pre tabindex="0">&lt;code>session=xfce
-localhost=no
-alwaysshared
-&lt;/code>&lt;/pre>&lt;p>设置使用xfce桌面，不监听到localhost，alwaysshared允许x2vnc等用来键鼠控制。&lt;/p>
-&lt;p>使用&lt;code>vncserver -kill :1&lt;/code>关闭之前打开的session，再次运行&lt;code>vncserver&lt;/code>，这次就可以远程连接了，默认端口是5901。&lt;/p>
-&lt;h2 id="xorg">xorg&lt;/h2>
-&lt;p>上面的方式启动的VNC都是虚拟桌面的，如果要使用物理显示器的桌面，需要使用xorg扩展。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sdudo apt-get install tigervnc-xorg-extension
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="配置xorg-extension">配置xorg-extension&lt;/h3>
-&lt;p>新建&lt;code>/etc/X11/xorg.conf.d/10-vnc.conf&lt;/code>文件，内容如下&lt;/p>
-&lt;pre tabindex="0">&lt;code>Section &amp;#34;Module&amp;#34;
-Load &amp;#34;vnc&amp;#34;
-EndSection
-Section &amp;#34;Screen&amp;#34;
-Identifier &amp;#34;Screen0&amp;#34;
-Option &amp;#34;UserPasswdVerifier&amp;#34; &amp;#34;VncAuth&amp;#34;
-Option &amp;#34;PasswordFile&amp;#34; &amp;#34;/home/&amp;lt;user&amp;gt;/.vnc/passwd&amp;#34;
-EndSection
-&lt;/code>&lt;/pre>&lt;p>把&lt;code>&amp;lt;user&amp;gt;&lt;/code>替换成实际的用户名。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo systemctl restart lightdm
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启lightdm服务后，就可以&lt;code>5900&lt;/code>端口，连接到物理显示器的桌面了。&lt;/p>- https://www.panwenbin.cn/posts/linux-vnc-server/ - 2026 潘文斌</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后就可以使用&lt;code>git lg&lt;/code>查看树形日志等操作，简短好记。&lt;/p>- https://www.panwenbin.cn/posts/git-alias/ - 2026 潘文斌</description></item></channel></rss>
