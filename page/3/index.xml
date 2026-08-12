@@ -1,4 +1,17 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 11 Aug 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>JS匿名函数直接执行怎么写</title><link>https://www.panwenbin.cn/posts/js-anonymous-function/</link><pubDate>Fri, 04 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/js-anonymous-function/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/js-anonymous-function/ -&lt;h2 id="问题">问题&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 11 Aug 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux如何使用iSCSI挂载NAS远程磁盘</title><link>https://www.panwenbin.cn/posts/linux-use-iscsi/</link><pubDate>Sun, 06 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-use-iscsi/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-use-iscsi/ -&lt;h2 id="问题">问题&lt;/h2>
+&lt;blockquote>
+&lt;p>使用NAS磁盘时体验最接近本地盘的是iSCSI，那么如何在Linux上使用iSCSI挂载NAS远程磁盘呢？&lt;/p>&lt;/blockquote>
+&lt;h2 id="回答">回答&lt;/h2>
+&lt;p>安装iSCSI相关软件包：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo apt-get install open-iscsi
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>发现服务&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo iscsiadm -m discovery -t sendtargets -p &amp;lt;host&amp;gt;:&amp;lt;port&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>登录&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo iscsiadm -m node -T &amp;lt;target&amp;gt; -p &amp;lt;host&amp;gt;:&amp;lt;port&amp;gt; --login
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此时可以发现已经有新添加的/dev/sdX设备了。像本地磁盘一样使用就行。&lt;/p>
+&lt;p>不用了，登出&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo iscsiadm -m node -T &amp;lt;target&amp;gt; -p &amp;lt;host&amp;gt;:&amp;lt;port&amp;gt; --logout
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/linux-use-iscsi/ - 2026 潘文斌</description></item><item><title>JS匿名函数直接执行怎么写</title><link>https://www.panwenbin.cn/posts/js-anonymous-function/</link><pubDate>Fri, 04 Jul 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/js-anonymous-function/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/js-anonymous-function/ -&lt;h2 id="问题">问题&lt;/h2>
 &lt;blockquote>
 &lt;p>Javascript中匿名函数直接执行怎么写？&lt;br>
 &lt;code>function(){}()&lt;/code>这种写法为什么会报错？&lt;/p>&lt;/blockquote>
@@ -546,53 +559,4 @@ TLS握手开始时，客户端会发送Client Hello报文，包含以下关键�
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">console&lt;/span>.&lt;span style="color:#c1abea">log&lt;/span>(&lt;span style="color:#98c379">&amp;#39;组件卸载&amp;#39;&lt;/span>);
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>});
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="总结">总结&lt;/h2>
-&lt;p>Svelte 以其简洁的语法、出色的性能和小的包体积，成为小型项目和追求性能的团队的好选择。如果你来自 Vue 或 React 背景，转向 Svelte 会有新的体验和启发。&lt;/p>- https://www.panwenbin.cn/posts/svelte/ - 2026 潘文斌</description></item><item><title>Hugo模板之Doks使用记录</title><link>https://www.panwenbin.cn/posts/hugo-doks/</link><pubDate>Thu, 05 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/hugo-doks/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/hugo-doks/ -&lt;h2 id="喜新厌旧">喜新厌旧&lt;/h2>
-&lt;blockquote>
-&lt;p>之前在Hugo上找文档的模板，相中了Doks，但是最近再去看，更喜欢Hextra了。&lt;br>
-再换掉它之前，先做个记录吧。&lt;/p>&lt;/blockquote>
-&lt;h2 id="安装">安装&lt;/h2>
-&lt;p>Doks推荐的安装方式是用npm。也就是直接新建了一个项目&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>npm create thulite@latest -- --template doks
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>npm的好处呢，已经做好packages配置，稍微方便一点吧。&lt;/p>
-&lt;h3 id="基本配置">基本配置&lt;/h3>
-&lt;p>从&lt;code>config/_default/hugo.toml&lt;/code>修改站点基本信息。&lt;/p>
-&lt;h3 id="多语言配置">多语言配置&lt;/h3>
-&lt;p>从&lt;code>config/_default/languages.toml&lt;/code>设置多语言。并到&lt;code>config/_default/hugo.toml&lt;/code>中设置默认语言，并在&lt;code>disableLanguages&lt;/code>去掉要开放的语言。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-toml" data-lang="toml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># Multilingual&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c1abea">defaultContentLanguage&lt;/span> = &lt;span style="color:#63c381">&amp;#34;en&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c1abea">disableLanguages&lt;/span> = [&lt;span style="color:#63c381">&amp;#34;de&amp;#34;&lt;/span>, &lt;span style="color:#63c381">&amp;#34;nl&amp;#34;&lt;/span>]
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c1abea">defaultContentLanguageInSubdir&lt;/span> = &lt;span style="color:#b756ff;font-weight:bold">false&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以添加一个&lt;code>zh&lt;/code>语言，设置为默认。&lt;code>en&lt;/code>不禁用。那就支持中英文双语了。
-&lt;code>defaultContentLanguageInSubdir&lt;/code>如果设置为&lt;code>true&lt;/code>，表示多语言在子目录下。&lt;/p>
-&lt;p>这里开启多语言后，就报错了。&lt;/p>
-&lt;pre tabindex="0">&lt;code>ERROR No js resource found at /assets/js/flexsearch.zh.js
-&lt;/code>&lt;/pre>&lt;p>从&lt;a href="https://github.com/thuliteio/doks/discussions/1288">discussions/1288&lt;/a>，中看到说复制&lt;code>node_modules/@thulite/doks-core/assets/js/flexsearch.js&lt;/code>到对应位置。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>cp node_modules/@thulite/doks-core/assets/js/flexsearch.js /assets/js/flexsearch.zh.js
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cp node_modules/@thulite/doks-core/assets/js/flexsearch.js /assets/js/flexsearch.en.js
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>翻译文件需要新建如&lt;code>i18n/zh.toml&lt;/code>，&lt;code>i18n/en.toml&lt;/code>&lt;/p>
-&lt;p>更多多语言设置可以看&lt;a href="https://getdoks.org/docs/guides/i18n/">i18n文档&lt;/a>。&lt;/p>
-&lt;h2 id="使用">使用&lt;/h2>
-&lt;h3 id="数学公式">数学公式&lt;/h3>
-&lt;p>Doks使用的是&lt;code>vercel.app&lt;/code>的&lt;a href="https://math.vercel.app/home">Math API&lt;/a>，没有用常规的JS库KaTeX或MathJax。&lt;/p>
-&lt;p>所以写法上有一些不同，需要包在&lt;code>math&lt;/code>的codeblock中：&lt;/p>
-&lt;pre tabindex="0">&lt;code>```math
-$$
-\frac{1}{\Gamma(s)}\int_{0}^{\infty}\frac{u^{s-1}}{e^{u}-1}\mathrm{d}u
-$$
-```
-&lt;/code>&lt;/pre>&lt;p>如果要引入MathJax，可以在&lt;code>layouts/partials/head/script-header.html&lt;/code>中添加&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-html" data-lang="html">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span> &lt;span style="color:#b3d23c">id&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;MathJax-script&amp;#34;&lt;/span> &lt;span style="color:#b3d23c">async&lt;/span> &lt;span style="color:#b3d23c">src&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">MathJax&lt;/span> &lt;span style="color:#c7bf54">=&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">tex&lt;/span>&lt;span style="color:#c7bf54">:&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">displayMath&lt;/span>&lt;span style="color:#c7bf54">:&lt;/span> [[&lt;span style="color:#98c379">&amp;#39;\\[&amp;#39;&lt;/span>, &lt;span style="color:#98c379">&amp;#39;\\]&amp;#39;&lt;/span>], [&lt;span style="color:#98c379">&amp;#39;$$&amp;#39;&lt;/span>, &lt;span style="color:#98c379">&amp;#39;$$&amp;#39;&lt;/span>]], &lt;span style="color:#8a93a5;font-style:italic">// block
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">&lt;/span> &lt;span style="color:#c1abea">inlineMath&lt;/span>&lt;span style="color:#c7bf54">:&lt;/span> [[&lt;span style="color:#98c379">&amp;#39;\\(&amp;#39;&lt;/span>, &lt;span style="color:#98c379">&amp;#39;\\)&amp;#39;&lt;/span>]] &lt;span style="color:#8a93a5;font-style:italic">// inline
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic">&lt;/span> },
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">loader&lt;/span>&lt;span style="color:#c7bf54">:&lt;/span>{
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c1abea">load&lt;/span>&lt;span style="color:#c7bf54">:&lt;/span> [&lt;span style="color:#98c379">&amp;#39;ui/safe&amp;#39;&lt;/span>]
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> },
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> };
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="总结">总结&lt;/h2>
-&lt;p>一开始感觉样式比较简单，后来看着样式有点太素了。左侧菜单越看越丑，深深的加粗黑字感觉生硬，其他样式也没什么好看的。&lt;br>
-而且作为Hugo模板，在样式上做的一般，本身素质不具备让人抛弃其他选择而选择它。单独的项目结构，有点脱离Hugo Theme的范畴了，使得绑定太强，更换其他theme变得不方便。&lt;/p>- https://www.panwenbin.cn/posts/hugo-doks/ - 2026 潘文斌</description></item></channel></rss>
+&lt;p>Svelte 以其简洁的语法、出色的性能和小的包体积，成为小型项目和追求性能的团队的好选择。如果你来自 Vue 或 React 背景，转向 Svelte 会有新的体验和启发。&lt;/p>- https://www.panwenbin.cn/posts/svelte/ - 2026 潘文斌</description></item></channel></rss>

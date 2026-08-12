@@ -1,4 +1,61 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 11 Aug 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>virt-manager SSH连接无法查看虚拟机图形界面</title><link>https://www.panwenbin.cn/posts/virt-manager/</link><pubDate>Tue, 11 Aug 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/virt-manager/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/virt-manager/ -&lt;h2 id="起因">起因&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 11 Aug 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Home Assistant 折腾记录</title><link>https://www.panwenbin.cn/posts/home-assistant/</link><pubDate>Tue, 11 Aug 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/home-assistant/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/home-assistant/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>折腾ESP8266的时候，感觉通信比较啰嗦，想到了Home Assistant，顺便把小爱音箱也接入Home Assistant，方便语音控制。&lt;/p>&lt;/blockquote>
+&lt;h2 id="安装">安装&lt;/h2>
+&lt;p>其实很早之前装过，但是没怎么把玩。这次想docker安装，尽量保持它持久运行。直接上 &lt;code>compose.yaml&lt;/code> 如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">services&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">homeassistant&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">container_name&lt;/span>: &lt;span style="color:#98c379">homeassistant&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">image&lt;/span>: &lt;span style="color:#63c381">&amp;#34;ghcr.io/home-assistant/home-assistant:latest&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">volumes&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#98c379">./config:/config&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#98c379">/etc/localtime:/etc/localtime:ro&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#98c379">/run/dbus:/run/dbus:ro&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">restart&lt;/span>: &lt;span style="color:#98c379">unless-stopped&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">privileged&lt;/span>: &lt;span style="color:#b756ff;font-weight:bold">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">network_mode&lt;/span>: &lt;span style="color:#98c379">host&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">environment&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">TZ&lt;/span>: &lt;span style="color:#98c379">Asia/Shanghai&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="hacs">HACS&lt;/h2>
+&lt;p>docker版的缺点之一就是没有内置HACS，直接在docker容器里执行命令安装&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>wget -O - https://get.hacs.xyz | bash -
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>实际因为会跳到github的原因，我还是挂了一下代理&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># export http_proxy=http://a.b.c.d:port&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># export https_proxy=http://a.b.c.d:port&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>curl -o getha -L https://get.hacs.xyz
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># unset http_proxy&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># unset https_proxy&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>bash getha
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>装上后，HA会提示重启，重启后就可以在HA的集成中看到HACS了。
+首次登录HACS会要求github授权，这边访问不了会报&lt;code>could_not_register&lt;/code>，日志中有&lt;/p>
+&lt;pre tabindex="0">&lt;code>homeassistant | 2026-08-05 14:44:07.496 ERROR (MainThread) [custom_components.hacs] Timeout of 20 reached while waiting for https://github.com/login/devi
+ce/code
+homeassistant | Traceback (most recent call last):
+homeassistant | File &amp;#34;/config/custom_components/hacs/config_flow.py&amp;#34;, line 98, in async_step_device
+homeassistant | response = await self.device.register()
+homeassistant | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+homeassistant | File &amp;#34;/usr/local/lib/python3.14/site-packages/aiogithubapi/device.py&amp;#34;, line 103, in register
+homeassistant | response = await self._client.async_call_api(
+homeassistant | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+homeassistant | ...&amp;lt;9 lines&amp;gt;...
+homeassistant | )
+homeassistant | ^
+homeassistant | File &amp;#34;/usr/local/lib/python3.14/site-packages/aiogithubapi/client.py&amp;#34;, line 147, in async_call_api
+homeassistant | raise GitHubConnectionException(
+homeassistant | ...&amp;lt;2 lines&amp;gt;...
+homeassistant | ) from None
+homeassistant | aiogithubapi.exceptions.GitHubConnectionException: Timeout of 20 reached while waiting for https://github.com/login/device/code
+&lt;/code>&lt;/pre>&lt;p>之后就可以在HACS中安装各种插件了。&lt;/p>
+&lt;h2 id="xiaomi-miot">Xiaomi Miot&lt;/h2>
+&lt;p>下载Xiaomi Miot这个三方插件，会要求输入小米ID和密码，服务器是中国大陆，自动模式，就可以在HA中看到小爱音箱了。&lt;/p>
+&lt;h2 id="midea-ac-lan">Midea AC LAN&lt;/h2>
+&lt;p>下载Midea AC LAN这个三方插件。添加集成需要空调的设备编号，新版本v3协议的还需要Token和Key，v2老版是不需要的。&lt;/p>
+&lt;p>此时要依赖另一个python项目 &lt;code>msmart-ng&lt;/code>，使用discover命令可以扫描到空调的设备编号，但是需要自己注册一下 &lt;code>NetHome Plus&lt;/code> 这个海外版美的空调App。
+然后在discover命令中使用自己的账号密码就能得到设备的token和key了。内置的账号估计没用了。&lt;/p>
+&lt;p>拿到后到HA中添加集成，选择Midea AC LAN，输入设备编号、协议版本，如果v3再添上token和key，就可以控制空调了。&lt;/p>
+&lt;h2 id="tesla-custom-integration">Tesla Custom Integration&lt;/h2>
+&lt;p>集成Tesla的话，内置的Tesla集成不支持大陆地区，因为API地址不一样，插件里是写死的。只能使用三方修改插件 &lt;code>Tesla Custom Integration&lt;/code>。
+但是这个插件用的老API，需要获取Token，使用&lt;code>Auth For Tesla&lt;/code>获取，标称是安全且开源的。如果集成Fleet API，需要再跑一个 Fleet API Proxy来中转。&lt;/p>- https://www.panwenbin.cn/posts/home-assistant/ - 2026 潘文斌</description></item><item><title>virt-manager SSH连接无法查看虚拟机图形界面</title><link>https://www.panwenbin.cn/posts/virt-manager/</link><pubDate>Tue, 11 Aug 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/virt-manager/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/virt-manager/ -&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>内网有个机器KVM上装了windows，临时想用一下，从Virt-Manager中添加了qemu+ssh连接，但是查看画面时提示错误&lt;/p>&lt;/blockquote>
 &lt;pre tabindex="0">&lt;code>Error connecting to graphical console:
@@ -281,104 +338,4 @@ kv_cache_type_v: q8_0
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo dropbearkey -t ed25519 -f /etc/dropbear/dropbear_ed25519_host_key
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="前台启动">前台启动&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dropbear -F -E -p &lt;span style="color:#d19a66">2022&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/dropbear-compile-for-arm/ - 2026 潘文斌</description></item><item><title>迅雷赚钱宝Pro (二代) WS1508 折腾记录</title><link>https://www.panwenbin.cn/posts/xunlei-minecrafter-ws1508/</link><pubDate>Tue, 14 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/xunlei-minecrafter-ws1508/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/xunlei-minecrafter-ws1508/ -&lt;h2 id="前言">前言&lt;/h2>
-&lt;blockquote>
-&lt;p>之前玩客云涨价就借机都出掉了，看到赚钱宝Pro没太涨价，就收了几个回来，赚钱宝Pro就是缩水版的玩客云。爬了一遍恩山论坛，重新折腾一下，顺便记录一下。&lt;/p>&lt;/blockquote>
-&lt;h2 id="硬件信息">硬件信息&lt;/h2>
-&lt;p>对比1代2代3代的配置，3代即玩客云。&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>设备&lt;/th>
-&lt;th>型号&lt;/th>
-&lt;th>SOC&lt;/th>
-&lt;th>ROM&lt;/th>
-&lt;th>RAM&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>1代&lt;/td>
-&lt;td>WS1408&lt;/td>
-&lt;td>S805&lt;/td>
-&lt;td>1G NAND&lt;/td>
-&lt;td>256M&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>2代&lt;/td>
-&lt;td>WS1508&lt;/td>
-&lt;td>S805&lt;/td>
-&lt;td>4G NAND/EMMC&lt;/td>
-&lt;td>512M&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>3代&lt;/td>
-&lt;td>WS1608&lt;/td>
-&lt;td>S805&lt;/td>
-&lt;td>8G EMMC&lt;/td>
-&lt;td>1G&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;p>其中2代比较凭运气，有NAND和EMMC的，EMMC的可以用玩客云的新固件，NAND的基本只能刷原厂的修改固件，除非把系统放U盘里则可以上新固件。
-1代配置和可玩性都很差，二代EMMC的目前性价比还行，3代玩客云当前价格已经不便宜了，性价比不高。
-拆机V1.1比较难拆，胶水太多了。拆好几个都是直接螺丝孔坏了应拆的。&lt;/p>
-&lt;h3 id="ttl">TTL&lt;/h3>
-&lt;p>靠近USB那边从离USB最近到远，分别是RX,TX,GND,VCC，正常不接VCC就接靠近USB的3个就可以。V1.2有标记，V1.1没有标记，位置是一样的。&lt;/p>
-&lt;h2 id="可用固件">可用固件&lt;/h2>
-&lt;h3 id="ws1508原厂固件">WS1508原厂固件&lt;/h3>
-&lt;p>全网能找到基本就这一个，官方是基于openwrt修改的，内核3.10.33，兼容NAND和EMMC的，刷机后可以恢复出厂设置。&lt;/p>
-&lt;pre tabindex="0">&lt;code>9dcc5f7140c0f59cc06356354ff9b219 mine-pro_V1.3.233.img
-&lt;/code>&lt;/pre>&lt;p>原厂固件&lt;/p>
-&lt;p>原厂openwrt固定MAC地址&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>uci &lt;span style="color:#ef8383">set&lt;/span> network.lan.macaddr&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#39;00:11:22:33:44:55&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>uci commit network
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="onecloud-armbian固件">&lt;a href="https://github.com/hzyitc/armbian-onecloud">OneCloud Armbian固件&lt;/a>&lt;/h3>
-&lt;p>由hzyitc维护的玩客云Armbian镜像，已提交Armbian。因为是高版本内核，只能刷入EMMC或U盘。
-此固件需要配合lanlan的修改dtb使用&lt;/p>
-&lt;pre tabindex="0">&lt;code>2ff58c87561f00d4703691a0196143b2 meson8b-ws1508-fix-by-lanlan.dtb
-&lt;/code>&lt;/pre>&lt;p>并且修改boot.scr中fatload的地址&lt;/p>
-&lt;p>使用Armbian固件制作WS1508的直刷包&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo losetup -f -P --show Armbian-unofficial_25.11.0-trunk_Onecloud_bookworm_current_6.12.43_minimal.img
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo mkdir -p /mnt/p1
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo mount /dev/loop0p1 /mnt/p1
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">cd&lt;/span> /mnt/p1
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo sed -i &lt;span style="color:#98c379">&amp;#39;s/0x2/0x1/g&amp;#39;&lt;/span> /mnt/p1/boot.cmd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo sed -i &lt;span style="color:#98c379">&amp;#39;s/dtb\/meson8b-onecloud.dtb/meson8b-ws1508-fix-by-lanlan.dtb/g&amp;#39;&lt;/span> /mnt/p1/boot.cmd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo mkimage -C none -A arm -T script -d /mnt/p1/boot.cmd /mnt/p1/boot.scr &lt;span style="color:#8a93a5;font-style:italic"># 需要mkimage生成，直接改scr会报Bad CRC&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo cp meson8b-ws1508-fix-by-lanlan.dtb /mnt/p1/meson8b-ws1508-fix-by-lanlan.dtb
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">cd&lt;/span> ~
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo umount /mnt/p1
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo losetup -d /dev/loop0
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>进入系统后如果&lt;code>apt upgrade&lt;/code>，某些内容会被覆盖，导致无法启动。
-索性复制一份boot.cmd为boot_ws1508.cmd，确认已经做了如下修改，避免&lt;code>apt upgrade&lt;/code>时被覆盖&lt;/p>
-&lt;pre tabindex="0">&lt;code>fatload ${bootdev} 0x20800000 /uImage || exit 1
-fatload ${bootdev} 0x22000000 /uInitrd || exit 1
-fatload ${bootdev} 0x21800000 /dtb/meson8b-onecloud.dtb || exit 1
-&lt;/code>&lt;/pre>&lt;p>改为&lt;/p>
-&lt;pre tabindex="0">&lt;code>fatload ${bootdev} 0x10800000 /uImage || exit 1
-fatload ${bootdev} 0x12000000 /uInitrd || exit 1
-fatload ${bootdev} 0x11800000 /meson8b-ws1508-fix-by-lanlan.dtb || exit 1
-&lt;/code>&lt;/pre>&lt;p>然后用mkimage生成boot_ws1508.scr&lt;/p>
-&lt;pre tabindex="0">&lt;code>mkimage -C none -A arm -T script -d boot_ws1508.cmd boot_ws1508.scr
-&lt;/code>&lt;/pre>&lt;p>再修改uboot的env，将boot_usb_armbian中的boot.scr改为boot_ws1508.scr即可。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo apt-get install libubootenv-tool
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑&lt;code>/etc/fw_env.config&lt;/code>&lt;/p>
-&lt;pre tabindex="0">&lt;code># MTD device name Device offset Env. size Flash sector size
-/dev/mmcblk1 0x800000 0x10000 0x10000
-&lt;/code>&lt;/pre>&lt;p>然后fw_printenv查看，将下面内容保存到env.txt。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#dcaeea">boot_emmc_armbian&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>print -n &lt;span style="color:#98c379">&amp;#39;Try to boot from eMMC...&amp;#39;&lt;/span>; mmc rescan 1; &lt;span style="color:#dcaeea">bootdev&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#39;mmc 1&amp;#39;&lt;/span>; &lt;span style="color:#dcaeea">rootdev&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#39;/dev/mmcblk1p2&amp;#39;&lt;/span>; fatload &lt;span style="color:#98c379">${&lt;/span>&lt;span style="color:#dcaeea">bootdev&lt;/span>&lt;span style="color:#98c379">}&lt;/span> &lt;span style="color:#98c379">${&lt;/span>&lt;span style="color:#dcaeea">loadaddr&lt;/span>&lt;span style="color:#98c379">}&lt;/span> boot_ws1508.scr &lt;span style="color:#c7bf54">&amp;amp;&amp;amp;&lt;/span> autoscr &lt;span style="color:#98c379">${&lt;/span>&lt;span style="color:#dcaeea">loadaddr&lt;/span>&lt;span style="color:#98c379">}&lt;/span>; print &lt;span style="color:#98c379">&amp;#39;Fail&amp;#39;&lt;/span>;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#dcaeea">boot_sdcard_armbian&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>print -n &lt;span style="color:#98c379">&amp;#39;Try to boot from SDCard...&amp;#39;&lt;/span>; mmc rescan 0; &lt;span style="color:#dcaeea">bootdev&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#39;mmc 0&amp;#39;&lt;/span>; fatload &lt;span style="color:#98c379">${&lt;/span>&lt;span style="color:#dcaeea">bootdev&lt;/span>&lt;span style="color:#98c379">}&lt;/span> &lt;span style="color:#98c379">${&lt;/span>&lt;span style="color:#dcaeea">loadaddr&lt;/span>&lt;span style="color:#98c379">}&lt;/span> boot_ws1508.scr &lt;span style="color:#c7bf54">&amp;amp;&amp;amp;&lt;/span> autoscr &lt;span style="color:#98c379">${&lt;/span>&lt;span style="color:#dcaeea">loadaddr&lt;/span>&lt;span style="color:#98c379">}&lt;/span>; print &lt;span style="color:#98c379">&amp;#39;Fail&amp;#39;&lt;/span>;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#dcaeea">boot_usb_armbian&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>print -n &lt;span style="color:#98c379">&amp;#39;Try to boot from USB...&amp;#39;&lt;/span>; &lt;span style="color:#dcaeea">bootdev&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#39;usb 0&amp;#39;&lt;/span>; &lt;span style="color:#dcaeea">rootdev&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#98c379">&amp;#39;/dev/sda2&amp;#39;&lt;/span>; usb start &lt;span style="color:#c7bf54">&amp;amp;&amp;amp;&lt;/span> fatload &lt;span style="color:#98c379">${&lt;/span>&lt;span style="color:#dcaeea">bootdev&lt;/span>&lt;span style="color:#98c379">}&lt;/span> &lt;span style="color:#98c379">${&lt;/span>&lt;span style="color:#dcaeea">loadaddr&lt;/span>&lt;span style="color:#98c379">}&lt;/span> boot_ws1508.scr &lt;span style="color:#c7bf54">&amp;amp;&amp;amp;&lt;/span> autoscr &lt;span style="color:#98c379">${&lt;/span>&lt;span style="color:#dcaeea">loadaddr&lt;/span>&lt;span style="color:#98c379">}&lt;/span>; print &lt;span style="color:#98c379">&amp;#39;Fail&amp;#39;&lt;/span>;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>fw_setenv -s env.txt&lt;/code> 执行修改&lt;/p>
-&lt;h3 id="icebee250移植armbian">icebee250移植armbian&lt;/h3>
-&lt;p>帖子：【赚钱宝2代 Armbian 直刷包】软件随便装，可以apt-get，可以挂甜糖～，&lt;/p>
-&lt;pre tabindex="0">&lt;code>a10bcc83dcd825c7c9aeaa13c3019f11 赚钱宝2代 Armbian_Debian_buster_default_3.10.36_minimal.7z
-&lt;/code>&lt;/pre>&lt;p>这个是3.10.36内核，因为是armbian，所以不能复用原厂的3.10.33吧，但奇怪的是/lib/modules/下是3.10.108的。&lt;/p>
-&lt;h3 id="dybjxx移植openwrt">dybjxx移植openwrt&lt;/h3>
-&lt;p>帖子：赚钱宝1代2代3代openwrt官网固件线刷包，是基于原厂3.10.33的固件替换的rootfs分区。内核依然是3.10.33的，但是用的openwrt18和19的rootfs，所以docker是不用想的，在需要内核强依赖的程序都会不行。
-对我来说意义不大，毕竟这么老的openwrt还要牺牲一些稳定性。&lt;/p>
-&lt;h2 id="移植固件">移植固件&lt;/h2>
-&lt;h3 id="achaoge折腾随手记">achaoge折腾随手记&lt;/h3>
-&lt;p>帖子：赚钱宝Pro折腾随手记，提供了挺多探索的内容，特别是自行编译固件方面的。&lt;/p>
-&lt;p>未完待续&lt;/p>- https://www.panwenbin.cn/posts/xunlei-minecrafter-ws1508/ - 2026 潘文斌</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/dropbear-compile-for-arm/ - 2026 潘文斌</description></item></channel></rss>
