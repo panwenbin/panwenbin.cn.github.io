@@ -3,7 +3,9 @@
 &lt;p>内网有个机器KVM上装了windows，临时想用一下，从Virt-Manager中添加了qemu+ssh连接，但是查看画面时提示错误&lt;/p>&lt;/blockquote>
 &lt;pre tabindex="0">&lt;code>Error connecting to graphical console:
 Guest is on a remote host, but is only configured to allow local file descriptor connections.
-&lt;/code>&lt;/pre></description></item><item><title>给乐视x620默认开启无线adb</title><link>https://www.panwenbin.cn/posts/letv-x620-tcpip-adb/</link><pubDate>Wed, 29 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/letv-x620-tcpip-adb/</guid><description>&lt;h2 id="起因">起因&lt;/h2>
+&lt;/code>&lt;/pre></description></item><item><title>闲置的ESP8266折腾</title><link>https://www.panwenbin.cn/posts/idle-esp8266/</link><pubDate>Tue, 11 Aug 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/idle-esp8266/</guid><description>&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>闲在家里瞎折腾，就翻出来了以前买的ESP8266几个模块。&lt;/p>&lt;/blockquote></description></item><item><title>给乐视x620默认开启无线adb</title><link>https://www.panwenbin.cn/posts/letv-x620-tcpip-adb/</link><pubDate>Wed, 29 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/letv-x620-tcpip-adb/</guid><description>&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>翻出来老旧的乐视x620手机，Android 6.0的系统，开启无线adb需要用usb发送&lt;code>adb tcpip 5555&lt;/code>命令，有点啰嗦，反正就放在家里，直接开启无线adb更方便。&lt;/p>&lt;/blockquote></description></item><item><title>Linux安装使用NFS</title><link>https://www.panwenbin.cn/posts/linux-nfs/</link><pubDate>Thu, 23 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-nfs/</guid><description>&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
