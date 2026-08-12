@@ -1,4 +1,55 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 11 Aug 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Home Assistant 折腾记录</title><link>https://www.panwenbin.cn/posts/home-assistant/</link><pubDate>Tue, 11 Aug 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/home-assistant/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/home-assistant/ -&lt;h2 id="起因">起因&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Wed, 12 Aug 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>ESP32-C3 super mini开发板折腾</title><link>https://www.panwenbin.cn/posts/esp32-c3/</link><pubDate>Wed, 12 Aug 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/esp32-c3/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/esp32-c3/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>看到这个ESP32-C3 super mini，真的非常小，而且不到10块钱，比ESP8266可玩性更高，支持蓝牙和WiFi，内置了USB转串口芯片，直接用USB线就可以烧录程序，非常方便。&lt;/p>&lt;/blockquote>
+&lt;h2 id="上电">上电&lt;/h2>
+&lt;p>识别为了&lt;code>Espressif USB JTAG/serial debug unit&lt;/code>，但是一会儿又断开了，然后又识别了，一直断。
+猜测大概是因为商家给我的里面固件不正常，然后就一直在重置。&lt;/p>
+&lt;p>通过&lt;a href="https://www.reddit.com/r/esp32/comments/1jszcef/esp32c3_only_appears_as_usb_jtag_serial_debugging/">ESP32-C3 only appears as USB JTAG/ serial debugging unit&lt;/a> 中说的方法，按住BOOT键，然后插上USB线，按RESET键，松开RESET键，最后松开BOOT键，电脑就可以稳定识别了。应该是进入烧录模式了。&lt;/p>
+&lt;h2 id="烧录">烧录&lt;/h2>
+&lt;p>用Arduino烧录一个电灯固件，成功烧录，但是没反应。一开始怀疑PIN8是否是蓝色LED，折腾一圈都没反应，最后还是按RESET才开始正常运行了。&lt;/p>
+&lt;h2 id="配置arduino-ide">配置Arduino IDE&lt;/h2>
+&lt;p>在Arduino IDE中，Tools -&amp;gt; USB CDC On Boot: Enabled，之后再烧录就不需要按RESET了，直接烧录完就自己运行了。&lt;/p>
+&lt;h2 id="wifi连接">WiFi连接&lt;/h2>
+&lt;p>连接WiFi成功，使用&lt;code>ping&lt;/code>命令测试网络连接，延时很高，几十到200ms，看起来很不正常。其实买的时候我就知道这个小板子WiFi有问题，说是焊接插针的WiFi都搜不到，所以我选择没有焊接插针的版本，结果WiFi还是有问题。&lt;/p>
+&lt;p>问了AI，说了很多设计缺陷，给出的软件缓解方案是降低发射功率到8.5dBm，实测效果明显，可以降低到10ms以内了。其他也给了一些其他设置如&lt;code>esp_wifi_set_ps(WIFI_PS_NONE);&lt;/code>，效果有，但是不太明显了。&lt;/p>
+&lt;p>还给了一个&amp;quot;硬件续命&amp;quot;方案，(ESP32-C3 SuperMini Antenna Mod（天线改造法）)[https://peterneufeld.wordpress.com/2025/03/04/esp32-c3-supermini-antenna-modification/]。&lt;/p>
+&lt;ol>
+&lt;li>找一根 31 毫米长、1 毫米粗的单股铜导线（2.4GHz 的标准的 1/4 波长）。&lt;/li>
+&lt;li>把其中 16 毫米弯成一个直径约 8 毫米的圆圈，剩下 15 毫米向上折起（做成一个垂直的鞭状天线）。&lt;/li>
+&lt;li>直接跨接焊接在红色陶瓷天线的两端&lt;/li>
+&lt;/ol>
+&lt;h2 id="蓝牙">蓝牙&lt;/h2>
+&lt;p>蓝牙表现相对好一些，用iOS上的LightBlue软件，匹配设备后，发送字符串数据1和0，控制板子上的LED蓝灯亮灭，效果不错。&lt;/p>
+&lt;p>接着做成蓝牙网关，直接上ESPHome。默认配置刷进去，WiFi连不上，还是要加上功率限制。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">wifi&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">ssid&lt;/span>: &lt;span style="color:#63c381">&amp;#34;你的Wi-Fi名称&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">password&lt;/span>: &lt;span style="color:#63c381">&amp;#34;你的Wi-Fi密码&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">power_save_mode&lt;/span>: &lt;span style="color:#98c379">NONE &lt;/span> &lt;span style="color:#8a93a5;font-style:italic"># 彻底关闭 Wi-Fi 休眠&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">output_power&lt;/span>: &lt;span style="color:#d19a66">8.5&lt;/span> &lt;span style="color:#8a93a5;font-style:italic"># 强行将发射功率压到 8.5dBm，防止供电血崩&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后WiFi正常了，就可以被Home Assistant发现了。接着加上网关配置&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 🔌 核心：开启 Home Assistant 官方蓝牙代理功能&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">bluetooth_proxy&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">active&lt;/span>: &lt;span style="color:#b756ff;font-weight:bold">true&lt;/span> &lt;span style="color:#8a93a5;font-style:italic"># 开启主动扫描，可以更灵敏地抓取加密或未广播的蓝牙设备&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 📡 蓝牙扫描底层参数&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">esp32_ble_tracker&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">scan_parameters&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">interval&lt;/span>: &lt;span style="color:#98c379">100ms&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">window&lt;/span>: &lt;span style="color:#98c379">99ms&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">active&lt;/span>: &lt;span style="color:#b756ff;font-weight:bold">true&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>顺便把蓝色LED也放进HomeAssistant中，配置如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8a93a5;font-style:italic"># 💡 扩展功能：把板载的 GPIO 8 蓝灯拉进 HA 控制&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">output&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#e06c75">id&lt;/span>: &lt;span style="color:#98c379">led_output&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">platform&lt;/span>: &lt;span style="color:#98c379">gpio&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">pin&lt;/span>: &lt;span style="color:#98c379">GPIO8&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">inverted&lt;/span>: &lt;span style="color:#b756ff;font-weight:bold">true&lt;/span> &lt;span style="color:#8a93a5;font-style:italic"># 满足低电平点亮的特性&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">light&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#e06c75">platform&lt;/span>: &lt;span style="color:#98c379">binary&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">name&lt;/span>: &lt;span style="color:#63c381">&amp;#34;网关状态灯&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">output&lt;/span>: &lt;span style="color:#98c379">led_output&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>试一下能控制LED，暂时收工。&lt;/p>- https://www.panwenbin.cn/posts/esp32-c3/ - 2026 潘文斌</description></item><item><title>Home Assistant 折腾记录</title><link>https://www.panwenbin.cn/posts/home-assistant/</link><pubDate>Tue, 11 Aug 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/home-assistant/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/home-assistant/ -&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>折腾ESP8266的时候，感觉通信比较啰嗦，想到了Home Assistant，顺便把小爱音箱也接入Home Assistant，方便语音控制。&lt;/p>&lt;/blockquote>
 &lt;h2 id="安装">安装&lt;/h2>
@@ -301,41 +352,4 @@ kv_cache_type_v: q8_0
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="修改interpreter">修改interpreter&lt;/h2>
 &lt;p>对于有&lt;code>ld-linux-armhf.so.3&lt;/code>的情况下，也可以不静态编译，只要修改interpreter即可：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>patchelf --set-interpreter /lib/ld-linux-armhf.so.3 fw_printenv
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/ - 2026 潘文斌</description></item><item><title>为Arm设备交叉编译Dropbear</title><link>https://www.panwenbin.cn/posts/dropbear-compile-for-arm/</link><pubDate>Thu, 16 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/dropbear-compile-for-arm/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/dropbear-compile-for-arm/ -&lt;h2 id="起因">起因&lt;/h2>
-&lt;blockquote>
-&lt;p>有些设备上精简得连SSH都没有，telnet还是没有ssh方便，而有些老系统的dropbear又太旧了，急需一个新版本。
-目标平台是armv7l，为了方便使用，采用静态链接。&lt;/p>&lt;/blockquote>
-&lt;h2 id="在amd64上交叉编译">在amd64上交叉编译&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dpkg --add-architecture armhf
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get update
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt install curl bzip2 gcc-arm-linux-gnueabihf make
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">export&lt;/span> &lt;span style="color:#dcaeea">CC&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>arm-linux-gnueabihf-gcc
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">export&lt;/span> &lt;span style="color:#dcaeea">AR&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>arm-linux-gnueabihf-ar
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">export&lt;/span> &lt;span style="color:#dcaeea">STRIP&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>arm-linux-gnueabihf-strip
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>curl -O https://matt.ucc.asn.au/dropbear/releases/dropbear-2026.92.tar.bz2
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tar jxvf dropbear-2026.92.tar.bz2
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>./configure &lt;span style="color:#d26464;font-weight:bold">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#d26464;font-weight:bold">&lt;/span> --host&lt;span style="color:#c7bf54">=&lt;/span>arm-linux-gnueabihf &lt;span style="color:#d26464;font-weight:bold">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#d26464;font-weight:bold">&lt;/span> --enable-static
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>make
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="直接在arm设备上编译">直接在Arm设备上编译&lt;/h2>
-&lt;p>其实有设备直接在上面编译也还可以，时间并不长。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo apt-get update
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get install curl bzip2 gcc libc6-dev zlib1g-dev make
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>curl -O https://matt.ucc.asn.au/dropbear/releases/dropbear-2026.92.tar.bz2
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tar jxvf dropbear-2026.92.tar.bz2
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ef8383">cd&lt;/span> dropbear-2026.92/
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>./configure --enable-static
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>make
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="生成hostkey">生成hostkey&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dropbearkey -t rsa -f /etc/dropbear/dropbear_rsa_host_key
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo dropbearkey -t ecdsa -f /etc/dropbear/dropbear_ecdsa_host_key
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo dropbearkey -t ed25519 -f /etc/dropbear/dropbear_ed25519_host_key
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="前台启动">前台启动&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dropbear -F -E -p &lt;span style="color:#d19a66">2022&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/dropbear-compile-for-arm/ - 2026 潘文斌</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/ - 2026 潘文斌</description></item></channel></rss>
