@@ -1,4 +1,23 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Thu, 06 Aug 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Chrome升级137后无法键盘输入英文</title><link>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</link><pubDate>Sun, 01 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/chrome-keyboard-no-input/ -&lt;h2 id="现象">现象&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Tue, 11 Aug 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>免费证件照软件</title><link>https://www.panwenbin.cn/posts/free-id-photo/</link><pubDate>Wed, 04 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/free-id-photo/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/free-id-photo/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>儿子学校信息采集需要一个蓝底证件照，于是拿起手机拍了照片就准备处理成证件照。&lt;br>
+记忆中曾经用过app最美证件照，只能导出低清晰度证件照，想着凑合用吧。&lt;br>
+下载后，一步步处理到保存页面。以为保存好了，相册里却没有。感情只有付费才能保存了？&lt;br>
+随后再一通找，都是收费的，我都傻眼了，这么一个简单的功能，怎么都要收费？&lt;/p>&lt;/blockquote>
+&lt;h2 id="折腾过程">折腾过程&lt;/h2>
+&lt;p>第一个尝试的是&lt;code>最美证件照&lt;/code>，结果是没有免费低清晰度保存了。灵机一动，拿手机截图不就行了？结果iOS按截图会出现另一个页面，Android截图会黑屏。
+这个做得很彻底呢！接上电脑，scrcpy连接到照片页面还是黑屏，adb shell screencap返回文件是空的。防范做得真好！再继续也没有意义了。&lt;/p>
+&lt;p>第二个尝试的是ChatGPT推荐的&lt;code>证件照研究院&lt;/code>，说是免费保存的，试了也已经不行了，结果图那边还带水印。&lt;/p>
+&lt;p>第三个尝试了支付宝里的，也是收费的。&lt;/p>
+&lt;p>第四个尝试的是夸克，也是收费的。&lt;/p>
+&lt;p>无奈去论坛搜，得到了下面这些。&lt;/p>
+&lt;h2 id="良心选择">良心选择&lt;/h2>
+&lt;ol>
+&lt;li>&lt;a href="https://www.neoimaging.cn">光影证件照&lt;/a> 试了不错，免费保存。配合&lt;code>光影魔术手&lt;/code>可以处理照片。&lt;/li>
+&lt;li>小米相册自带 没有试，手头没有小米手机。&lt;/li>
+&lt;li>&lt;a href="https://tool.browser.qq.com">腾讯在线工具箱&lt;/a> 试了也可以，但是有个貌似是BUG，照片处理时会旋转90度。&lt;/li>
+&lt;/ol>
+&lt;p>应该还有不少的，以后发现再补充吧。&lt;/p>- https://www.panwenbin.cn/posts/free-id-photo/ - 2026 潘文斌</description></item><item><title>Chrome升级137后无法键盘输入英文</title><link>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</link><pubDate>Sun, 01 Jun 2025 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/chrome-keyboard-no-input/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/chrome-keyboard-no-input/ -&lt;h2 id="现象">现象&lt;/h2>
 &lt;blockquote>
 &lt;p>Debian上GoogleChrome升级到&lt;code>137.0.7151.55&lt;/code>后，键盘输入没反应，但是键盘灯是亮的，还以为键盘失灵了，
 重新插拔USB后，现象依旧，但是切换到中文输入后可以正常输入。再测试其他地方键盘工作正常，那显然是Chrome更新后造成的了。&lt;/p>&lt;/blockquote>
@@ -350,13 +369,4 @@ mpegts封装aac容易不识别，改为ac3可以，但是和hevc一起有会播�
 &lt;li>鼠标在本地移动和点击后，发送相对于显示内容的位置和事件到远程，可以改善鼠标漂移的体验。&lt;/li>
 &lt;li>通过&lt;code>-window_id&lt;/code>可以指定录制窗口，后台窗口也可以。如果配合xdotool应该可以操作单个窗口。&lt;/li>
 &lt;li>如果录制端是Windows系统和N卡，能做到最低多少延时。&lt;/li>
-&lt;/ol>- https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/ - 2026 潘文斌</description></item><item><title>Linux如何定时关机</title><link>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</link><pubDate>Sat, 03 May 2025 16:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/linux-scheduled-shutdown/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/linux-scheduled-shutdown/ -&lt;h2 id="问题">问题&lt;/h2>
-&lt;blockquote>
-&lt;p>Linux下如何定时关机？&lt;/p>&lt;/blockquote>
-&lt;h2 id="回答">回答&lt;/h2>
-&lt;p>使用&lt;code>shutdown&lt;/code>命令可以实现定时关机。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>shutdown -h 23:00 &lt;span style="color:#8a93a5;font-style:italic"># 在23:00关机&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>shutdown -h +60 &lt;span style="color:#8a93a5;font-style:italic"># 60分钟后关机&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>shutdown -c &lt;span style="color:#8a93a5;font-style:italic"># 取消定时关机&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>shutdown -h now &lt;span style="color:#8a93a5;font-style:italic"># 立即关机&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>需要管理员身份运行或者加上&lt;code>sudo&lt;/code>。&lt;/p>- https://www.panwenbin.cn/posts/linux-scheduled-shutdown/ - 2026 潘文斌</description></item></channel></rss>
+&lt;/ol>- https://www.panwenbin.cn/posts/linux-grab-screen-using-ffmpeg/ - 2026 潘文斌</description></item></channel></rss>
