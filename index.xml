@@ -1,4 +1,16 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Wed, 12 Aug 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>ESP32-C3 super mini开发板折腾</title><link>https://www.panwenbin.cn/posts/esp32-c3/</link><pubDate>Wed, 12 Aug 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/esp32-c3/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/esp32-c3/ -&lt;h2 id="起因">起因&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>潘文斌的技术文章</title><link>https://www.panwenbin.cn/</link><description>Recent content on 潘文斌的技术文章</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>2026 潘文斌</copyright><lastBuildDate>Thu, 13 Aug 2026 08:00:00 +0800</lastBuildDate><atom:link href="https://www.panwenbin.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>ESP32-S3-N16R8开发板折腾</title><link>https://www.panwenbin.cn/posts/esp32-s3/</link><pubDate>Thu, 13 Aug 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/esp32-s3/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/esp32-s3/ -&lt;h2 id="起因">起因&lt;/h2>
+&lt;blockquote>
+&lt;p>看到小智AI的开源项目，根据项目介绍中的离线语音识别的需求，入手了ESP32-S3-N16R8开发板以及0.96寸OLED和ES8311+NS4150B音频板子。&lt;/p>&lt;/blockquote>
+&lt;h2 id="typec">TypeC&lt;/h2>
+&lt;p>这个板子有2个TypeC接口，左边是原生USB，右边是纯粹的USB转串口，我看一般用右边的多，因为左边的USB可以用作USB-OTG等其他用途。
+更具体的差别后面熟悉了再来补上。&lt;/p>
+&lt;h2 id="oled屏">OLED屏&lt;/h2>
+&lt;p>OLED屏是0.96寸的，分辨率是128*64，使用Adafruit SSD1306很容易驱动，引脚为GND,VCC,SCL,SDA。一次成功点亮。显示中文用U8g2库。&lt;/p>
+&lt;h2 id="音频板">音频板&lt;/h2>
+&lt;p>音频板用的是ES8311音频编解码芯片+NS4150B 音频功率放大器的模块，相对复杂一些。有GND,5V,DIN,LRCK,DOUT,SCLK,MCLK,SCL,SDA这9个引脚。&lt;/p>
+&lt;p>产品介绍说兼容ESP32-S3等主流型号，直接插拔连接。没敢直接焊接上去，先用手按住测试了喇叭和录音，因接触不良测试了好久。&lt;/p>
+&lt;p>先是测试46脚GPIO没反应，但是原理图上是直连芯片的，也没有悬空，后来测试又可以了，应该还是接触不良导致。还有5Vin没有电压，因为是5V输入，如果要作为输出，需要短接IN-OUT焊点，但是会影响隔离，不准备短接。&lt;/p>
+&lt;p>后为了接线稳定，采用杜邦线，结果又踩了一个坑。因为杜邦线太长，影响信号，喇叭一直是杂音。按照音频板手册上说 “建议I2C 信号线SDA、SCL/SCK配套接线应尽量短，不超过 5CM。”，把针脚掰弯了后插面包版，声音终于正常了。既然测试兼容没问题，就直接给焊上吧。&lt;/p>- https://www.panwenbin.cn/posts/esp32-s3/ - 2026 潘文斌</description></item><item><title>ESP32-C3 super mini开发板折腾</title><link>https://www.panwenbin.cn/posts/esp32-c3/</link><pubDate>Wed, 12 Aug 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/esp32-c3/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/esp32-c3/ -&lt;h2 id="起因">起因&lt;/h2>
 &lt;blockquote>
 &lt;p>看到这个ESP32-C3 super mini，真的非常小，而且不到10块钱，比ESP8266可玩性更高，支持蓝牙和WiFi，内置了USB转串口芯片，直接用USB线就可以烧录程序，非常方便。&lt;/p>&lt;/blockquote>
 &lt;h2 id="上电">上电&lt;/h2>
@@ -340,16 +352,4 @@ use_gpu_audio: false
 kv_cache_type_k: q8_0
 kv_cache_type_v: q8_0
 &lt;/code>&lt;/pre>&lt;h3 id="指定reference">指定reference&lt;/h3>
-&lt;p>使用&lt;code>--reference file.wav&lt;/code> 指定参考音频，生成的音频更接近参考音频。&lt;/p>- https://www.panwenbin.cn/posts/moss-tts/ - 2026 潘文斌</description></item><item><title>为Arm设备交叉编译fw_printenv</title><link>https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/</link><pubDate>Fri, 17 Jul 2026 08:00:00 +0800</pubDate><guid>https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/</guid><description>潘文斌的技术文章 https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/ -&lt;h2 id="起因">起因&lt;/h2>
-&lt;blockquote>
-&lt;p>有时候设备上没有fw_printenv，又不方便安装，比如安卓系统，想要查看和修改uboot的env。
-为了方便使用，采用静态链接。&lt;/p>&lt;/blockquote>
-&lt;h2 id="静态编译">静态编译&lt;/h2>
-&lt;p>使用的是uboot的源代码，其&lt;code>tools/env/&lt;/code>下有fw_printenv的源代码。同样需要安装交叉编译工具链，可参考上一篇。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>make envtools &lt;span style="color:#dcaeea">ARCH&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>arm &lt;span style="color:#dcaeea">CROSS_COMPILE&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>arm-linux-gnueabihf- &lt;span style="color:#dcaeea">LDFLAGS&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#63c381">&amp;#34;-static&amp;#34;&lt;/span> &lt;span style="color:#dcaeea">HOSTLDFLAGS&lt;/span>&lt;span style="color:#c7bf54">=&lt;/span>&lt;span style="color:#63c381">&amp;#34;-static&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编译出来只有fw_printenv，fw_setenv只要做一个软链接即可：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ln -s fw_printenv fw_setenv
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="修改interpreter">修改interpreter&lt;/h2>
-&lt;p>对于有&lt;code>ld-linux-armhf.so.3&lt;/code>的情况下，也可以不静态编译，只要修改interpreter即可：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#b0c4de;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>patchelf --set-interpreter /lib/ld-linux-armhf.so.3 fw_printenv
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- https://www.panwenbin.cn/posts/fw-printenv-compile-for-arm/ - 2026 潘文斌</description></item></channel></rss>
+&lt;p>使用&lt;code>--reference file.wav&lt;/code> 指定参考音频，生成的音频更接近参考音频。&lt;/p>- https://www.panwenbin.cn/posts/moss-tts/ - 2026 潘文斌</description></item></channel></rss>
